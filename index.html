@@ -1075,28 +1075,28 @@
           
 
           // Initialize Leaflet map
-var map = L.map('map').setView([58.238244294167245, 11.679809517431266], 16);
+        // Initialize Leaflet map
+        var map = L.map('map').setView([58.238244294167245, 11.679809517431266], 16);
 
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{minZoom:14}).addTo(map);
-        
-        
-          // Add marker for the pizzeria
-          var marker = L.marker([58.238244294167245, 11.679809517431266]).addTo(map)
-              .bindPopup("<b>Brogrillen Pizzeria</b><br>Norra Strandvägen 7, 473 34 Henån").openPopup();
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{minZoom:14}).addTo(map);
 
-          // Directions button functionality
-          document.getElementById('directionsBtn').addEventListener('click', function() {
-              var lat = 58.238244294167245;
-              var lon = 11.679809517431266;
+        // Add marker for the pizzeria
+        var marker = L.marker([58.238244294167245, 11.679809517431266],{icon:logo2}).addTo(map)
+            .bindPopup("<b>Brogrillen Pizzeria</b><br>Norra Strandvägen 7, 473 34 Henån").openPopup();
 
-              if ((navigator.platform.indexOf("iPhone") != -1) ||
-                  (navigator.platform.indexOf("iPad") != -1) ||
-                  (navigator.platform.indexOf("iPod") != -1)) {
-                  window.open(`maps://maps.apple.com/?daddr=${lat},${lon}`);
-              } else {
-                  window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`);
-              }
-          });
-      </script>
-  </body>
-  </html>
+        // Directions button functionality
+        document.getElementById('directionsBtn').addEventListener('click', function() {
+            var lat = 58.238244294167245;
+            var lon = 11.679809517431266;
+
+            if ((navigator.platform.indexOf("iPhone") != -1) ||
+                (navigator.platform.indexOf("iPad") != -1) ||
+                (navigator.platform.indexOf("iPod") != -1)) {
+                window.open(`maps://maps.apple.com/?daddr=${lat},${lon}`);
+            } else {
+                window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`);
+            }
+        });
+    </script>
+</body>
+</html>
