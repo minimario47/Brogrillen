@@ -1069,12 +1069,7 @@
               document.getElementById(`${selectedCategory}-menu`).classList.add('active');
           });
 
-          var logo2 = L.icon({
-              iconUrl: 'logo1.png',
-              iconSize:     [80, 35],
-              iconAnchor:   [43, 30],
-              popupAnchor:  [-3, -76]
-          });
+          
 
           // Initialize Leaflet map
           var map = L.map('map').setView([58.238244294167245, 11.679809517431266], 16);
@@ -1082,7 +1077,7 @@
           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{minZoom:14}).addTo(map);
 
           // Add marker for the pizzeria
-          var marker = L.marker([58.238244294167245, 11.679809517431266],{icon:logo2}).addTo(map)
+          var marker = L.marker([58.238244294167245, 11.679809517431266]).addTo(map)
               .bindPopup("<b>Brogrillen Pizzeria</b><br>Norra Strandvägen 7, 473 34 Henån").openPopup();
 
           // Directions button functionality
