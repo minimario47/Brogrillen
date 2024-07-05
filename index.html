@@ -1102,7 +1102,8 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
           
 
           // Initialize Leaflet map
-          var map = L.map('map').setView([58.238244294167245, 11.679809517431266], 16);
+var map = L.map('map').setView([58.238244294167245, 11.679809517431266], 16,{ dragging: pc,
+  tap: pc});
 
           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{minZoom:14}).addTo(map);
         
