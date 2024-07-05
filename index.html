@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brogrillen Pizzeria - Henån, Sverige</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        header {
+            background-image: url('/api/placeholder/1200/400');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            text-align: center;
+            padding: 4rem 1rem;
+            position: relative;
+        }
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        header * {
+            position: relative;
+            z-index: 2;
+        }
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Amatic SC', cursive;
+        }
+        nav {
+            background-color: #d32f2f;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #ffcccb;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+        }
+        .menu-item {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .menu-item h3, .menu-item h4 {
+            margin: 0;
+            color: #d32f2f;
+        }
+        .menu-item .price {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .map-section {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+        #map {
+            height: 400px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #d32f2f;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #b71c1c;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+        .menu-selector {
+            margin-bottom: 20px;
+        }
+        .menu-selector select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #d32f2f;
+            border-radius: 5px;
+            background-color: white;
+            color: #333;
+        }
+        .menu-category {
+            display: none;
+        }
+        .menu-category.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Brogrillen Pizzeria</h1>
+        <p>Den bästa pizzan i Henån sedan 1985</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#hem">Hem</a></li>
+            <li><a href="#meny">Meny</a></li>
+            <li><a href="#om-oss">Om oss</a></li>
+            <li><a href="#hitta-oss">Hitta oss</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="hem">
+            <h2>Välkommen till Brogrillen Pizzeria</h2>
+            <p>Vi erbjuder de läckraste pizzorna i Henån, tillagade med kärlek och de finaste ingredienserna. Kom och upplev äkta italiensk smak i hjärtat av Sverige!</p>
+            <img src="/api/placeholder/800/400" alt="Brogrillen Pizzeria Interior" style="width: 100%; border-radius: 8px;">
+        </section>
+
+        <section id="meny">
+            <h2>Vår Meny</h2>
+            <div class="menu-selector">
+                <select id="menu-select">
+                    <option value="pizza">Pizzor</option>
+                    <option value="kebab">Kebab</option>
+                    <option value="sallad">Sallad</option>
+                    <option value="alacarte">A la Carte</option>
+                    <option value="pasta">Pasta</option>
+                    <option value="gatukök">Gatukök</option>
+                    <option value="tillbehör">Tillbehör</option>
+                </select>
+            </div>
+
+            <div id="pizza-menu" class="menu-category active">
+                <h3>Pizzor</h3>
+                <div class="menu-item">
+                  <div>
+                      <h4>1. Margareta</h4>
+                  </div>
+                  <span class="price">115.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>2. Al Fungi</h4>
+                  </div>
+                  <span class="price">125.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>3. Vesuvio</h4>
+                  </div>
+                  <span class="price">125.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>4. Capricciosa</h4>
+                  </div>
+                  <span class="price">125.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>5. Hawaii</h4>
+                  </div>
+                  <span class="price">125.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>6. Altonno</h4>
+                  </div>
+                  <span class="price">125.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>7. Salami</h4>
+                  </div>
+                  <span class="price">125.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>8. Mamma Mia</h4>
+                  </div>
+                  <span class="price">125.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>9. Romana</h4>
+                  </div>
+                  <span class="price">125.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>10. Milanese</h4>
+                  </div>
+                  <span class="price">125.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>11. Opera</h4>
+                  </div>
+                  <span class="price">130.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>12. Bahamas</h4>
+                  </div>
+                  <span class="price">130.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>13. Mexikansk Pizza (Stark)</h4>
+                  </div>
+                  <span class="price">135.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>14. Azteka</h4>
+                  </div>
+                  <span class="price">130.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>15. Picante</h4>
+                  </div>
+                  <span class="price">130.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>16. Cannibale</h4>
+                  </div>
+                  <span class="price">130.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>17. Tommaso</h4>
+                  </div>
+                  <span class="price">130.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>18. Marinara</h4>
+                  </div>
+                  <span class="price">130.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>19. Vegetariana</h4>
+                  </div>
+                  <span class="price">130.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>20. Quattro Stagioni</h4>
+                  </div>
+                  <span class="price">135.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>21. Tropicana</h4>
+                  </div>
+                  <span class="price">130.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>22. Palermo</h4>
+                  </div>
+                  <span class="price">130.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>23. Orientale</h4>
+                  </div>
+                  <span class="price">130.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>24. Napoli</h4>
+                  </div>
+                  <span class="price">130.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>25. Robot Special</h4>
+                  </div>
+                  <span class="price">130.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>26. Värmland</h4>
+                  </div>
+                  <span class="price">130.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>27. Freden</h4>
+                  </div>
+                  <span class="price">130.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>28. Matador</h4>
+                  </div>
+                  <span class="price">135.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>29. Gorgonzola</h4>
+                  </div>
+                  <span class="price">135.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>30. Afrikana</h4>
+                  </div>
+                  <span class="price">135.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>31. Pizza Oscar</h4>
+                  </div>
+                  <span class="price">135.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>32. España</h4>
+                  </div>
+                  <span class="price">135.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>33. Frutti Di Mare</h4>
+                  </div>
+                  <span class="price">135.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>34. Henån Special</h4>
+                  </div>
+                  <span class="price">135.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>35. Torino</h4>
+                  </div>
+                  <span class="price">140.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>36. Calzone</h4>
+                  </div>
+                  <span class="price">125.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>37. Calzone Special</h4>
+                  </div>
+                  <span class="price">130.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>38. Ciao Ciao</h4>
+                  </div>
+                  <span class="price">150.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>39. Viking Båt (Halvinbakad)</h4>
+                  </div>
+                  <span class="price">150.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>40. San Remo (Halvinbakad)</h4>
+                  </div>
+                  <span class="price">145.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>41. Disco (Dubbel deg som tefat)</h4>
+                  </div>
+                  <span class="price">140.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>42. Taxi Special (Halvinbakad)</h4>
+                  </div>
+                  <span class="price">140.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>43. Acapulco (Stark)</h4>
+                  </div>
+                  <span class="price">150.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>44. Amadeus</h4>
+                  </div>
+                  <span class="price">150.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>45. Vagabond</h4>
+                  </div>
+                  <span class="price">150.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>46. Reale</h4>
+                  </div>
+                  <span class="price">150.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>47. Milano</h4>
+                  </div>
+                  <span class="price">150.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>48. Gourmé</h4>
+                  </div>
+                  <span class="price">150.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>Liffner Special</h4>
+                  </div>
+                  <span class="price">160.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>49. Kebabpizza</h4>
+                  </div>
+                  <span class="price">135.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>50. Favoriten</h4>
+                  </div>
+                  <span class="price">140.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>51. Provenciale</h4>
+                  </div>
+                  <span class="price">140.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>52. Pizza Special</h4>
+                  </div>
+                  <span class="price">140.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>53. Testarossa</h4>
+                  </div>
+                  <span class="price">140.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>54. Amed</h4>
+                  </div>
+                  <span class="price">145.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>55. Orust Special</h4>
+                  </div>
+                  <span class="price">150.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>56. Husets Special</h4>
+                  </div>
+                  <span class="price">150.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>57. Bombay Special</h4>
+                  </div>
+                  <span class="price">135.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>58. La Maffia</h4>
+                  </div>
+                  <span class="price">135.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>59. Pollo</h4>
+                  </div>
+                  <span class="price">140.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>60. Kyckling Special</h4>
+                  </div>
+                  <span class="price">140.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>61. Flygande Jakob</h4>
+                  </div>
+                  <span class="price">135.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>62. Primavera</h4>
+                  </div>
+                  <span class="price">145.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>63. Pasquala</h4>
+                  </div>
+                  <span class="price">145.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>64. Venedig</h4>
+                  </div>
+                  <span class="price">145.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>65. La Bella</h4>
+                  </div>
+                  <span class="price">145.00 kr</span>
+              </div>
+
+              <div class="menu-item">
+                  <div>
+                      <h4>66. Parma</h4>
+                  </div>
+                  <span class="price">145.00 kr</span>
+              </div>
+              </div>
+
+            <div id="kebab-menu" class="menu-category">
+                <h3>Kebab</h3>
+                <div class="menu-item">
+                    <div>
+                        <h4>Standard Pita</h4>
+                    </div>
+                    <span class="price">125.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Grekisk Pita</h4>
+                    </div>
+                    <span class="price">130.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Mexikansk Pita</h4>
+                    </div>
+                    <span class="price">130.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Kebabtallrik</h4>
+                    </div>
+                    <span class="price">130.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Kebabrulle</h4>
+                    </div>
+                    <span class="price">125.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Kebabrulle Mix</h4>
+                    </div>
+                    <span class="price">130.00 kr</span>
+                </div>
+            </div>
+
+            <div id="sallad-menu" class="menu-category">
+                <h3>Sallad</h3>
+                <div class="menu-item">
+                    <div>
+                        <h4>Amerikansk sallad</h4>
+                    </div>
+                    <span class="price">130.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Tonfisksallad</h4>
+                    </div>
+                    <span class="price">130.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Kycklingsallad</h4>
+                    </div>
+                    <span class="price">130.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Kebabsallad</h4>
+                    </div>
+                    <span class="price">130.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Grekisk Sallad</h4>
+                    </div>
+                    <span class="price">130.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Du Chef</h4>
+                    </div>
+                    <span class="price">130.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Skaldjurssallad</h4>
+                    </div>
+                    <span class="price">135.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Räksallad</h4>
+                    </div>
+                    <span class="price">130.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Kebabsallad Mix</h4>
+                    </div>
+                    <span class="price">135.00 kr</span>
+                </div>
+            </div>
+
+            <div id="alacarte-menu" class="menu-category">
+                <h3>A la Carte</h3>
+                <div class="menu-item">
+                    <div>
+                        <h4>Köttbullar 8st</h4>
+                    </div>
+                    <span class="price">125.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Ägg & Bacon</h4>
+                    </div>
+                    <span class="price">145.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Fish´n Chips</h4>
+                    </div>
+                    <span class="price">145.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Pytt I Panna</h4>
+                    </div>
+                    <span class="price">145.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Schnitzel</h4>
+                    </div>
+                    <span class="price">145.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Lövbiff</h4>
+                    </div>
+                    <span class="price">145.00 kr</span>
+                </div>
+            </div>
+
+            <div id="pasta-menu" class="menu-category">
+                <h3>Pasta</h3>
+                <div class="menu-item">
+                    <div>
+                        <h4>Pasta Alfredo</h4>
+                    </div>
+                    <span class="price">145.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Kycklingpasta</h4>
+                    </div>
+                    <span class="price">145.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Pasta Riviera</h4>
+                    </div>
+                    <span class="price">145.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Pasta Gongonzola</h4>
+                    </div>
+                    <span class="price">145.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Lasagne</h4>
+                    </div>
+                    <span class="price">145.00 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h4>Pasta Indiana</h4>
+                    </div>
+                    <span class="price">145.00 kr</span>
+                </div>
+            </div>
+
+            <div id="gatukök-menu" class="menu-category">
+                <h3>Gatukök</h3>
+                <div class="menu-item">
+                      <div>
+                          <h4>Smal Kokt/Grillad</h4>
+                          <p>bröd / mos / pommes</p>
+                      </div>
+                      <span class="price">45.00 kr / 80.00 kr / 85.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Tjock Korv</h4>
+                          <p>bröd / mos / pommes</p>
+                      </div>
+                      <span class="price">55.00 kr / 90.00 kr / 95.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Special</h4>
+                          <p>Hel / Halv / Hel Tjock / Halv Tjock</p>
+                      </div>
+                      <span class="price">90.00 kr / 80.00 kr / 110.00 kr / 90.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Hamburgare</h4>
+                          <p>90 gram / 150 gram</p>
+                      </div>
+                      <span class="price">85.00 kr / 95.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Ostburgare</h4>
+                          <p>90 gram / 150 gram</p>
+                      </div>
+                      <span class="price">90.00 kr / 100.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Baconburgare</h4>
+                          <p>90 gram / 150 gram</p>
+                      </div>
+                      <span class="price">95.00 kr / 105.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Hawaiiburgare</h4>
+                          <p>90 gram / 150 gram</p>
+                      </div>
+                      <span class="price">90.00 kr / 100.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Västkustburgare</h4>
+                          <p>90 gram / 150 gram</p>
+                      </div>
+                      <span class="price">100.00 kr / 110.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Dubbelburgare</h4>
+                          <p>90 gram / 150 gram</p>
+                      </div>
+                      <span class="price">115.00 kr / 125.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Dubbelburgare Lyx (Västkustsallad)</h4>
+                          <p>90 gram / 150 gram</p>
+                      </div>
+                      <span class="price">130.00 kr / 140.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Hamburgare Meny (dricka + strips)</h4>
+                          <p>90 gram / 150 gram</p>
+                      </div>
+                      <span class="price">125.00 kr / 135.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Crispy Kyckling Burgare</h4>
+                          <p>Med pommes och dricka</p>
+                      </div>
+                      <span class="price">140.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Chicken Nuggets (6st)</h4>
+                          <p>Med Pommes</p>
+                      </div>
+                      <span class="price">135.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Chicken Fingers (5st)</h4>
+                          <p>Med Pommes</p>
+                      </div>
+                      <span class="price">135.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Falafel</h4>
+                          <p>pitabröd / rulle / tallrik</p>
+                      </div>
+                      <span class="price">115.00 kr / 115.00 kr / 120.00 kr</span>
+                  </div>
+              </div>
+
+              <div id="tillbehör-menu" class="menu-category">
+                  <h3>Tillbehör</h3>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Barnpizza</h4>
+                      </div>
+                      <span class="price">10.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Köttvaror</h4>
+                      </div>
+                      <span class="price">25.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Ost</h4>
+                      </div>
+                      <span class="price">20.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Skaldjur</h4>
+                      </div>
+                      <span class="price">25.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Grönsaker</h4>
+                      </div>
+                      <span class="price">20.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Sås</h4>
+                      </div>
+                      <span class="price">15.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Mosbricka</h4>
+                      </div>
+                      <span class="price">60.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Pommestallrik</h4>
+                      </div>
+                      <span class="price">60.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Västkustsallad</h4>
+                      </div>
+                      <span class="price">25.00 kr</span>
+                  </div>
+                  <div class="menu-item">
+                      <div>
+                          <h4>Glutenfri pizza</h4>
+                      </div>
+                      <span class="price">25.00 kr</span>
+                  </div>
+              </div>
+          </section>
+
+          <section id="om-oss">
+              <h2>Om Brogrillen Pizzeria</h2>
+              <p>Brogrillen Pizzeria har varit en del av Henåns kulinariska landskap sedan 1985. Vi är stolta över att använda lokala ingredienser och traditionella pizzabakningstekniker för att skapa de mest utsökta pizzorna i området.</p>
+              <p>Vår passion för kvalitet och service har gjort oss till en favorit bland lokalbefolkningen och besökare alike. Kom och upplev vår varma atmosfär och fantastiska pizzor!</p>
+          </section>
+
+          <section id="hitta-oss" class="map-section">
+              <h2>Hitta oss</h2>
+              <p><i class="fas fa-map-marker-alt"></i> Norra Strandvägen 7, 473 34 Henån</p>
+              <div id='map'></div>
+              <button id="directionsBtn" class="btn">Visa vägen hit</button>
+          </section>
+
+          <section id="kontakt">
+              <h2>Kontakta oss</h2>
+              <p><i class="fas fa-map-marker-alt"></i> Adress: Norra Strandvägen 7, 473 34 Henån, Sverige</p>
+              <p><i class="fas fa-phone"></i> Telefon: <a href="tel:030412345">0304-12 34 56</a></p>
+              <p><i class="fas fa-envelope"></i> E-post: <a href="mailto:info@brogrillenpizzeria.se">info@brogrillenpizzeria.se</a></p>
+              <p><i class="fas fa-clock"></i> Öppettider: Mån-Fre 11:00-22:00, Lör-Sön 12:00-23:00</p>
+          </section>
+      </div>
+
+      <footer>
+          <p>&copy; 2024 Brogrillen Pizzeria. Alla rättigheter förbehållna.</p>
+      </footer>
+
+      <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+      <script>
+          console.log("JavaScript is running");
+
+          // Smooth scrolling for navigation links
+          document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+              anchor.addEventListener('click', function (e) {
+                  e.preventDefault();
+                  document.querySelector(this.getAttribute('href')).scrollIntoView({
+                      behavior: 'smooth'
+                  });
+              });
+          });
+
+          // Menu selection functionality
+          document.getElementById('menu-select').addEventListener('change', function() {
+              const selectedCategory = this.value;
+              document.querySelectorAll('.menu-category').forEach(category => {
+                  category.classList.remove('active');
+              });
+              document.getElementById(`${selectedCategory}-menu`).classList.add('active');
+          });
+
+          var logo2 = L.icon({
+              iconUrl: 'logo1.png',
+              iconSize:     [80, 35],
+              iconAnchor:   [43, 30],
+              popupAnchor:  [-3, -76]
+          });
+
+          // Initialize Leaflet map
+          var map = L.map('map').setView([58.238244294167245, 11.679809517431266], 16);
+
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{minZoom:14}).addTo(map);
+
+          // Add marker for the pizzeria
+          var marker = L.marker([58.238244294167245, 11.679809517431266],{icon:logo2}).addTo(map)
+              .bindPopup("<b>Brogrillen Pizzeria</b><br>Norra Strandvägen 7, 473 34 Henån").openPopup();
+
+          // Directions button functionality
+          document.getElementById('directionsBtn').addEventListener('click', function() {
+              var lat = 58.238244294167245;
+              var lon = 11.679809517431266;
+
+              if ((navigator.platform.indexOf("iPhone") != -1) ||
+                  (navigator.platform.indexOf("iPad") != -1) ||
+                  (navigator.platform.indexOf("iPod") != -1)) {
+                  window.open(`maps://maps.apple.com/?daddr=${lat},${lon}`);
+              } else {
+                  window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`);
+              }
+          });
+      </script>
+  </body>
+  </html>
