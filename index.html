@@ -146,31 +146,7 @@
         .menu-category.active {
             display: block;
         }
-        #map { 
-  height: 90vh;
-  position: relative;
-  z-index:10;
-   &.swiping::after {
-    content: 'Use two fingers to move the map';
-    color: #fff;
-    font-family: 'Lato', sans-serif;
-    font-size: 24px;
-    font-weight: 300;
-    justify-content:center;
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
-    pointer-events:none;
-  }
-}
-
+        
 
     </style>
 </head>
@@ -1085,10 +1061,7 @@
                   });
               });
           });
-        var pc = true;
-
-if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-  pc = false;
+        
 }
           // Menu selection functionality
           document.getElementById('menu-select').addEventListener('change', function() {
@@ -1102,25 +1075,11 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
           
 
           // Initialize Leaflet map
-var map = L.map('map').setView([58.238244294167245, 11.679809517431266], 16,{ dragging: pc,
-  tap: pc});
+var map = L.map('map').setView([58.238244294167245, 11.679809517431266], 16);
 
           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{minZoom:14}).addTo(map);
         
-        const mapEl = document.querySelector("#map");
-
-// Binds event listeners for the map and calls the function
-mapEl.addEventListener("touchstart", onTwoFingerDrag);
-mapEl.addEventListener("touchend", onTwoFingerDrag);
-
-
-function onTwoFingerDrag (e) {
-  if (e.type === 'touchstart' && e.touches.length === 1) {
-    e.currentTarget.classList.add('swiping')
-  } else {
-    e.currentTarget.classList.remove('swiping')
-  }
-}
+        
           // Add marker for the pizzeria
           var marker = L.marker([58.238244294167245, 11.679809517431266]).addTo(map)
               .bindPopup("<b>Brogrillen Pizzeria</b><br>Norra Strandvägen 7, 473 34 Henån").openPopup();
