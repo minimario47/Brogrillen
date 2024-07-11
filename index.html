@@ -3,341 +3,1337 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brogrillen Pizzeria - Henån, Sverige</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <title>Brogrillen Pizzeria - Henåns Bästa Pizza Sedan 1985</title>
+    <meta name="description" content="Upplev den bästa pizzan i Henån sedan 1985. Välkommen till Brogrillen Pizzeria för en smakresa genom Italien, mitt i hjärtat av Sverige.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <style>
         :root {
-            --bg-color: #1a1a1a;
-            --text-color: #e0e0e0;
-            --accent-color: #ff6b6b;
-            --secondary-color: #4ecdc4;
-            --card-bg: #2a2a2a;
+            --primary-color: #D32F2F;
+            --secondary-color: #FFA000;
+            --text-color: #333333;
+            --background-color: #FFFFFF;
+            --accent-color: #4CAF50;
         }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Roboto', sans-serif;
             line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
             color: var(--text-color);
+            background-color: var(--background-color);
         }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
         header {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1200/400');
-            background-size: cover;
-            background-position: center;
-            color: #fff;
-            text-align: center;
-            padding: 6rem 1rem;
-            position: relative;
-        }
-        h1 {
-            font-size: 4rem;
-            margin-bottom: 0.5rem;
-            font-family: 'Amatic SC', cursive;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        nav {
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 1rem;
-            position: sticky;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
+
         nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
             display: flex;
             justify-content: center;
+            list-style-type: none;
         }
+
         nav ul li {
             margin: 0 15px;
         }
+
         nav ul li a {
-            color: var(--text-color);
+            color: white;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.1rem;
             transition: color 0.3s ease;
         }
+
         nav ul li a:hover {
-            color: var(--accent-color);
+            color: var(--secondary-color);
         }
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: auto;
-            overflow: hidden;
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            flex-basis: 30%;
+            text-align: center;
             padding: 20px;
-        }
-        .menu-item {
-            background-color: var(--card-bg);
+            background-color: #f8f8f8;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .menu-selector {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .menu-selector button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .menu-selector button:hover,
+        .menu-selector button.active {
+            background-color: var(--primary-color);
+        }
+        .menu-category {
+            display: none;
+        }
+        .menu-category.active {
+            display: block;
+        }
+        .menu-item {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
+        }
+        .menu-item > div {
+            flex: 1;
+            padding-right: 20px;
+        }
+        .menu-item .price {
+            flex-shrink: 0;
+            font-weight: bold;
+            text-align: right;
+            color: var(--secondary-color);
+            min-width: 70px; /* Adjust this value as needed */
         }
         .menu-item:hover {
             transform: translateY(-5px);
         }
         .menu-item h3 {
-            margin: 0;
-            color: var(--accent-color);
+            margin-top: 0;
+            margin-bottom: 5px;
+            color: var(--primary-color);
         }
-        .menu-item .price {
-            font-weight: bold;
-            color: var(--secondary-color);
-        }
+
         .map-section {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            padding: 20px;
-            margin-top: 20px;
+            position: relative;
         }
-        #map {
-            height: 400px;
-            border-radius: 8px;
-            margin-top: 20px;
+
+        .map-section {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#map {
+    width: 100%;
+    height: 400px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.map-info {
+    text-align: center;
+}
+
+.directions-btn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.directions-btn:hover {
+    background-color: #45a049;
+}
+
+        #kontakt .contact-info {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+#kontakt .contact-info p {
+    margin-bottom: 15px;
+}
+
+#kontakt .contact-info ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#kontakt .contact-info a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+#kontakt .contact-info a:hover {
+    text-decoration: underline;
+}
+.cta-section {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #45a049;
+}
+
+.phone-number {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
         }
-        .btn {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: var(--bg-color);
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            cursor: pointer;
-            border: none;
-            font-size: 1rem;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-        .btn:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-2px);
-        }
-        .language-switcher {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-        .language-switcher select {
-            padding: 5px;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            border: 1px solid var(--accent-color);
-        }
+
         .social-media {
             margin-top: 20px;
-            text-align: center;
         }
+
         .social-media a {
-            color: var(--text-color);
+            color: white;
             font-size: 24px;
             margin: 0 10px;
             transition: color 0.3s ease;
         }
+
         .social-media a:hover {
-            color: var(--accent-color);
+            color: var(--secondary-color);
         }
-        .contact-form {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 20px;
+
+        .feedback {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 10px;
         }
-        .contact-form input,
-        .contact-form textarea {
+
+        .like-btn, .dislike-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            margin-left: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .like-btn:hover, .dislike-btn:hover {
+            color: var(--secondary-color);
+        }
+        .like-btn.active {
+  color: #4CAF50;
+}
+
+.dislike-btn.active {
+  color: #F44336;
+}
+
+
+
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            border: 1px solid var(--accent-color);
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
         }
-        .contact-form textarea {
-            height: 150px;
+
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
         }
-        footer {
-            background-color: rgba(0, 0, 0, 0.8);
-            color: var(--text-color);
-            text-align: center;
-            padding: 1rem;
-            margin-top: 2rem;
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .feature {
+                flex-basis: 100%;
+                margin-bottom: 20px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="language-switcher">
-            <select id="language-select">
-                <option value="sv">Svenska</option>
-                <option value="en">English</option>
-            </select>
-        </div>
-        <h1>Brogrillen Pizzeria</h1>
-        <p class="hero-text">Upplev den bästa pizzan i Henån sedan 1985. Välkommen till en smakresa genom Italien, mitt i hjärtat av Sverige.</p>
-    </header>
-
-    <nav>
-        <ul>
-            <li><a href="#hem">Hem</a></li>
-            <li><a href="#meny">Meny</a></li>
-            <li><a href="#om-oss">Om oss</a></li>
-            <li><a href="#hitta-oss">Hitta oss</a></li>
-            <li><a href="#kontakt">Kontakt</a></li>
-        </ul>
-    </nav>
-
-    <div class="container">
-        <section id="hem">
-            <h2>Välkommen till Brogrillen</h2>
-            <p>Vi erbjuder de läckraste pizzorna i Henån, tillagade med kärlek och de finaste ingredienserna. Kom och upplev äkta italiensk smak i hjärtat av Sverige!</p>
-        </section>
-
-        <div id="menu-placeholder"></div>
-
-        <section id="om-oss">
-            <h2>Om Brogrillen Pizzeria</h2>
-            <p>Brogrillen Pizzeria har varit en del av Henåns kulinariska landskap sedan 1985. Vi är stolta över att använda lokala ingredienser och traditionella pizzabakningstekniker för att skapa de mest utsökta pizzorna i området.</p>
-
-
-        <section id="hitta-oss" class="map-section">
-            <h2>Hitta oss</h2>
-            <p><i class="fas fa-map-marker-alt"></i> Norra Strandvägen 7, 473 34 Henån</p>
-            <div id='map'></div>
-            <button id="directionsBtn" class="btn">Visa vägen hit</button>
-        </section>
-
-        <section id="kontakt">
-            <h2>Kontakta oss</h2>
-            <p><i class="fas fa-map-marker-alt"></i> Adress: Norra Strandvägen 7, 473 34 Henån, Sverige</p>
-            <p><i class="fas fa-phone"></i> Telefon: <a href="tel:030412345">0304-12 34 56</a></p>
-            <p><i class="fas fa-envelope"></i> E-post: <a href="mailto:info@brogrillenpizzeria.se">info@brogrillenpizzeria.se</a></p>
-            <p><i class="fas fa-clock"></i> Öppettider: Mån-Fre 11:00-22:00, Lör-Sön 12:00-23:00</p>
-            <div class="social-media">
-                <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
-            </div>
-            <div class="contact-form">
-                <h3>Skicka oss ett meddelande</h3>
-                <form id="contact-form">
-                    <input type="text" name="name" placeholder="Ditt namn" required>
-                    <input type="email" name="email" placeholder="Din e-postadress" required>
-                    <textarea name="message" placeholder="Ditt meddelande" required></textarea>
-                    <button type="submit" class="btn">Skicka</button>
-                </form>
-            </div>
-        </section>
+    <div id="loading-overlay">
+        <div class="spinner"></div>
     </div>
 
-    <footer>
-        <p>&copy; 2024 Brogrillen Pizzeria. Alla rättigheter förbehållna.</p>
-    </footer>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#hem">Hem</a></li>
+                <li><a href="#meny">Meny</a></li>
+                <li><a href="#om-oss">Om oss</a></li>
+                <li><a href="#hitta-oss">Hitta oss</a></li>
+                <li><a href="#kontakt">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script>
-        // Language switcher functionality
-        document.getElementById('language-select').addEventListener('change', function() {
-            const lang = this.value;
-            // Here you would implement the logic to switch the language
-            console.log(`Language switched to ${lang}`);
+    <main class="container">
+        <section id="hem" class="section">
+            <h1 class="section-title">Välkommen till Brogrillen</h1>
+            <p>Vi erbjuder de läckraste pizzorna i Henån, tillagade med kärlek och de finaste ingredienserna. Kom och upplev äkta italiensk smak i hjärtat av Sverige!</p>
+            <div class="features">
+                <div class="feature">
+                    <h3>Autentiska recept</h3>
+                    <p>Våra pizzor görs enligt traditionella italienska metoder.</p>
+                </div>
+                <div class="feature">
+                    <h3>Färska ingredienser</h3>
+                    <p>Vi använder endast de färskaste, lokalt sourcade ingredienserna.</p>
+                </div>
+                <div class="feature">
+                    <h3>Familjär atmosfär</h3>
+                    <p>Njut av din måltid i vår varma och välkomnande miljö.</p>
+                </div>
+            </div>
+            <div class="cta-section">
+    <a href="tel:030412345" class="cta-button">Ring och beställ nu!</a>
+    <p class="phone-number">Tel: 030-412345</p>
+</div>
+        </section>
+
+        <section id="meny" class="section">
+            <h2 class="section-title">Vår Meny</h2>
+            <div class="menu-selector">
+                <button class="active" data-menu="pizza-menu">Pizzor</button>
+                <button data-menu="pasta-menu">Pasta</button>
+                <button data-menu="dessert-menu">Efterrätter</button>
+            </div>
+            <div id="pizza-menu" class="menu-category active">
+              <div class="menu-item">
+    <div>
+        <h3>1. Margareta</h3>
+        <p>Tomatsås, mozzarella, basilika</p>
+    </div>
+    <span class="price">115.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>2. Al Fungi</h3>
+        <p>Tomatsås, mozzarella, svamp</p>
+    </div>
+    <span class="price">125.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>3. Vesuvio</h3>
+        <p>Tomatsås, mozzarella, skinka</p>
+    </div>
+    <span class="price">125.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>4. Capricciosa</h3>
+        <p>Tomatsås, mozzarella, skinka, svamp</p>
+    </div>
+    <span class="price">125.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>5. Hawaii</h3>
+        <p>Tomatsås, mozzarella, skinka, ananas</p>
+    </div>
+    <span class="price">125.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>6. Altonno</h3>
+        <p>Tomatsås, mozzarella, tonfisk</p>
+    </div>
+    <span class="price">125.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>7. Salami</h3>
+        <p>Tomatsås, mozzarella, salami</p>
+    </div>
+    <span class="price">125.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>8. Mamma Mia</h3>
+        <p>Tomatsås, mozzarella, skinka, svamp, paprika</p>
+    </div>
+    <span class="price">125.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>9. Romana</h3>
+        <p>Tomatsås, mozzarella, sardeller, kapris</p>
+    </div>
+    <span class="price">125.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>10. Milanese</h3>
+        <p>Tomatsås, mozzarella, bacon, lök</p>
+    </div>
+    <span class="price">125.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>11. Opera</h3>
+        <p>Tomatsås, mozzarella, skinka, salami, lök</p>
+    </div>
+    <span class="price">130.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>12. Bahamas</h3>
+        <p>Tomatsås, mozzarella, skinka, banan, curry</p>
+    </div>
+    <span class="price">130.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>13. Mexikansk Pizza (Stark)</h3>
+        <p>Tomatsås, mozzarella, stark sås, jalapeno</p>
+    </div>
+    <span class="price">135.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>14. Azteka</h3>
+        <p>Tomatsås, mozzarella, skinka, paprika, oliver</p>
+    </div>
+    <span class="price">130.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>15. Picante</h3>
+        <p>Tomatsås, mozzarella, salami, jalapeno</p>
+    </div>
+    <span class="price">130.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>16. Cannibale</h3>
+        <p>Tomatsås, mozzarella, köttfärs, lök</p>
+    </div>
+    <span class="price">130.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>17. Tommaso</h3>
+        <p>Tomatsås, mozzarella, skinka, räkor</p>
+    </div>
+    <span class="price">130.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>18. Marinara</h3>
+        <p>Tomatsås, mozzarella, skaldjur</p>
+    </div>
+    <span class="price">130.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>19. Vegetariana</h3>
+        <p>Tomatsås, mozzarella, grillad paprika, zucchini, aubergine</p>
+    </div>
+    <span class="price">130.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>20. Quattro Stagioni</h3>
+        <p>Tomatsås, mozzarella, skinka, svamp, oliver, kronärtskocka</p>
+    </div>
+    <span class="price">135.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>21. Tropicana</h3>
+        <p>Tomatsås, mozzarella, skinka, ananas, banan</p>
+    </div>
+    <span class="price">130.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>22. Palermo</h3>
+        <p>Tomatsås, mozzarella, skinka, svamp, räkor</p>
+    </div>
+    <span class="price">130.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>23. Orientale</h3>
+        <p>Tomatsås, mozzarella, lök, köttfärs</p>
+    </div>
+    <span class="price">130.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>24. Napoli</h3>
+        <p>Tomatsås, mozzarella, sardeller, oliver</p>
+    </div>
+    <span class="price">130.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>25. Robot Special</h3>
+        <p>Tomatsås, mozzarella, skinka, köttfärs, lök</p>
+    </div>
+    <span class="price">130.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>26. Värmland</h3>
+        <p>Tomatsås, mozzarella, skinka, räkor, ananas</p>
+    </div>
+    <span class="price">130.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>27. Freden</h3>
+        <p>Tomatsås, mozzarella, bacon, ägg</p>
+    </div>
+    <span class="price">130.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>28. Matador</h3>
+        <p>Tomatsås, mozzarella, salami, paprika, oliver</p>
+    </div>
+    <span class="price">135.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>29. Gorgonzola</h3>
+        <p>Tomatsås, mozzarella, gorgonzola, päron</p>
+    </div>
+    <span class="price">135.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>30. Afrikana</h3>
+        <p>Tomatsås, mozzarella, kyckling, curry</p>
+    </div>
+    <span class="price">135.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>31. Pizza Oscar</h3>
+        <p>Tomatsås, mozzarella, oxfilé, bearnaisesås</p>
+    </div>
+    <span class="price">135.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+<div class="menu-item">
+    <div>
+        <h3>32. España</h3>
+        <p></p>
+    </div>
+    <span class="price">135.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>33. Frutti Di Mare</h3>
+        <p></p>
+    </div>
+    <span class="price">135.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>34. Henån Special</h3>
+        <p></p>
+    </div>
+    <span class="price">135.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>35. Torino</h3>
+        <p></p>
+    </div>
+    <span class="price">140.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>36. Calzone</h3>
+        <p></p>
+    </div>
+    <span class="price">125.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>37. Calzone Special</h3>
+        <p></p>
+    </div>
+    <span class="price">130.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>38. Ciao Ciao</h3>
+        <p></p>
+    </div>
+    <span class="price">150.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>39. Viking Båt (Halvinbakad)</h3>
+        <p></p>
+    </div>
+    <span class="price">150.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>40. San Remo (Halvinbakad)</h3>
+        <p></p>
+    </div>
+    <span class="price">145.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>41. Disco (Dubbel deg som tefat)</h3>
+        <p></p>
+    </div>
+    <span class="price">140.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>42. Taxi Special (Halvinbakad)</h3>
+        <p></p>
+    </div>
+    <span class="price">140.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>43. Acapulco (Stark)</h3>
+        <p></p>
+    </div>
+    <span class="price">150.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>44. Amadeus</h3>
+        <p></p>
+    </div>
+    <span class="price">150.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>45. Vagabond</h3>
+        <p></p>
+    </div>
+    <span class="price">150.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>46. Reale</h3>
+        <p></p>
+    </div>
+    <span class="price">150.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>47. Milano</h3>
+        <p></p>
+    </div>
+    <span class="price">150.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>48. Gourmé</h3>
+        <p></p>
+    </div>
+    <span class="price">150.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>Liffner Special</h3>
+        <p></p>
+    </div>
+    <span class="price">160.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>49. Kebabpizza</h3>
+        <p></p>
+    </div>
+    <span class="price">135.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>50. Favoriten</h3>
+        <p></p>
+    </div>
+    <span class="price">140.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>51. Provenciale</h3>
+        <p></p>
+    </div>
+    <span class="price">140.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>52. Pizza Special</h3>
+        <p></p>
+    </div>
+    <span class="price">140.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>53. Testarossa</h3>
+        <p></p>
+    </div>
+    <span class="price">140.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>54. Amed</h3>
+        <p></p>
+    </div>
+    <span class="price">145.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>55. Orust Special</h3>
+        <p></p>
+    </div>
+    <span class="price">150.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>56. Husets Special</h3>
+        <p></p>
+    </div>
+    <span class="price">150.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>57. Bombay Special</h3>
+        <p></p>
+    </div>
+    <span class="price">135.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>58. La Maffia</h3>
+        <p></p>
+    </div>
+    <span class="price">135.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>59. Pollo</h3>
+        <p></p>
+    </div>
+    <span class="price">140.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>60. Kyckling Special</h3>
+        <p></p>
+    </div>
+    <span class="price">140.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>61. Flygande Jakob</h3>
+        <p></p>
+    </div>
+    <span class="price">135.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>62. Primavera</h3>
+        <p></p>
+    </div>
+    <span class="price">145.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>63. Pasquala</h3>
+        <p></p>
+    </div>
+    <span class="price">145.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>64. Venedig</h3>
+        <p></p>
+    </div>
+    <span class="price">145.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>65. La Bella</h3>
+        <p></p>
+    </div>
+    <span class="price">145.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+
+<div class="menu-item">
+    <div>
+        <h3>66. Parma</h3>
+        <p></p>
+    </div>
+    <span class="price">145.00  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+</div>
+            <div id="pasta-menu" class="menu-category">
+                <div class="menu-item">
+                    <div>
+                        <h3>Spaghetti Bolognese</h3>
+                        <p>Klassisk köttfärssås med parmesanost</p>
+                    </div>
+                    <span class="price">95  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Penne Arrabiata</h3>
+                        <p>Stark tomatsås med vitlök och chili</p>
+                    </div>
+                    <span class="price">89  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+
+                    </div>
+                </div>
+            </div>
+            <div id="dessert-menu" class="menu-category">
+                <div class="menu-item">
+                    <div>
+                        <h3>Tiramisu</h3>
+                        <p>Klassisk italiensk dessert</p>
+                    </div>
+                    <span class="price">65  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Gelato</h3>
+                        <p>Välj mellan vanilj, choklad eller jordgubb</p>
+                    </div>
+                    <span class="price">55  kr</span> <div class="feedback">
+     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+ </div>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="om-oss" class="section">
+            <h2 class="section-title">Om Brogrillen Pizzeria</h2>
+            <p>Brogrillen Pizzeria har varit en del av Henåns kulinariska landskap sedan 1985. Vi är stolta över att använda lokala ingredienser och traditionella pizzabakningstekniker för att skapa de mest utsökta pizzorna i området.</p>
+            <p>Vår passion för kvalitet och service har gjort oss till en favorit bland lokalbefolkningen och besökare. Kom och upplev vad som gör Brogrillen Pizzeria så speciell!</p>
+</section>
+
+<div id="hitta-oss" class="section map-section">
+    <h2 class="section-title">Hitta Oss</h2>
+    <div id="map" style="height: 400px;"></div>
+    <div class="map-info">
+        <p><strong>Adress:</strong> Norra Strandvägen 7, 473 34 Henån</p>
+        <button id="directionsBtn" class="directions-btn">Få vägbeskrivning</button>
+    </div>
+</div>
+
+<div id="kontakt" class="section">
+    <h2 class="section-title">Kontakta Oss</h2>
+    <div class="contact-info">
+        <p><strong>E-post:</strong> <a href="mailto:xaco47@gmail.com">xaco47@gmail.com</a></p>
+        <p><strong>Telefon:</strong> <a href="tel:030412345">030-412345</a></p>
+        <p><strong>Adress:</strong> Storgatan 123, 473 31 Henån</p>
+        <p><strong>Öppettider:</strong></p>
+        <ul>
+            <li>Måndag - Fredag: 11:00 - 22:00</li>
+            <li>Lördag - Söndag: 12:00 - 23:00</li>
+        </ul>
+        <p>Vi ser fram emot att höra från dig eller att välkomna dig till vår restaurang!</p>
+    </div>
+</div>
+
+</main>
+
+<footer>
+<div class="social-media">
+<a href="#"><i class="fab fa-facebook-f"></i></a>
+<a href="#"><i class="fab fa-instagram"></i></a>
+<a href="#"><i class="fab fa-twitter"></i></a>
+</div>
+<p>&copy; 2024 Brogrillen Pizzeria. Alla rättigheter förbehållna.</p>
+</footer>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function() {
+    const loadingOverlay = document.getElementById('loading-overlay');
+    loadingOverlay.style.display = 'none';
+
+    const menuButtons = document.querySelectorAll('.menu-selector button');
+    const menuCategories = document.querySelectorAll('.menu-category');
+
+    menuButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        menuButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        const menu = button.getAttribute('data-menu');
+        menuCategories.forEach(category => {
+            if (category.id === menu) {
+                category.classList.add('active');
+            } else {
+                category.classList.remove('active');
+            }
         });
-
-        // Add this script to the bottom of your index.html file, just before the closing </body> tag
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Load menu content
-    fetch('menu.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('menu-placeholder').innerHTML = data;
-            setupMenuFunctionality();
-        })
-        .catch(error => console.error('Error loading menu:', error));
-
-    function setupMenuFunctionality() {
-        const menuSelect = document.getElementById('menu-select');
-        const menuCategories = document.querySelectorAll('.menu-category');
-
-        function showSelectedMenu() {
-            const selectedValue = menuSelect.value;
-            menuCategories.forEach(category => {
-                if (category.id === `${selectedValue}-menu`) {
-                    category.classList.add('active');
-                } else {
-                    category.classList.remove('active');
-                }
-            });
-        }
-
-        menuSelect.addEventListener('change', showSelectedMenu);
-
-        // Show the initial menu (assuming 'pizza' is the default)
-        showSelectedMenu();
-    }
+    });
 });
 
-// Add this CSS to your existing styles
-<style>
-.menu-category {
-    display: none;
-}
 
-.menu-category.active {
-    display: block;
-}
-</style>
+    const feedbackElements = document.querySelectorAll('.feedback');
 
-        // Initialize Leaflet map
-        var map = L.map('map').setView([58.238244294167245, 11.679809517431266], 16);
+    feedbackElements.forEach((feedback, index) => {
+        const likeBtn = feedback.querySelector('.like-btn');
+        const dislikeBtn = feedback.querySelector('.dislike-btn');
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {minZoom:14}).addTo(map);
+        const itemId = `item_${index}`;
+        let likes = parseInt(localStorage.getItem(`${itemId}_likes`) || 0);
+        let dislikes = parseInt(localStorage.getItem(`${itemId}_dislikes`) || 0);
 
-        // Add marker for the pizzeria
-        var marker = L.marker([58.238244294167245, 11.679809517431266]).addTo(map)
-            .bindPopup("<b>Brogrillen Pizzeria</b><br>Norra Strandvägen 7, 473 34 Henån").openPopup();
 
-        // Directions button functionality
-        document.getElementById('directionsBtn').addEventListener('click', function() {
-            var lat = 58.238244294167245;
-            var lon = 11.679809517431266;
+        updateButtonStates();
 
-            if ((navigator.platform.indexOf("iPhone") != -1) ||
-                (navigator.platform.indexOf("iPad") != -1) ||
-                (navigator.platform.indexOf("iPod") != -1))
-                window.open(`maps://maps.apple.com/?daddr=${lat},${lon}`);
-            else
-                window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`);
-        });
+        likeBtn.addEventListener('click', () => handleVote(true));
+        dislikeBtn.addEventListener('click', () => handleVote(false));
 
-        // Contact form submission
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            fetch('your-server-side-script.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert('Tack för ditt meddelande! Vi återkommer så snart som möjligt.');
-                this.reset();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Ett fel uppstod. Försök igen senare eller kontakta oss via telefon.');
-            });
-        });
-    </script>
+        function handleVote(isLike) {
+            const voteKey = `${itemId}_vote`;
+            const currentVote = localStorage.getItem(voteKey);
+
+            if (currentVote === null) {
+                if (isLike) likes++;
+                else dislikes++;
+                localStorage.setItem(voteKey, isLike ? 'like' : 'dislike');
+            } else if (currentVote === 'like' && !isLike) {
+                likes--;
+                dislikes++;
+                localStorage.setItem(voteKey, 'dislike');
+            } else if (currentVote === 'dislike' && isLike) {
+                dislikes--;
+                likes++;
+                localStorage.setItem(voteKey, 'like');
+            } else {
+                if (isLike) likes--;
+                else dislikes--;
+                localStorage.removeItem(voteKey);
+            }
+
+            localStorage.setItem(`${itemId}_likes`, likes);
+            localStorage.setItem(`${itemId}_dislikes`, dislikes);
+
+
+            updateButtonStates();
+        }
+
+
+
+        function updateButtonStates() {
+            const currentVote = localStorage.getItem(`${itemId}_vote`);
+            likeBtn.classList.toggle('active', currentVote === 'like');
+            dislikeBtn.classList.toggle('active', currentVote === 'dislike');
+        }
+    });
+
+    var logo2 = L.icon({
+        iconUrl: 'logo1.png',
+        iconSize: [80, 35],
+        iconAnchor: [43, 30],
+        popupAnchor: [-3, -76]
+    });
+
+    var map = L.map('map').setView([58.238244294167245, 11.679809517431266], 16);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {minZoom: 14}).addTo(map);
+
+    var marker = L.marker([58.238244294167245, 11.679809517431266], {icon: logo2}).addTo(map)
+        .bindPopup("<b>Brogrillen Pizzeria</b><br>Norra Strandvägen 7, 473 34 Henån").openPopup();
+
+    document.getElementById('directionsBtn').addEventListener('click', function() {
+        var lat = 58.238244294167245;
+        var lon = 11.679809517431266;
+        if ((navigator.platform.indexOf("iPhone") != -1) ||
+            (navigator.platform.indexOf("iPad") != -1) ||
+            (navigator.platform.indexOf("iPod") != -1)) {
+            window.open(`maps://maps.apple.com/?daddr=${lat},${lon}`);
+        } else {
+            window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`);
+        }
+    });
+});
+</script>
+
+</script>
 </body>
 </html>
