@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <style>
+
 :root {
     --primary-color: #D32F2F;
     --secondary-color: #FFA000;
@@ -28,7 +29,7 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--background-color);
-    padding-top: 60px; /* Add space for fixed header */
+    padding-top: 60px;
 }
 
 .container {
@@ -43,14 +44,15 @@ body {
     top: 0;
     width: 100%;
     z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
 }
 
 .nav-links {
     list-style-type: none;
-    padding: 0;
-    margin: 0;
     display: flex;
-    justify-content: center;
 }
 
 .nav-links li {
@@ -72,6 +74,30 @@ body {
 
 #menu-toggle {
     display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 15px;
+}
+
+.bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 3px;
+    background-color: white;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.change .bar1 {
+    transform: translate(0, 9px) rotate(-45deg);
+}
+
+.change .bar2 {
+    opacity: 0;
+}
+
+.change .bar3 {
+    transform: translate(0, -9px) rotate(45deg);
 }
 
 .section {
@@ -336,25 +362,23 @@ footer {
         padding-top: 50px;
     }
 
-    .feature {
-        flex-basis: 100%;
+    #main-nav {
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     #menu-toggle {
         display: block;
-        width: 100%;
-        padding: 10px;
-        background-color: var(--primary-color);
-        color: white;
-        border: none;
-        text-align: left;
-        cursor: pointer;
+        align-self: flex-end;
+        position: absolute;
+        top: 10px;
+        right: 20px;
     }
 
     .nav-links {
         display: none;
         flex-direction: column;
-        background-color: var(--primary-color);
+        width: 100%;
     }
 
     .nav-links.show {
@@ -363,11 +387,24 @@ footer {
 
     .nav-links li {
         margin: 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
     }
 
     .nav-links li a {
         padding: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .feature {
+        flex-basis: 100%;
+    }
+
+    .menu-selector {
+        flex-direction: column;
+    }
+
+    .menu-selector button {
+        margin: 5px 0;
     }
 }
 
@@ -380,7 +417,11 @@ footer {
 
     <header>
 <nav id="main-nav">
-  <button id="menu-toggle">Menu</button>
+  <button id="menu-toggle" onclick="this.classList.toggle('change')">
+    <div class="bar1"></div>
+    <div class="bar2"></div>
+    <div class="bar3"></div>
+</button>
   <ul class="nav-links">
     <li><a href="#hem">Hem</a></li>
     <li><a href="#meny">Meny</a></li>
@@ -1372,7 +1413,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 document.getElementById('menu-toggle').addEventListener('click', function() {
-  document.querySelector('.nav-links').classList.toggle('show');
+    this.classList.toggle('change');
+    document.querySelector('.nav-links').classList.toggle('show');
 });
 </script>
 
