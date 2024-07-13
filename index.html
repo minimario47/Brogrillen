@@ -142,11 +142,12 @@ background: rgb(204, 204, 204);
 .menu-selector button {
     background-color: var(--secondary-color);
     color: white;
+    font-size: 14px;
     border: none;
-    padding: 10px 20px;
+    padding: 20px 20px;
     margin: 0 10px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 10px;
     transition: background-color 0.3s ease;
 }
 
@@ -452,8 +453,8 @@ footer {
                 </div>
             </div>
             <div class="cta-section">
-    <a href="tel:030412345" class="cta-button">Ring och beställ nu!</a>
-    <p class="phone-number">Tel: 030-412345</p>
+    <a href="tel:030432212" class="cta-button">Ring och beställ nu!</a>
+    <p class="phone-number">Tel: 030-432212</p>
 </div>
         </section>
 
@@ -461,9 +462,15 @@ footer {
             <h2 class="section-title">Vår Meny</h2>
             <div class="menu-selector">
                 <button class="active" data-menu="pizza-menu">Pizzor</button>
+                <button data-menu="kebab-menu">Kebab</button>
+                <button data-menu="sallad-menu">Sallad</button>
+                <button data-menu="alacarte-menu">A La Carte</button>
                 <button data-menu="pasta-menu">Pasta</button>
-                <button data-menu="dessert-menu">Efterrätter</button>
+                <button data-menu="gatukök-menu">Gatukök</button>
+                <button data-menu="tillbehör-menu">Tillbehör</button>
             </div>
+          
+
             <div id="pizza-menu" class="menu-category active">
               <div class="menu-item">
     <div>
@@ -1200,71 +1207,560 @@ footer {
      <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
  </div>
 </div>
-            <div id="pasta-menu" class="menu-category">
+</section>
+
+        <section>
+            <div id="kebab-menu" class="menu-category">
+                <h3>Kebab</h3>
                 <div class="menu-item">
                     <div>
-                        <h3>Spaghetti Bolognese</h3>
-                        <p>Klassisk köttfärssås med parmesanost</p>
+                        <h3>Standard Pita</h3>
                     </div>
-                    <span class="price">95  kr</span> <div class="feedback">
-     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
-     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
- </div>
+                    <span class="price">125.00 kr</span>
                     <div class="feedback">
                         <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
                         <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
-
                     </div>
                 </div>
                 <div class="menu-item">
                     <div>
-                        <h3>Penne Arrabiata</h3>
-                        <p>Stark tomatsås med vitlök och chili</p>
+                        <h3>Grekisk Pita</h3>
                     </div>
-                    <span class="price">89  kr</span> <div class="feedback">
-     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
-     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
- </div>
+                    <span class="price">130.00 kr</span>
                     <div class="feedback">
                         <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
                         <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
-
-                    </div>
-                </div>
-            </div>
-            <div id="dessert-menu" class="menu-category">
-                <div class="menu-item">
-                    <div>
-                        <h3>Tiramisu</h3>
-                        <p>Klassisk italiensk dessert</p>
-                    </div>
-                    <span class="price">65  kr</span> <div class="feedback">
-     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
-     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
- </div>
-                    <div class="feedback">
-                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
-                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
-
                     </div>
                 </div>
                 <div class="menu-item">
                     <div>
-                        <h3>Gelato</h3>
-                        <p>Välj mellan vanilj, choklad eller jordgubb</p>
+                        <h3>Mexikansk Pita</h3>
                     </div>
-                    <span class="price">55  kr</span> <div class="feedback">
-     <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
-     <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
- </div>
+                    <span class="price">130.00 kr</span>
                     <div class="feedback">
                         <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
                         <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
-
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Kebabtallrik</h3>
+                    </div>
+                    <span class="price">130.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Kebabrulle</h3>
+                    </div>
+                    <span class="price">125.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Kebabrulle Mix</h3>
+                    </div>
+                    <span class="price">130.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
                     </div>
                 </div>
             </div>
         </section>
+        
+        <section>
+            <div id="sallad-menu" class="menu-category">
+                <h3>Sallad</h3>
+                <div class="menu-item">
+                    <div>
+                        <h3>Amerikansk sallad</h3>
+                    </div>
+                    <span class="price">130.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Tonfisksallad</h3>
+                    </div>
+                    <span class="price">130.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Kycklingsallad</h3>
+                    </div>
+                    <span class="price">130.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Kebabsallad</h3>
+                    </div>
+                    <span class="price">130.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Grekisk Sallad</h3>
+                    </div>
+                    <span class="price">130.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Du Chef</h3>
+                    </div>
+                    <span class="price">130.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Skaldjurssallad</h3>
+                    </div>
+                    <span class="price">135.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Räksallad</h3>
+                    </div>
+                    <span class="price">130.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Kebabsallad Mix</h3>
+                    </div>
+                    <span class="price">135.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <div id="alacarte-menu" class="menu-category">
+                <h3>A la Carte</h3>
+                <div class="menu-item">
+                    <div>
+                        <h3>Köttbullar 8st</h3>
+                    </div>
+                    <span class="price">125.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Ägg & Bacon</h3>
+                    </div>
+                    <span class="price">145.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Fish´n Chips</h3>
+                    </div>
+                    <span class="price">145.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Pytt I Panna</h3>
+                    </div>
+                    <span class="price">145.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Schnitzel</h3>
+                    </div>
+                    <span class="price">145.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Lövbiff</h3>
+                    </div>
+                    <span class="price">145.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <div id="pasta-menu" class="menu-category">
+                <h3>Pasta</h3>
+                <div class="menu-item">
+                    <div>
+                        <h3>Pasta Alfredo</h3>
+                    </div>
+                    <span class="price">145.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Kycklingpasta</h3>
+                    </div>
+                    <span class="price">145.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Pasta Riviera</h3>
+                    </div>
+                    <span class="price">145.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Pasta Gorgonzola</h3>
+                    </div>
+                    <span class="price">145.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Lasagne</h3>
+                    </div>
+                    <span class="price">145.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Pasta Indiana</h3>
+                    </div>
+                    <span class="price">145.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <div id="gatukök-menu" class="menu-category">
+                <h3>Gatukök</h3>
+                <div class="menu-item">
+                    <div>
+                        <h3>Smal Kokt/Grillad</h3>
+                        <p>bröd / mos(+35kr)/ pommes(+40kr)</p>
+                    </div>
+                    <span class="price">45.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Tjock Korv</h3>
+                        <p>bröd / mos(+35kr)/ pommes(+40kr)</p>
+                    </div>
+                    <span class="price">55.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Halv Special</h3>
+                        <p>Halv / Halv Tjock</p>
+                    </div>
+                    <span class="price">80.00 kr / 90.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Hel Special</h3>
+                        <p>Hel / Hel Tjock</p>
+                    </div>
+                    <span class="price">90.00 kr / 110.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Hamburgare</h3>
+                        <p>90g/ 150g(+10kr)</p>
+                    </div>
+                    <span class="price">85.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Ostburgare</h3>
+                        <p>90g/ 150g(+10kr)</p>
+                    </div>
+                    <span class="price">90.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Baconburgare</h3>
+                        <p>90g/ 150g(+10kr)</p>
+                    </div>
+                    <span class="price">95.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Hawaiiburgare</h3>
+                        <p>90g/ 150g(+10kr)</p>
+                    </div>
+                    <span class="price">90.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Västkustburgare</h3>
+                        <p>90g/ 150g(+10kr)</p>
+                    </div>
+                    <span class="price">100.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Dubbelburgare</h3>
+                        <p>90g/ 150g(+10kr)</p>
+                    </div>
+                    <span class="price">115.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Dubbelburgare Lyx (Västkustsallad)</h3>
+                        <p>90g/ 150g(+10kr)</p>
+                    </div>
+                    <span class="price">130.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Hamburgare Meny (dricka + strips)</h3>
+                        <p>90g/ 150g(+10kr)</p>
+                    </div>
+                    <span class="price">125.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Crispy Kyckling Burgare</h3>
+                        <p>Med pommes och dricka</p>
+                    </div>
+                    <span class="price">140.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Chicken Nuggets (6st)</h3>
+                        <p>Med Pommes</p>
+                    </div>
+                    <span class="price">135.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Chicken Fingers (5st)</h3>
+                        <p>Med Pommes</p>
+                    </div>
+                    <span class="price">135.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Falafel</h3>
+                        <p>pitabröd / rulle / tallrik(+5kr)</p>
+                    </div>
+                    <span class="price">115.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <div id="tillbehör-menu" class="menu-category">
+                <h3>Tillbehör</h3>
+                <div class="menu-item">
+                    <div>
+                        <h3>Barnpizza</h3>
+                    </div>
+                    <span class="price">-10.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Köttvaror</h3>
+                    </div>
+                    <span class="price">25.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Ost</h3>
+                    </div>
+                    <span class="price">20.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Skaldjur</h3>
+                    </div>
+                    <span class="price">25.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Grönsaker</h3>
+                    </div>
+                    <span class="price">20.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Sås</h3>
+                    </div>
+                    <span class="price">15.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3>Mosbricka</h3>
+                    </div>
+                    <span class="price">60.00 kr</span>
+                    <div class="feedback">
+                        <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+                        <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+               
 
         <section id="om-oss" class="section">
             <h2 class="section-title">Om Brogrillen Pizzeria</h2>
@@ -1284,15 +1780,15 @@ footer {
 <div id="kontakt" class="section">
     <h2 class="section-title">Kontakta Oss</h2>
     <div class="contact-info">
-        <p><strong>E-post:</strong> <a href="mailto:xaco47@gmail.com">xaco47@gmail.com</a></p>
-        <p><strong>Telefon:</strong> <a href="tel:030412345">030-412345</a></p>
-        <p><strong>Adress:</strong> Storgatan 123, 473 31 Henån</p>
+        <p><strong>E-post:</strong> <a href="mailto:brogrillen2018@hotmail.com">brogrillen2018@hotmail.com</a></p>
+        <p><strong>Telefon:</strong> <a href="tel:030432212">030-432212</a></p>
+        <p><strong>Adress:</strong> Norra strandvägen 7, 473 34 Henån</p>
         <p><strong>Öppettider:</strong></p>
         <ul>
-            <li>Måndag - Fredag: 11:00 - 22:00</li>
-            <li>Lördag - Söndag: 12:00 - 23:00</li>
+            <li>Måndag - Fredag: 11:00 - 21:00</li>
+            <li>Lördag - Söndag: 11:00 - 21:00</li>
         </ul>
-        <p>Vi ser fram emot att höra från dig eller att välkomna dig till vår restaurang!</p>
+        <p><strong>Vi ser fram emot att höra från dig eller att välkomna dig till vår restaurang!</strong></p>
     </div>
 </div>
 
@@ -1317,17 +1813,18 @@ document.addEventListener("DOMContentLoaded", function() {
     const menuCategories = document.querySelectorAll('.menu-category');
 
     menuButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        menuButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
+        button.addEventListener('click', () => {
+            menuButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
 
-        const menu = button.getAttribute('data-menu');
-        menuCategories.forEach(category => {
-            if (category.id === menu) {
-                category.classList.add('active');
-            } else {
-                category.classList.remove('active');
-            }
+            const menu = button.getAttribute('data-menu');
+            menuCategories.forEach(category => {
+                if (category.id === menu) {
+                    category.classList.add('active');
+                } else {
+                    category.classList.remove('active');
+                }
+            });
         });
     });
 });
@@ -1411,7 +1908,7 @@ document.addEventListener("DOMContentLoaded", function() {
             window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`);
         }
     });
-});
+
 
 document.getElementById('menu-toggle').addEventListener('click', function() {
     this.classList.toggle('change');
