@@ -287,7 +287,7 @@
         const menuNav = document.getElementById('menu-nav');
         const menuItems = document.getElementById('menu-items');
 
-        // Create menu navigation
+     
         Object.keys(menuData).forEach((category, index) => {
             const button = document.createElement('button');
             button.textContent = category.replace('-menu', '').replace(/^\w/, c => c.toUpperCase());
@@ -316,7 +316,6 @@
             });
         }
 
-        // Show the first category by default
         showCategory(Object.keys(menuData)[0]);
     });
     </script>
