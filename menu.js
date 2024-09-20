@@ -71,7 +71,6 @@ const menuData = {
     { name: "65. LA BELLA", description: "Kyckling, parmaskinka, mozzarellaost, ruccolasallad", price: "145:-" },
     { name: "66. PARMA", description: "Parmaskinka, champinjoner, färska tomater, mozzarellaost, vitlök, ruccolasallad", price: "145:-" },
     { name: "LIFFNER SPECIAL", description: "Oxfilé, championer, ananas, banan, tomat, bearnaisesås", price: "160:-" }
-],
     ],
     "kebab-menu": [
         { name: "Standard Pita", price: "125.00 kr" },
