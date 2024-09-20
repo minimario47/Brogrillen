@@ -6,9 +6,7 @@
     <title>Brogrillen Pizzeria - Henåns Bästa Pizza Sedan 1985</title>
     <meta name="description" content="Upplev den bästa pizzan i Henån sedan 1985. Välkommen till Brogrillen Pizzeria för en smakresa genom Italien, mitt i hjärtat av Sverige.">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <style>
         :root {
             --primary-color: #D32F2F;
@@ -253,10 +251,18 @@
             color: var(--secondary-color);
         }
 
-        #map {
+        #map-container {
+            width: 100%;
             height: 400px;
-            border-radius: 8px;
             margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        #map-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .contact-info {
@@ -361,21 +367,21 @@
             </div>
         </section>
 
-        <section class="section" data-aos="fade-up">
+        <section class="section">
             <div class="container">
                 <h2 class="section-title">Vår Specialitet</h2>
                 <div class="features">
-                    <div class="feature" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature">
                         <i class="fas fa-pizza-slice"></i>
                         <h3>Autentiska recept</h3>
                         <p>Våra pizzor görs enligt traditionella italienska metoder.</p>
                     </div>
-                    <div class="feature" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature">
                         <i class="fas fa-leaf"></i>
                         <h3>Färska ingredienser</h3>
                         <p>Vi använder endast de färskaste, lokalt sourcade ingredienserna.</p>
                     </div>
-                    <div class="feature" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature">
                         <i class="fas fa-users"></i>
                         <h3>Familjär atmosfär</h3>
                         <p>Njut av din måltid i vår varma och välkomnande miljö.</p>
@@ -384,7 +390,7 @@
             </div>
         </section>
 
-        <section id="menu" class="section" data-aos="fade-up">
+        <section id="menu" class="section">
             <div class="container">
                 <h2 class="section-title">Vår Meny</h2>
                 <div class="menu-selector"></div>
@@ -392,7 +398,7 @@
             </div>
         </section>
 
-        <section id="om-oss" class="section" data-aos="fade-up">
+        <section id="om-oss" class="section">
             <div class="container">
                 <h2 class="section-title">Om Brogrillen Pizzeria</h2>
                 <p>Brogrillen Pizzeria har varit en del av Henåns kulinariska landskap sedan 1985. Vi är stolta över att använda lokala ingredienser och traditionella pizzabakningstekniker för att skapa de mest utsökta pizzorna i området.</p>
@@ -400,10 +406,12 @@
             </div>
         </section>
 
-        <section id="hitta-oss" class="section" data-aos="fade-up">
+        <section id="hitta-oss" class="section">
             <div class="container">
                 <h2 class="section-title">Hitta Oss</h2>
-                <div id="map"></div>
+                <div id="map-container">
+                    <img src="https://maps.googleapis.com/maps/api/staticmap?center=58.238244294167245,11.679809517431266&zoom=15&size=600x400&maptype=roadmap&markers=color:red%7C58.238244294167245,11.679809517431266&key=YOUR_API_KEY" alt="Karta till Brogrillen Pizzeria">
+                </div>
                 <div class="map-info">
                     <p><strong>Adress:</strong> Norra Strandvägen 7, 473 34 Henån</p>
                     <button id="directionsBtn" class="btn">Få vägbeskrivning</button>
@@ -411,7 +419,7 @@
             </div>
         </section>
 
-        <section id="kontakt" class="section" data-aos="fade-up">
+        <section id="kontakt" class="section">
             <div class="container">
                 <h2 class="section-title">Kontakta Oss</h2>
                 <div class="contact-info">
@@ -435,3 +443,5 @@
             <p>&copy; 2024 Brogrillen Pizzeria. Alla rättigheter förbehållna.</p>
         </div>
     </footer>
+
+    <script src="menu.js"></script>
