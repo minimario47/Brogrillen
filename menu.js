@@ -136,18 +136,28 @@ const menuData = {
     ]
 };
 
+
+const menuDisplayNames = {
+    "mestomtyckt-menu": "Mest omtyckt",
+    "pizza-menu": "Pizza",
+    "kebab-menu": "Kebab",
+    "sallad-menu": "Sallad",
+    "alacarte-menu": "À la carte",
+    "pasta-menu": "Pasta",
+    "gatukök-menu": "Gatukök",
+    "tillbehör-menu": "Tillbehör"
+};
+
 function createMenuButtons() {
     const menuSelector = document.querySelector('.menu-selector');
     Object.keys(menuData).forEach((category, index) => {
         const button = document.createElement('button');
-        button.textContent = category.replace('-menu', '').replace(/^\w/, c => c.toUpperCase());
+        button.textContent = menuDisplayNames[category] || category.replace('-menu', '').replace(/^\w/, c => c.toUpperCase());
         button.dataset.menu = category;
         if (index === 0) button.classList.add('active');
         menuSelector.appendChild(button);
     });
 }
-
-
 
 function createMenuCategories() {
     const menuCategories = document.getElementById('menu-categories');
