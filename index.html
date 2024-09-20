@@ -284,7 +284,35 @@
 
     <script src="menu.js"></script>
     <script>
-    
+
+        document.addEventListener('DOMContentLoaded', function() {
+        const menuNav = document.getElementById('menu-nav');
+        const menuItems = document.getElementById('menu-items');
+
+     
+        
+
+        function showCategory(category) {
+            menuNav.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+            menuNav.querySelector(`[data-category="${category}"]`).classList.add('active');
+            
+            menuItems.innerHTML = '';
+            menuData[category].forEach(item => {
+                const menuItem = document.createElement('div');
+                menuItem.classList.add('menu-item');
+                menuItem.innerHTML = `
+                    <div class="menu-item-content">
+                        <h3>${item.name}</h3>
+                        ${item.description ? `<p>${item.description}</p>` : ''}
+                        <p class="price">${item.price}</p>
+                    </div>
+                `;
+                menuItems.appendChild(menuItem);
+            });
+        }
+
+        showCategory(Object.keys(menuData)[0]);
+    });
 
         document.addEventListener('DOMContentLoaded', function() {
             const getDirectionsBtn = document.getElementById('getDirections');
