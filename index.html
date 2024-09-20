@@ -282,60 +282,76 @@
         </div>
     </footer>
 
-    <script src="menu.js"></script>
-    <script>
+ <script src="menu.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const menuNav = document.getElementById('menu-nav');
+    const menuItems = document.getElementById('menu-items');
 
-        document.addEventListener('DOMContentLoaded', function() {
-        const menuNav = document.getElementById('menu-nav');
-        const menuItems = document.getElementById('menu-items');
+    const menuDisplayNames = {
+        "mestomtyckt-menu": "Mest omtyckt",
+        "pizza-menu": "Pizza",
+        "kebab-menu": "Kebab",
+        "sallad-menu": "Sallad",
+        "alacarte-menu": "À la carte",
+        "pasta-menu": "Pasta",
+        "gatukök-menu": "Gatukök",
+        "tillbehör-menu": "Tillbehör"
+    };
 
-     
-        
-
-        function showCategory(category) {
-            menuNav.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
-            menuNav.querySelector(`[data-category="${category}"]`).classList.add('active');
-            
-            menuItems.innerHTML = '';
-            menuData[category].forEach(item => {
-                const menuItem = document.createElement('div');
-                menuItem.classList.add('menu-item');
-                menuItem.innerHTML = `
-                    <div class="menu-item-content">
-                        <h3>${item.name}</h3>
-                        ${item.description ? `<p>${item.description}</p>` : ''}
-                        <p class="price">${item.price}</p>
-                    </div>
-                `;
-                menuItems.appendChild(menuItem);
-            });
-        }
-
-        showCategory(Object.keys(menuData)[0]);
+    Object.keys(menuData).forEach((category, index) => {
+        const button = document.createElement('button');
+        button.textContent = menuDisplayNames[category] || category.replace('-menu', '').replace(/^\w/, c => c.toUpperCase());
+        button.dataset.category = category;
+        if (index === 0) button.classList.add('active');
+        button.addEventListener('click', () => showCategory(category));
+        menuNav.appendChild(button);
     });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const getDirectionsBtn = document.getElementById('getDirections');
-            getDirectionsBtn.addEventListener('click', function() {
-                const address = 'Norra strandvägen 7, 473 34 Henån';
-                const encodedAddress = encodeURIComponent(address);
-                let mapsUrl;
-
-                // Detect device and set appropriate maps URL
-                if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-                    // iOS
-                    mapsUrl = `maps://maps.apple.com/?daddr=${encodedAddress}`;
-                } else if (/Android/i.test(navigator.userAgent)) {
-                    // Android
-                    mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`;
-                } else {
-                    // Default to Google Maps for other devices
-                    mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
-                }
-
-                window.open(mapsUrl, '_blank');
-            });
+    function showCategory(category) {
+        menuNav.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+        menuNav.querySelector(`[data-category="${category}"]`).classList.add('active');
+        
+        menuItems.innerHTML = '';
+        menuData[category].forEach(item => {
+            const menuItem = document.createElement('div');
+            menuItem.classList.add('menu-item');
+            menuItem.innerHTML = `
+                <div class="menu-item-content">
+                    <h3>${item.name}</h3>
+                    ${item.description ? `<p>${item.description}</p>` : ''}
+                    <p class="price">${item.price}</p>
+                </div>
+            `;
+            menuItems.appendChild(menuItem);
         });
-    </script>
+    }
+
+
+    showCategory(Object.keys(menuData)[0]);
+
+
+    const getDirectionsBtn = document.getElementById('getDirections');
+    getDirectionsBtn.addEventListener('click', function() {
+        const address = 'Norra strandvägen 7, 473 34 Henån';
+        const encodedAddress = encodeURIComponent(address);
+        let mapsUrl;
+
+
+        if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+
+            mapsUrl = `maps://maps.apple.com/?daddr=${encodedAddress}`;
+        } else if (/Android/i.test(navigator.userAgent)) {
+
+            mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`;
+        } else {
+
+            mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+        }
+
+        window.open(mapsUrl, '_blank');
+    });
+});
+</script>
 </body>
 </html>
