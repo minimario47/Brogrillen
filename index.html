@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brogrillen Pizzeria - Henåns Bästa Pizza Sedan 1985</title>
+    <meta name="description" content="Upplev den bästa pizzan i Henån sedan 1985. Välkommen till Brogrillen Pizzeria för en smakresa genom Italien, mitt i hjärtat av Sverige.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #D32F2F;
+            --secondary-color: #FFA000;
+            --text-color: #333333;
+            --background-color: #FFFFFF;
+            --accent-color: #4CAF50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            padding-top: 80px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        #main-nav {
+            background-color: var(--primary-color);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            color: white;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style-type: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+        .nav-links li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            display: block;
+            padding: 10px 0;
+        }
+
+        .nav-links li a:hover {
+            color: var(--secondary-color);
+        }
+
+        #menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px 0;
+            transition: 0.4s;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+        }
+
+        .hero {
+            background-image: url('https://source.unsplash.com/1600x900/?pizza,restaurant');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            flex-basis: 30%;
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        #menu {
+            background-color: #f9f9f9;
+        }
+
+        .menu-selector {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .menu-selector button {
+            background-color: var(--secondary-color);
+            color: white;
+            font-size: 14px;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-selector button:hover,
+        .menu-selector button.active {
+            background-color: var(--primary-color);
+        }
+
+        .menu-category {
+            display: none;
+        }
+
+        .menu-category.active {
+            display: block;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .menu-item h3 {
+            margin-top: 0;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        .menu-item .price {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        #map {
+            height: 400px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            text-align: center;
+        }
+
+        .social-media {
+            margin-top: 20px;
+        }
+
+        .social-media a {
+            color: var(--primary-color);
+            font-size: 24px;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .social-media a:hover {
+            color: var(--secondary-color);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            #menu-toggle {
+                display: block;
+                align-self: flex-end;
+                position: absolute;
+                top: 10px;
+                right: 20px;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 0;
+                text-align: center;
+            }
+
+            .nav-links li a {
+                padding: 10px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .feature {
+                flex-basis: 100%;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav id="main-nav">
+        <div class="container nav-container">
+            <a href="#" class="logo">Brogrillen Pizzeria</a>
+            <button id="menu-toggle">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#hem">Hem</a></li>
+                <li><a href="#menu">Meny</a></li>
+                <li><a href="#om-oss">Om oss</a></li>
+                <li><a href="#hitta-oss">Hitta oss</a></li>
+                <li><a href="#kontakt">Kontakt</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section id="hem" class="hero">
+            <div class="hero-content">
+                <h1>Välkommen till Brogrillen</h1>
+                <p>Upplev Henåns bästa pizzor sedan 1985</p>
+                <a href="#menu" class="btn">Se vår meny</a>
+            </div>
+        </section>
+
+        <section class="section" data-aos="fade-up">
+            <div class="container">
+                <h2 class="section-title">Vår Specialitet</h2>
+                <div class="features">
+                    <div class="feature" data-aos="fade-up" data-aos-delay="100">
+                        <i class="fas fa-pizza-slice"></i>
+                        <h3>Autentiska recept</h3>
+                        <p>Våra pizzor görs enligt traditionella italienska metoder.</p>
+                    </div>
+                    <div class="feature" data-aos="fade-up" data-aos-delay="200">
+                        <i class="fas fa-leaf"></i>
+                        <h3>Färska ingredienser</h3>
+                        <p>Vi använder endast de färskaste, lokalt sourcade ingredienserna.</p>
+                    </div>
+                    <div class="feature" data-aos="fade-up" data-aos-delay="300">
+                        <i class="fas fa-users"></i>
+                        <h3>Familjär atmosfär</h3>
+                        <p>Njut av din måltid i vår varma och välkomnande miljö.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="menu" class="section" data-aos="fade-up">
+            <div class="container">
+                <h2 class="section-title">Vår Meny</h2>
+                <div class="menu-selector"></div>
+                <div id="menu-categories"></div>
+            </div>
+        </section>
+
+        <section id="om-oss" class="section" data-aos="fade-up">
+            <div class="container">
+                <h2 class="section-title">Om Brogrillen Pizzeria</h2>
+                <p>Brogrillen Pizzeria har varit en del av Henåns kulinariska landskap sedan 1985. Vi är stolta över att använda lokala ingredienser och traditionella pizzabakningstekniker för att skapa de mest utsökta pizzorna i området.</p>
+                <p>Vår passion för kvalitet och service har gjort oss till en favorit bland lokalbefolkningen och besökare. Kom och upplev vad som gör Brogrillen Pizzeria så speciell!</p>
+            </div>
+        </section>
+
+        <section id="hitta-oss" class="section" data-aos="fade-up">
+            <div class="container">
+                <h2 class="section-title">Hitta Oss</h2>
+                <div id="map"></div>
+                <div class="map-info">
+                    <p><strong>Adress:</strong> Norra Strandvägen 7, 473 34 Henån</p>
+                    <button id="directionsBtn" class="btn">Få vägbeskrivning</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="kontakt" class="section" data-aos="fade-up">
+            <div class="container">
+                <h2 class="section-title">Kontakta Oss</h2>
+                <div class="contact-info">
+                    <p><strong>E-post:</strong> <a href="mailto:brogrillen2018@hotmail.com">brogrillen2018@hotmail.com</a></p>
+                    <p><strong>Telefon:</strong> <a href="tel:030432212">030-432212</a></p>
+                    <p><strong>Adress:</strong> Norra strandvägen 7, 473 34 Henån</p>
+                    <p><strong>Öppettider:</strong></p>
+                    <p>Måndag - Söndag: 11:00 - 21:00</p>
+                    <div class="social-media">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Brogrillen Pizzeria. Alla rättigheter förbehållna.</p>
+        </div>
+    </footer>
