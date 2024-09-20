@@ -319,6 +319,29 @@
 
         showCategory(Object.keys(menuData)[0]);
     });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const getDirectionsBtn = document.getElementById('getDirections');
+            getDirectionsBtn.addEventListener('click', function() {
+                const address = 'Norra strandvägen 7, 473 34 Henån';
+                const encodedAddress = encodeURIComponent(address);
+                let mapsUrl;
+
+                // Detect device and set appropriate maps URL
+                if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                    // iOS
+                    mapsUrl = `maps://maps.apple.com/?daddr=${encodedAddress}`;
+                } else if (/Android/i.test(navigator.userAgent)) {
+                    // Android
+                    mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`;
+                } else {
+                    // Default to Google Maps for other devices
+                    mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+                }
+
+                window.open(mapsUrl, '_blank');
+            });
+        });
     </script>
 </body>
 </html>
