@@ -445,3 +445,86 @@
     </footer>
 
     <script src="menu.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        console.log("DOM fully loaded");
+        
+        if (typeof menuData === 'undefined') {
+            console.error("menuData is not defined. Check if menu.js is loaded correctly.");
+            return;
+        }
+        
+        console.log("Menu data:", menuData);
+
+        const menuSelector = document.querySelector('.menu-selector');
+        const menuCategories = document.getElementById('menu-categories');
+
+        if (!menuSelector || !menuCategories) {
+            console.error("Required DOM elements not found.");
+            return;
+        }
+
+        // Create menu buttons
+        Object.keys(menuData).forEach((category, index) => {
+            const button = document.createElement('button');
+            button.textContent = category.replace('-menu', '').replace(/^\w/, c => c.toUpperCase());
+            button.dataset.menu = category;
+            if (index === 0) button.classList.add('active');
+            menuSelector.appendChild(button);
+        });
+
+        // Create menu categories
+        Object.entries(menuData).forEach(([category, items], index) => {
+            const categoryDiv = document.createElement('div');
+            categoryDiv.id = category;
+            categoryDiv.classList.add('menu-category');
+            if (index === 0) categoryDiv.classList.add('active');
+
+            items.forEach(item => {
+                const menuItem = document.createElement('div');
+                menuItem.classList.add('menu-item');
+                menuItem.innerHTML = `
+                    <div>
+                        <h3>${item.name}</h3>
+                        ${item.description ? `<p>${item.description}</p>` : ''}
+                    </div>
+                    <span class="price">${item.price}</span>
+                `;
+                categoryDiv.appendChild(menuItem);
+            });
+
+            menuCategories.appendChild(categoryDiv);
+        });
+
+        console.log("Menu created successfully");
+
+        // Menu button click event
+        menuSelector.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                menuSelector.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                const selectedMenu = e.target.dataset.menu;
+                document.querySelectorAll('.menu-category').forEach(category => {
+                    category.classList.toggle('active', category.id === selectedMenu);
+                });
+            }
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+
+        // Directions button
+        document.getElementById('directionsBtn').addEventListener('click', function() {
+            const lat = 58.238244294167245;
+            const lon = 11.679809517431266;
+            const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`;
+            window.open(url, '_blank');
+        });
+    });
+    </script>
+</body>
+</html>
