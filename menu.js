@@ -147,6 +147,8 @@ function createMenuButtons() {
     });
 }
 
+
+
 function createMenuCategories() {
     const menuCategories = document.getElementById('menu-categories');
     Object.entries(menuData).forEach(([category, items], index) => {
@@ -155,4 +157,45 @@ function createMenuCategories() {
         categoryDiv.classList.add('menu-category');
         if (index === 0) categoryDiv.classList.add('active');
 
-        items.forEach(
+        items.forEach(item => {
+            const menuItem = document.createElement('div');
+            menuItem.classList.add('menu-item');
+            menuItem.innerHTML = `
+                <div>
+                    <h3>${item.name}</h3>
+                    ${item.description ? `<p>${item.description}</p>` : ''}
+                </div>
+                <span class="price">${item.price}</span>
+            `;
+            categoryDiv.appendChild(menuItem);
+        });
+
+        menuCategories.appendChild(categoryDiv);
+    });
+}
+
+function initializeMenu() {
+    createMenuButtons();
+    createMenuCategories();
+
+    const menuButtons = document.querySelectorAll('.menu-selector button');
+    const menuCategories = document.querySelectorAll('.menu-category');
+
+    menuButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            menuButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            const menu = button.getAttribute('data-menu');
+            menuCategories.forEach(category => {
+                if (category.id === menu) {
+                    category.classList.add('active');
+                } else {
+                    category.classList.remove('active');
+                }
+            });
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initializeMenu);
