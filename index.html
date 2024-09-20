@@ -6,7 +6,7 @@
     <title>Brogrillen Pizzeria - Henåns Bästa Pizza Sedan 1985</title>
     <meta name="description" content="Upplev den bästa pizzan i Henån sedan 1985. Välkommen till Brogrillen Pizzeria för en smakresa genom Italien, mitt i hjärtat av Sverige.">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #D32F2F;
@@ -22,12 +22,15 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             color: var(--text-color);
             background-color: var(--background-color);
-            padding-top: 80px;
         }
 
         .container {
@@ -36,203 +39,129 @@
             padding: 0 20px;
         }
 
-        #main-nav {
+        header {
             background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
             position: fixed;
-            top: 0;
             width: 100%;
+            top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        .nav-container {
+        nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
         }
 
         .logo {
-            font-family: 'Playfair Display', serif;
-            color: white;
-            font-size: 24px;
-            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 700;
         }
 
         .nav-links {
-            list-style-type: none;
             display: flex;
+            list-style: none;
         }
 
         .nav-links li {
-            margin: 0 15px;
+            margin-left: 1.5rem;
         }
 
-        .nav-links li a {
+        .nav-links a {
             color: white;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
             transition: color 0.3s ease;
-            display: block;
-            padding: 10px 0;
         }
 
-        .nav-links li a:hover {
+        .nav-links a:hover {
             color: var(--secondary-color);
         }
 
-        #menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
+        section {
+            padding: 5rem 0;
         }
 
-        .bar {
-            width: 25px;
-            height: 3px;
-            background-color: white;
-            margin: 5px 0;
-            transition: 0.4s;
-        }
-
-        .section {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 40px;
+        h1, h2 {
+            margin-bottom: 2rem;
             color: var(--primary-color);
         }
 
         .hero {
-            background-image: url('https://source.unsplash.com/1600x900/?pizza,restaurant');
-            background-size: cover;
-            background-position: center;
-            height: 60vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://source.unsplash.com/1600x900/?pizza,restaurant') no-repeat center center/cover;
+            height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
             text-align: center;
             color: white;
-            position: relative;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: white;
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-        }
-
-        .hero p {
+        .hero-content p {
             font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto 30px;
+            margin-bottom: 2rem;
         }
 
         .btn {
             display: inline-block;
-            background-color: var(--accent-color);
+            background: var(--accent-color);
             color: white;
-            padding: 12px 24px;
-            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border: none;
             border-radius: 5px;
-            transition: background-color 0.3s ease;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: background 0.3s ease;
         }
 
         .btn:hover {
-            background-color: #45a049;
+            background: #45a049;
         }
 
-        .features {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-        }
-
-        .feature {
-            flex-basis: 30%;
-            text-align: center;
-            padding: 20px;
-            background-color: #f8f8f8;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-            margin-bottom: 20px;
-        }
-
-        .feature:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature i {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
-
-        #menu {
+        .menu-section {
             background-color: #f9f9f9;
         }
 
-        .menu-selector {
+        .menu-nav {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
+            margin-bottom: 2rem;
         }
 
-        .menu-selector button {
-            background-color: var(--secondary-color);
-            color: white;
-            font-size: 14px;
+        .menu-nav button {
+            background: none;
             border: none;
-            padding: 10px 20px;
-            margin: 5px;
+            font-size: 1rem;
+            margin: 0 1rem;
             cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: background 0.3s ease;
         }
 
-        .menu-selector button:hover,
-        .menu-selector button.active {
-            background-color: var(--primary-color);
+        .menu-nav button.active {
+            background: var(--secondary-color);
+            color: white;
         }
 
-        .menu-category {
-            display: none;
-        }
-
-        .menu-category.active {
-            display: block;
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
         }
 
         .menu-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
         }
 
@@ -240,10 +169,12 @@
             transform: translateY(-5px);
         }
 
+        .menu-item-content {
+            padding: 1rem;
+        }
+
         .menu-item h3 {
-            margin-top: 0;
-            margin-bottom: 5px;
-            color: var(--primary-color);
+            margin-bottom: 0.5rem;
         }
 
         .menu-item .price {
@@ -251,188 +182,94 @@
             color: var(--secondary-color);
         }
 
-        #map-container {
-            width: 100%;
-            height: 400px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        #map-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
         .contact-info {
             text-align: center;
         }
 
-        .social-media {
-            margin-top: 20px;
-        }
-
-        .social-media a {
-            color: var(--primary-color);
-            font-size: 24px;
-            margin: 0 10px;
-            transition: color 0.3s ease;
-        }
-
-        .social-media a:hover {
-            color: var(--secondary-color);
+        .map-container {
+            height: 400px;
+            margin-top: 2rem;
         }
 
         footer {
             background-color: var(--primary-color);
             color: white;
             text-align: center;
-            padding: 20px 0;
+            padding: 1rem 0;
         }
 
         @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            #menu-toggle {
-                display: block;
-                align-self: flex-end;
-                position: absolute;
-                top: 10px;
-                right: 20px;
-            }
-
             .nav-links {
                 display: none;
-                flex-direction: column;
-                width: 100%;
             }
 
-            .nav-links.show {
-                display: flex;
+            .hero-content h1 {
+                font-size: 2rem;
             }
 
-            .nav-links li {
-                margin: 0;
-                text-align: center;
-            }
-
-            .nav-links li a {
-                padding: 10px;
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
-            }
-
-            .feature {
-                flex-basis: 100%;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
+            .hero-content p {
                 font-size: 1rem;
+            }
+
+            .menu-nav {
+                flex-wrap: wrap;
+            }
+
+            .menu-nav button {
+                margin: 0.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <nav id="main-nav">
-        <div class="container nav-container">
-            <a href="#" class="logo">Brogrillen Pizzeria</a>
-            <button id="menu-toggle">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </button>
+    <header>
+        <nav class="container">
+            <div class="logo">Brogrillen Pizzeria</div>
             <ul class="nav-links">
-                <li><a href="#hem">Hem</a></li>
+                <li><a href="#home">Hem</a></li>
                 <li><a href="#menu">Meny</a></li>
-                <li><a href="#om-oss">Om oss</a></li>
-                <li><a href="#hitta-oss">Hitta oss</a></li>
-                <li><a href="#kontakt">Kontakt</a></li>
+                <li><a href="#about">Om oss</a></li>
+                <li><a href="#contact">Kontakt</a></li>
             </ul>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
     <main>
-        <section id="hem" class="hero">
-            <div class="hero-content">
-                <h1>Välkommen till Brogrillen</h1>
-                <p>Upplev Henåns bästa pizzor sedan 1985</p>
+        <section id="home" class="hero">
+            <div class="hero-content container">
+                <h1>Välkommen till Brogrillen Pizzeria</h1>
+                <p>Henåns bästa pizza sedan 1985</p>
                 <a href="#menu" class="btn">Se vår meny</a>
             </div>
         </section>
 
-        <section class="section">
+        <section id="menu" class="menu-section">
             <div class="container">
-                <h2 class="section-title">Vår Specialitet</h2>
-                <div class="features">
-                    <div class="feature">
-                        <i class="fas fa-pizza-slice"></i>
-                        <h3>Autentiska recept</h3>
-                        <p>Våra pizzor görs enligt traditionella italienska metoder.</p>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-leaf"></i>
-                        <h3>Färska ingredienser</h3>
-                        <p>Vi använder endast de färskaste, lokalt sourcade ingredienserna.</p>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-users"></i>
-                        <h3>Familjär atmosfär</h3>
-                        <p>Njut av din måltid i vår varma och välkomnande miljö.</p>
-                    </div>
-                </div>
+                <h2>Vår Meny</h2>
+                <div class="menu-nav" id="menu-nav"></div>
+                <div class="menu-items" id="menu-items"></div>
             </div>
         </section>
 
-        <section id="menu" class="section">
+        <section id="about">
             <div class="container">
-                <h2 class="section-title">Vår Meny</h2>
-                <div class="menu-selector"></div>
-                <div id="menu-categories"></div>
-            </div>
-        </section>
-
-        <section id="om-oss" class="section">
-            <div class="container">
-                <h2 class="section-title">Om Brogrillen Pizzeria</h2>
+                <h2>Om Brogrillen Pizzeria</h2>
                 <p>Brogrillen Pizzeria har varit en del av Henåns kulinariska landskap sedan 1985. Vi är stolta över att använda lokala ingredienser och traditionella pizzabakningstekniker för att skapa de mest utsökta pizzorna i området.</p>
                 <p>Vår passion för kvalitet och service har gjort oss till en favorit bland lokalbefolkningen och besökare. Kom och upplev vad som gör Brogrillen Pizzeria så speciell!</p>
             </div>
         </section>
 
-        <section id="hitta-oss" class="section">
+        <section id="contact">
             <div class="container">
-                <h2 class="section-title">Hitta Oss</h2>
-                <div id="map-container">
-                    <img src="https://maps.googleapis.com/maps/api/staticmap?center=58.238244294167245,11.679809517431266&zoom=15&size=600x400&maptype=roadmap&markers=color:red%7C58.238244294167245,11.679809517431266&key=YOUR_API_KEY" alt="Karta till Brogrillen Pizzeria">
-                </div>
-                <div class="map-info">
-                    <p><strong>Adress:</strong> Norra Strandvägen 7, 473 34 Henån</p>
-                    <button id="directionsBtn" class="btn">Få vägbeskrivning</button>
-                </div>
-            </div>
-        </section>
-
-        <section id="kontakt" class="section">
-            <div class="container">
-                <h2 class="section-title">Kontakta Oss</h2>
+                <h2>Kontakta Oss</h2>
                 <div class="contact-info">
                     <p><strong>E-post:</strong> <a href="mailto:brogrillen2018@hotmail.com">brogrillen2018@hotmail.com</a></p>
                     <p><strong>Telefon:</strong> <a href="tel:030432212">030-432212</a></p>
                     <p><strong>Adress:</strong> Norra strandvägen 7, 473 34 Henån</p>
-                    <p><strong>Öppettider:</strong></p>
-                    <p>Måndag - Söndag: 11:00 - 21:00</p>
-                    <div class="social-media">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                    </div>
+                    <p><strong>Öppettider:</strong> Måndag - Söndag: 11:00 - 21:00</p>
+                </div>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2131.0447982037847!2d11.677620776275388!3d58.238244294167245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46452131f8a773b9%3A0x4644526e74b52c46!2sNorra%20Strandv%C3%A4gen%207%2C%20473%2034%20Hen%C3%A5n!5e0!3m2!1sen!2sse!4v1682516277304!5m2!1sen!2sse" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </section>
@@ -446,84 +283,41 @@
 
     <script src="menu.js"></script>
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        console.log("DOM fully loaded");
-        
-        if (typeof menuData === 'undefined') {
-            console.error("menuData is not defined. Check if menu.js is loaded correctly.");
-            return;
-        }
-        
-        console.log("Menu data:", menuData);
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuNav = document.getElementById('menu-nav');
+        const menuItems = document.getElementById('menu-items');
 
-        const menuSelector = document.querySelector('.menu-selector');
-        const menuCategories = document.getElementById('menu-categories');
-
-        if (!menuSelector || !menuCategories) {
-            console.error("Required DOM elements not found.");
-            return;
-        }
-
-        // Create menu buttons
+        // Create menu navigation
         Object.keys(menuData).forEach((category, index) => {
             const button = document.createElement('button');
             button.textContent = category.replace('-menu', '').replace(/^\w/, c => c.toUpperCase());
-            button.dataset.menu = category;
+            button.dataset.category = category;
             if (index === 0) button.classList.add('active');
-            menuSelector.appendChild(button);
+            button.addEventListener('click', () => showCategory(category));
+            menuNav.appendChild(button);
         });
 
-        // Create menu categories
-        Object.entries(menuData).forEach(([category, items], index) => {
-            const categoryDiv = document.createElement('div');
-            categoryDiv.id = category;
-            categoryDiv.classList.add('menu-category');
-            if (index === 0) categoryDiv.classList.add('active');
-
-            items.forEach(item => {
+        function showCategory(category) {
+            menuNav.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+            menuNav.querySelector(`[data-category="${category}"]`).classList.add('active');
+            
+            menuItems.innerHTML = '';
+            menuData[category].forEach(item => {
                 const menuItem = document.createElement('div');
                 menuItem.classList.add('menu-item');
                 menuItem.innerHTML = `
-                    <div>
+                    <div class="menu-item-content">
                         <h3>${item.name}</h3>
                         ${item.description ? `<p>${item.description}</p>` : ''}
+                        <p class="price">${item.price}</p>
                     </div>
-                    <span class="price">${item.price}</span>
                 `;
-                categoryDiv.appendChild(menuItem);
+                menuItems.appendChild(menuItem);
             });
+        }
 
-            menuCategories.appendChild(categoryDiv);
-        });
-
-        console.log("Menu created successfully");
-
-        // Menu button click event
-        menuSelector.addEventListener('click', (e) => {
-            if (e.target.tagName === 'BUTTON') {
-                menuSelector.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
-                e.target.classList.add('active');
-                const selectedMenu = e.target.dataset.menu;
-                document.querySelectorAll('.menu-category').forEach(category => {
-                    category.classList.toggle('active', category.id === selectedMenu);
-                });
-            }
-        });
-
-        // Mobile menu toggle
-        const menuToggle = document.getElementById('menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('show');
-        });
-
-        // Directions button
-        document.getElementById('directionsBtn').addEventListener('click', function() {
-            const lat = 58.238244294167245;
-            const lon = 11.679809517431266;
-            const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`;
-            window.open(url, '_blank');
-        });
+        // Show the first category by default
+        showCategory(Object.keys(menuData)[0]);
     });
     </script>
 </body>
