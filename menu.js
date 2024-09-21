@@ -1,7 +1,16 @@
 const menuData = {
     "mestomtyckt-menu": [
-        { name: "Testarossa", price: "140.00 kr" },
-        { name: "Amed", price: "145.00 kr" }
+    { name: "53. TESTAROSSA", description: "Kebabkött, isbergssallad, gurka, färska tomater, lök, pepperoni, kebabsås", price: "140:-" },
+    { name: "54. AMED", description: "Kebabkött, pommes, kebabsås", price: "145:-" },
+    { name: "23. ORIENTALE", description: "Köttfärs, skinka, lök, vitlök", price: "130:-" },
+    { name: "13. MEXIKANSK PIZZA (Stark)", description: "Köttfärs, lök, paprika, jalapeño, vitlök", price: "135:-" },
+    { name: "28. MATADOR", description: "Skinka, gorgonzola, lök, färska tomater, piri piri, vitlöksås", price: "135:-" },
+    { name: "20. QUATTRO STAGIONI", description: "Skinka, champinjoner, räkor, musslor, oliver", price: "135:-" },
+    { name: "38. CIAO CIAO", description: "Oxfilé, champinjoner, lök, vitlök", price: "150:-" },
+    { name: "40. SAN REMO (Halvinbakad)", description: "Kebabkött, champinjoner, ananas, färska tomater, kebabsås", price: "140:-" },
+    { name: "LIFFNER SPECIAL", description: "Oxfilé, championer, ananas, banan, tomat, bearnaisesås", price: "160:-" },
+    { name: "33. FRUTTI DI MARE", description: "Räkor, kräftstjärtar, ananas, banan, curry, kebabsås", price: "135:-" },
+    { name: "34. HENÅN SPECIAL", description: "Räkor, kräftstjärtar, sparris, piri piri, vitlöksås", price: "135:-" }
     ],
     "pizza-menu": [
     { name: "1. MARGARETA", description: "Ost", price: "115:-" },
