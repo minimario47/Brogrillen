@@ -167,48 +167,56 @@
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         
-        const menuItems = document.getElementById('menu-items');
-        const menuInfo = document.getElementById('menu-info');
+        document.addEventListener('DOMContentLoaded', function() {
+    const menuCategoryButtons = document.getElementById('menu-category-buttons');
+    const menuItems = document.getElementById('menu-items');
+    const menuInfo = document.getElementById('menu-info');
 
+    const menuDisplayNames = {
+        "mestomtyckt-menu": "Mest omtyckta pizzor",
+        "pizza-menu": "Pizza",
+        "kebab-menu": "Kebab",
+        "sallad-menu": "Sallad",
+        "alacarte-menu": "À la carte",
+        "pasta-menu": "Pasta",
+        "gatukök-menu": "Gatukök",
+        "tillbehör-menu": "Tillbehör"
+    };
+
+    Object.keys(menuData).forEach((category, index) => {
+        const button = document.createElement('button');
+        button.textContent = menuDisplayNames[category] || category.replace('-menu', '').replace(/^\w/, c => c.toUpperCase());
+        button.dataset.category = category;
+        button.classList.add('btn', 'menu-category-btn');
+        if (index === 0) button.classList.add('active');
+        button.addEventListener('click', () => showCategory(category));
+        menuCategoryButtons.appendChild(button);
+    });
+
+    function showCategory(category) {
+        menuCategoryButtons.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+        menuCategoryButtons.querySelector(`[data-category="${category}"]`).classList.add('active');
         
+        menuItems.innerHTML = '';
+        menuInfo.innerHTML = '';
 
-        Object.keys(menuData).forEach((category, index) => {
-            const button = document.createElement('button');
-            button.textContent = menuDisplayNames[category] || category.replace('-menu', '').replace(/^\w/, c => c.toUpperCase());
-            button.dataset.category = category;
-            button.classList.add('btn', 'menu-category-btn');
-            if (index === 0) button.classList.add('active');
-            button.addEventListener('click', () => showCategory(category));
-            menuSelector.appendChild(button);
-        });
-
-        function showCategory(category) {
-            menuSelector.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
-            menuSelector.querySelector(`[data-category="${category}"]`).classList.add('active');
-            
-            menuItems.innerHTML = '';
-            menuInfo.innerHTML = '';
-
-            if (category === 'pizza-menu' || category === 'mestomtyckt-menu') {
-                menuInfo.innerHTML = 'Tomatsås och ost ingår i alla pizzor';
-            }
-
-            menuData[category].forEach(item => {
-                const menuItem = document.createElement('div');
-                menuItem.classList.add('col-md-6', 'col-lg-4');
-                menuItem.innerHTML = `
-                    <div class="menu-item p-4">
-                        <h3>${item.name}</h3>
-                        ${item.description ? `<p>${item.description}</p>` : ''}
-                        <span class="price">${item.price}</span>
-                    </div>
-                `;
-                menuItems.appendChild(menuItem);
-            });
+        if (category === 'pizza-menu' || category === 'mestomtyckt-menu') {
+            menuInfo.innerHTML = 'Tomatsås och ost ingår i alla pizzor';
         }
 
-        // Show the first category by default
-        showCategory(Object.keys(menuData)[0]);
+        menuData[category].forEach(item => {
+            const menuItem = document.createElement('div');
+            menuItem.classList.add('col-md-6', 'col-lg-4');
+            menuItem.innerHTML = `
+                <div class="menu-item p-4">
+                    <h3>${item.name}</h3>
+                    ${item.description ? `<p>${item.description}</p>` : ''}
+                    <span class="price">${item.price}</span>
+                </div>
+            `;
+            menuItems.appendChild(menuItem);
+        });
+    }
 
         // Get Directions button functionality
         const getDirectionsBtn = document.getElementById('getDirections');
