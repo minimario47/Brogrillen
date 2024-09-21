@@ -167,64 +167,46 @@ const menuDisplayNames = {
     "tillbehör-menu": "Tillbehör"
 };
 
-function createMenuButtons() {
+document.addEventListener('DOMContentLoaded', function() {
     const menuSelector = document.querySelector('.menu-selector');
+    const menuItems = document.getElementById('menu-items');
+    const menuInfo = document.getElementById('menu-info');
+
     Object.keys(menuData).forEach((category, index) => {
         const button = document.createElement('button');
         button.textContent = menuDisplayNames[category] || category.replace('-menu', '').replace(/^\w/, c => c.toUpperCase());
-        button.dataset.menu = category;
+        button.dataset.category = category;
+        button.classList.add('btn');
         if (index === 0) button.classList.add('active');
+        button.addEventListener('click', () => showCategory(category));
         menuSelector.appendChild(button);
     });
-}
 
-function createMenuCategories() {
-    const menuCategories = document.getElementById('menu-categories');
-    Object.entries(menuData).forEach(([category, items], index) => {
-        const categoryDiv = document.createElement('div');
-        categoryDiv.id = category;
-        categoryDiv.classList.add('menu-category');
-        if (index === 0) categoryDiv.classList.add('active');
+    function showCategory(category) {
+        menuSelector.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+        menuSelector.querySelector(`[data-category="${category}"]`).classList.add('active');
+        
+        menuItems.innerHTML = '';
+        menuInfo.innerHTML = '';
 
-        items.forEach(item => {
+        if (category === 'pizza-menu' || category === 'mestomtyckt-menu') {
+            menuInfo.innerHTML = 'Tomatsås och ost ingår i alla pizzor';
+        }
+
+        menuData[category].forEach(item => {
             const menuItem = document.createElement('div');
-            menuItem.classList.add('menu-item');
+            menuItem.classList.add('col-md-6', 'col-lg-4', 'mb-4');
             menuItem.innerHTML = `
-                <div>
+                <div class="menu-item p-4">
                     <h3>${item.name}</h3>
                     ${item.description ? `<p>${item.description}</p>` : ''}
+                    <span class="price">${item.price}</span>
                 </div>
-                <span class="price">${item.price}</span>
             `;
-            categoryDiv.appendChild(menuItem);
+            menuItems.appendChild(menuItem);
         });
+    }
 
-        menuCategories.appendChild(categoryDiv);
-    });
-}
-
-function initializeMenu() {
-    createMenuButtons();
-    createMenuCategories();
-
-    const menuButtons = document.querySelectorAll('.menu-selector button');
-    const menuCategories = document.querySelectorAll('.menu-category');
-
-    menuButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            menuButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-
-            const menu = button.getAttribute('data-menu');
-            menuCategories.forEach(category => {
-                if (category.id === menu) {
-                    category.classList.add('active');
-                } else {
-                    category.classList.remove('active');
-                }
-            });
-        });
-    });
-}
-
-document.addEventListener('DOMContentLoaded', initializeMenu);
+    // Show the first category by default
+    showCategory(Object.keys(menuData)[0]);
+});
