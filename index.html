@@ -9,89 +9,142 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #D32F2F;
-            --secondary-color: #FFA000;
-            --text-color: #333333;
-            --background-color: #FFFFFF;
-            --accent-color: #4CAF50;
+    :root {
+        --primary-color: #D32F2F;
+        --secondary-color: #FFA000;
+        --text-color: #333333;
+        --background-color: #FFFFFF;
+        --accent-color: #4CAF50;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        color: var(--text-color);
+        background-color: var(--background-color);
+    }
+
+    h1, h2, h3 {
+        font-family: 'Playfair Display', serif;
+    }
+
+    .navbar {
+        background-color: var(--primary-color);
+    }
+
+    .navbar-brand, .nav-link {
+        color: white !important;
+    }
+
+    .hero {
+        background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://source.unsplash.com/1600x900/?pizza,restaurant') no-repeat center center/cover;
+        height: 60vh;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: white;
+    }
+
+    .btn-primary {
+        background-color: var(--accent-color);
+        border-color: var(--accent-color);
+    }
+
+    .btn-primary:hover {
+        background-color: #45a049;
+        border-color: #45a049;
+    }
+
+    .menu-section {
+        background-color: #f9f9f9;
+    }
+
+    .menu-selector {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+    }
+
+    .menu-selector button {
+        background-color: var(--secondary-color);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin: 5px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+    }
+
+    .menu-selector button:hover,
+    .menu-selector button.active {
+        background-color: var(--primary-color);
+    }
+
+    .menu-item {
+        background-color: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+        height: 100%;
+    }
+
+    .menu-item:hover {
+        transform: translateY(-5px);
+    }
+
+    .menu-item-content {
+        padding: 1.5rem;
+    }
+
+    .menu-item h3 {
+        margin-bottom: 0.5rem;
+        color: var(--primary-color);
+    }
+
+    .menu-item .price {
+        color: var(--secondary-color);
+        font-weight: bold;
+        display: block;
+        margin-top: 1rem;
+    }
+
+    #menu-info {
+        font-style: italic;
+        margin-bottom: 1rem;
+    }
+
+    .contact-info {
+        text-align: center;
+    }
+
+    .map-container {
+        height: 400px;
+        margin-top: 2rem;
+    }
+
+    footer {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 1rem 0;
+    }
+
+    @media (max-width: 768px) {
+        .hero h1 {
+            font-size: 2rem;
         }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            color: var(--text-color);
-            background-color: var(--background-color);
+        .hero p {
+            font-size: 1rem;
         }
 
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
+        .menu-selector button {
+            flex: 1 0 calc(50% - 10px);
         }
-
-        .navbar {
-            background-color: var(--primary-color);
-        }
-
-        .navbar-brand, .nav-link {
-            color: white !important;
-        }
-
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://source.unsplash.com/1600x900/?pizza,restaurant') no-repeat center center/cover;
-            height: 60vh;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: white;
-        }
-
-        .btn-primary {
-            background-color: var(--accent-color);
-            border-color: var(--accent-color);
-        }
-
-        .btn-primary:hover {
-            background-color: #45a049;
-            border-color: #45a049;
-        }
-
-        .menu-section {
-            background-color: #f9f9f9;
-        }
-
-        .menu-category-btn {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            margin: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .menu-category-btn:hover, .menu-category-btn.active {
-            background-color: var(--primary-color);
-        }
-
-        .menu-item {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .menu-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .menu-item .price {
-            color: var(--secondary-color);
-            font-weight: bold;
-        }
-
-        footer {
-            background-color: var(--primary-color);
-            color: white;
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
@@ -165,7 +218,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="menu.js"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     const menuSelector = document.querySelector('.menu-selector');
     const menuItems = document.getElementById('menu-items');
     const menuInfo = document.getElementById('menu-info');
@@ -185,7 +238,6 @@
         const button = document.createElement('button');
         button.textContent = menuDisplayNames[category] || category.replace('-menu', '').replace(/^\w/, c => c.toUpperCase());
         button.dataset.category = category;
-        button.classList.add('btn'); // Add Bootstrap button class
         if (index === 0) button.classList.add('active');
         button.addEventListener('click', () => showCategory(category));
         menuSelector.appendChild(button);
@@ -204,7 +256,7 @@
 
         menuData[category].forEach(item => {
             const menuItem = document.createElement('div');
-            menuItem.classList.add('col-md-6', 'col-lg-4', 'mb-4'); // Add Bootstrap grid classes
+            menuItem.classList.add('col-md-6', 'col-lg-4', 'mb-4');
             menuItem.innerHTML = `
                 <div class="menu-item p-4">
                     <h3>${item.name}</h3>
