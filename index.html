@@ -48,6 +48,11 @@
             top: 0;
             z-index: 1000;
         }
+        .menu-info {
+            text-align: center;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
 
         nav {
             display: flex;
@@ -97,6 +102,13 @@
             text-align: center;
             color: white;
         }
+        .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
 
         .hero-content h1 {
             font-size: 3rem;
@@ -165,9 +177,9 @@
             transition: transform 0.3s ease;
         }
 
-        .menu-item:hover {
-            transform: translateY(-5px);
-        }
+        .menu-item {
+                flex-direction: column;
+            }
 
         .menu-item-content {
             padding: 1rem;
@@ -185,6 +197,10 @@
         .contact-info {
             text-align: center;
         }
+        .menu-selector button {
+                flex: 1 0 calc(50% - 10px);
+                margin: 5px;
+            }
 
         .map-container {
             height: 400px;
@@ -199,8 +215,8 @@
         }
 
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+            .menu-selector {
+                flex-wrap: wrap;
             }
 
             .hero-content h1 {
@@ -244,12 +260,13 @@
         </section>
 
         <section id="menu" class="menu-section">
-            <div class="container">
-                <h2>Vår Meny</h2>
-                <div class="menu-nav" id="menu-nav"></div>
-                <div class="menu-items" id="menu-items"></div>
-            </div>
-        </section>
+        <div class="container">
+            <h2>Vår Meny</h2>
+            <div class="menu-selector"></div>
+            <div class="menu-info" id="menu-info"></div>
+            <div id="menu-items"></div>
+        </div>
+    </section>
 
         <section id="about">
             <div class="container">
@@ -283,75 +300,78 @@
     </footer>
 
  <script src="menu.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const menuNav = document.getElementById('menu-nav');
-    const menuItems = document.getElementById('menu-items');
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuNav = document.getElementById('menu-nav');
+        const menuItems = document.getElementById('menu-items');
+        const menuInfo = document.getElementById('menu-info');
 
-    const menuDisplayNames = {
-        "mestomtyckt-menu": "Mest omtyckt",
-        "pizza-menu": "Pizza",
-        "kebab-menu": "Kebab",
-        "sallad-menu": "Sallad",
-        "alacarte-menu": "À la carte",
-        "pasta-menu": "Pasta",
-        "gatukök-menu": "Gatukök",
-        "tillbehör-menu": "Tillbehör"
-    };
+        const menuDisplayNames = {
+            "mestomtyckt-menu": "Mest omtyckta pizzor",
+            "pizza-menu": "Pizza",
+            "kebab-menu": "Kebab",
+            "sallad-menu": "Sallad",
+            "alacarte-menu": "À la carte",
+            "pasta-menu": "Pasta",
+            "gatukök-menu": "Gatukök",
+            "tillbehör-menu": "Tillbehör"
+        };
 
-    Object.keys(menuData).forEach((category, index) => {
-        const button = document.createElement('button');
-        button.textContent = menuDisplayNames[category] || category.replace('-menu', '').replace(/^\w/, c => c.toUpperCase());
-        button.dataset.category = category;
-        if (index === 0) button.classList.add('active');
-        button.addEventListener('click', () => showCategory(category));
-        menuNav.appendChild(button);
-    });
-
-    function showCategory(category) {
-        menuNav.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
-        menuNav.querySelector(`[data-category="${category}"]`).classList.add('active');
-        
-        menuItems.innerHTML = '';
-        menuData[category].forEach(item => {
-            const menuItem = document.createElement('div');
-            menuItem.classList.add('menu-item');
-            menuItem.innerHTML = `
-                <div class="menu-item-content">
-                    <h3>${item.name}</h3>
-                    ${item.description ? `<p>${item.description}</p>` : ''}
-                    <p class="price">${item.price}</p>
-                </div>
-            `;
-            menuItems.appendChild(menuItem);
+        Object.keys(menuData).forEach((category, index) => {
+            const button = document.createElement('button');
+            button.textContent = menuDisplayNames[category] || category.replace('-menu', '').replace(/^\w/, c => c.toUpperCase());
+            button.dataset.category = category;
+            if (index === 0) button.classList.add('active');
+            button.addEventListener('click', () => showCategory(category));
+            menuNav.appendChild(button);
         });
-    }
 
+        function showCategory(category) {
+            menuNav.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+            menuNav.querySelector(`[data-category="${category}"]`).classList.add('active');
+            
+            menuItems.innerHTML = '';
+            menuInfo.innerHTML = '';
 
-    showCategory(Object.keys(menuData)[0]);
+            if (category === 'pizza-menu' || category === 'mestomtyckt-menu') {
+                menuInfo.innerHTML = 'Tomatsås och ost ingår i alla pizzor';
+            }
 
-
-    const getDirectionsBtn = document.getElementById('getDirections');
-    getDirectionsBtn.addEventListener('click', function() {
-        const address = 'Norra strandvägen 7, 473 34 Henån';
-        const encodedAddress = encodeURIComponent(address);
-        let mapsUrl;
-
-
-        if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-
-            mapsUrl = `maps://maps.apple.com/?daddr=${encodedAddress}`;
-        } else if (/Android/i.test(navigator.userAgent)) {
-
-            mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`;
-        } else {
-
-            mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+            menuData[category].forEach(item => {
+                const menuItem = document.createElement('div');
+                menuItem.classList.add('menu-item');
+                menuItem.innerHTML = `
+                    <div class="menu-item-content">
+                        <h3>${item.name}</h3>
+                        ${item.description ? `<p>${item.description}</p>` : ''}
+                    </div>
+                    <span class="price">${item.price}</span>
+                `;
+                menuItems.appendChild(menuItem);
+            });
         }
 
-        window.open(mapsUrl, '_blank');
+        // Show the first category by default
+        showCategory(Object.keys(menuData)[0]);
+
+        // Get Directions button functionality
+        const getDirectionsBtn = document.getElementById('getDirections');
+        getDirectionsBtn.addEventListener('click', function() {
+            const address = 'Norra strandvägen 7, 473 34 Henån';
+            const encodedAddress = encodeURIComponent(address);
+            let mapsUrl;
+
+            if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                mapsUrl = `maps://maps.apple.com/?daddr=${encodedAddress}`;
+            } else if (/Android/i.test(navigator.userAgent)) {
+                mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`;
+            } else {
+                mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+            }
+
+            window.open(mapsUrl, '_blank');
+        });
     });
-});
 </script>
 </body>
 </html>
