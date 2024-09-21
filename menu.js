@@ -65,7 +65,7 @@ const menuData = {
     { name: "59. POLLO", description: "Kyckling, bacon, curry, kebabsås", price: "140:-" },
     { name: "60. KYCKLING SPECIAL", description: "Kyckling, isbergssallad, gurka, tomat, pepperoni, kebabsås", price: "140:-" },
     { name: "61. FLYGANDE JAKOB", description: "Kyckling, ananas, banan, jordnötter, curry", price: "135:-" },
-    { name: "62. PRIMAVERA", description: "Parmaskinka, köttfärs, kräftstjärtar, färska tomater, sparris, piri piri, vitlöksås", price: "145:-" },
+    { name: "62. PRIMAVERA", description: "oxfilé, köttfärs, kräftstjärtar, färska tomater, sparris, piri piri, vitlöksås", price: "145:-" },
     { name: "63. PASQUALA", description: "Parmaskinka, champinjoner, mozzarellaost, ruccolasallad", price: "145:-" },
     { name: "64. VENEDIG", description: "Parmaskinka, köttfärs, mozzarellaost, ruccolasallad", price: "145:-" },
     { name: "65. LA BELLA", description: "Kyckling, parmaskinka, mozzarellaost, ruccolasallad", price: "145:-" },
@@ -78,7 +78,11 @@ const menuData = {
         { name: "Mexikansk Pita", price: "130.00 kr" },
         { name: "Kebabtallrik", price: "130.00 kr" },
         { name: "Kebabrulle", price: "125.00 kr" },
-        { name: "Kebabrulle Mix", price: "130.00 kr" }
+        { name: "Kebabrulle Mix", price: "130.00 kr" },
+        { name: "Kycklingkebab (hembakat pitabröd)", price: "130.00 kr" },
+        { name: "Kycklingrulle", price: "130.00 kr" },
+        { name: "Kycklingtallrik", price: "135.00 kr" },
+        { name: "Kycklingtallrik mix", price: "140.00 kr" }
     ],
     "sallad-menu": [
         { name: "Amerikansk sallad", price: "130.00 kr" },
@@ -90,6 +94,7 @@ const menuData = {
         { name: "Skaldjurssallad", price: "135.00 kr" },
         { name: "Räksallad", price: "130.00 kr" },
         { name: "Kebabsallad Mix", price: "135.00 kr" }
+        
     ],
     "alacarte-menu": [
         { name: "Köttbullar 8st", price: "125.00 kr" },
@@ -132,7 +137,10 @@ const menuData = {
         { name: "Skaldjur", price: "25.00 kr" },
         { name: "Grönsaker", price: "20.00 kr" },
         { name: "Sås", price: "15.00 kr" },
-        { name: "Mosbricka", price: "60.00 kr" }
+        { name: "Västkustsallad", price: "25.00 kr" },
+        { name: "Glutenfri pizza", price: "25.00 kr" },
+        { name: "Mosbricka", price: "60.00 kr" },
+        { name: "Pommestallrik", price: "60.00 kr" }
     ]
 };
 
