@@ -154,16 +154,5 @@ const menuData = {
         { name: "Pommestallrik", price: "60.00 kr" }
     ]
 };
-
-
-const menuDisplayNames = {
-    "mestomtyckt-menu": "Mest omtyckt",
-    "pizza-menu": "Pizza",
-    "kebab-menu": "Kebab",
-    "sallad-menu": "Sallad",
-    "alacarte-menu": "À la carte",
-    "pasta-menu": "Pasta",
-    "gatukök-menu": "Gatukök",
-    "tillbehör-menu": "Tillbehör"
 };
 
