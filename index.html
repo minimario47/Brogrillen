@@ -8,234 +8,224 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #D32F2F;
-            --secondary-color: #FFA000;
-            --text-color: #333333;
-            --background-color: #FFFFFF;
-            --accent-color: #4CAF50;
-        }
+:root {
+    --primary-color: #D32F2F;
+    --secondary-color: #FFA000;
+    --text-color: #333333;
+    --background-color: #FFFFFF;
+    --accent-color: #4CAF50;
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        html {
-            scroll-behavior: smooth;
-        }
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--background-color);
-        }
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
 
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-        .menu-info {
-            text-align: center;
-            margin-bottom: 20px;
-            font-style: italic;
-        }
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
+.nav-links {
+    display: flex;
+    list-style: none;
+}
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
+.nav-links li {
+    margin-left: 1.5rem;
+}
 
-        .nav-links li {
-            margin-left: 1.5rem;
-        }
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
+.nav-links a:hover {
+    color: var(--secondary-color);
+}
 
-        .nav-links a:hover {
-            color: var(--secondary-color);
-        }
+main {
+    padding-top: 80px; /* Adjust based on your header height */
+}
 
-        section {
-            padding: 5rem 0;
-        }
+section {
+    padding: 4rem 0;
+}
 
-        h1, h2 {
-            margin-bottom: 2rem;
-            color: var(--primary-color);
-        }
+h1, h2 {
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+}
 
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://source.unsplash.com/1600x900/?pizza,restaurant') no-repeat center center/cover;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: white;
-        }
-        .hero h1 {
-                font-size: 2rem;
-            }
+.hero {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('path-to-your-image.jpg') no-repeat center center/cover;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
 
-            .hero p {
-                font-size: 1rem;
-            }
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: white;
+}
 
-        .hero-content h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: white;
-        }
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
 
-        .hero-content p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
+.btn {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
 
-        .btn {
-            display: inline-block;
-            background: var(--accent-color);
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            text-decoration: none;
-            transition: background 0.3s ease;
-        }
+.btn:hover {
+    background-color: #45a049;
+}
 
-        .btn:hover {
-            background: #45a049;
-        }
+.menu-section {
+    background-color: #f9f9f9;
+}
 
-        .menu-section {
-            background-color: #f9f9f9;
-        }
+.menu-selector {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
 
-        .menu-nav {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 2rem;
-        }
+.menu-selector button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
 
-        .menu-nav button {
-            background: none;
-            border: none;
-            font-size: 1rem;
-            margin: 0 1rem;
-            cursor: pointer;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            transition: background 0.3s ease;
-        }
+.menu-selector button:hover,
+.menu-selector button.active {
+    background-color: var(--primary-color);
+}
 
-        .menu-nav button.active {
-            background: var(--secondary-color);
-            color: white;
-        }
+.menu-info {
+    text-align: center;
+    margin-bottom: 20px;
+    font-style: italic;
+}
 
-        .menu-items {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
+.menu-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
 
-        .menu-item {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
+.menu-item {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
 
-        .menu-item {
-                flex-direction: column;
-            }
+.menu-item:hover {
+    transform: translateY(-5px);
+}
 
-        .menu-item-content {
-            padding: 1rem;
-        }
+.menu-item-content {
+    padding: 1.5rem;
+}
 
-        .menu-item h3 {
-            margin-bottom: 0.5rem;
-        }
+.menu-item h3 {
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
 
-        .menu-item .price {
-            font-weight: bold;
-            color: var(--secondary-color);
-        }
+.menu-item .price {
+    font-weight: bold;
+    color: var(--secondary-color);
+    display: block;
+    margin-top: 1rem;
+}
 
-        .contact-info {
-            text-align: center;
-        }
-        .menu-selector button {
-                flex: 1 0 calc(50% - 10px);
-                margin: 5px;
-            }
+.contact-info {
+    text-align: center;
+}
 
-        .map-container {
-            height: 400px;
-            margin-top: 2rem;
-        }
+footer {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 4rem;
+}
 
-        footer {
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 1rem 0;
-        }
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
 
-        @media (max-width: 768px) {
-            .menu-selector {
-                flex-wrap: wrap;
-            }
+    .menu-selector button {
+        flex: 1 0 calc(50% - 10px);
+    }
 
-            .hero-content h1 {
-                font-size: 2rem;
-            }
+    .hero-content h1 {
+        font-size: 2rem;
+    }
 
-            .hero-content p {
-                font-size: 1rem;
-            }
+    .hero-content p {
+        font-size: 1rem;
+    }
 
-            .menu-nav {
-                flex-wrap: wrap;
-            }
-
-            .menu-nav button {
-                margin: 0.5rem;
-            }
-        }
-    </style>
+    .menu-items {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
 </head>
 <body>
     <header>
