@@ -21,6 +21,49 @@
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Restaurant",
+          "@id": "https://www.brogrillen.com/",
+          "name": "Brogrillen Pizzeria",
+          "image": "utsida2.jpg",
+          "description": "En mysig plats i Henån för dig som vill njuta av god mat.",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Norra strandvägen 7",
+            "addressLocality": "Henån",
+            "postalCode": "47334",
+            "addressCountry": "SE"
+          },
+          "telephone": "+4630432212",
+          "url": "https://www.brogrillen.com",
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+              ],
+              "opens": "11:00",
+              "closes": "21:00"
+            }
+          ],
+          "servesCuisine": ["Italienskt", "Pizza", "Korv", "Sallad", "Kebab", "Hamburgare", "A La Carte","Chicken Nuggets"],
+          "menu": "https://www.brogrillen.com/menu",
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.5",
+            "reviewCount": "150"
+          }
+        }
+        </script>
+
     <style>
         :root {
             --primary-color: #D32F2F;
@@ -584,57 +627,6 @@
     
     <script src="menu.js"></script>
 
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Restaurant",
-  "name": "Brogrillen Pizzeria",
-  "image": "utsida2.jpg",
-  "description": "En mysig plats i Henån för dig som vill njuta av god mat.",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Norra strandvägen 7",
-    "addressLocality": "Henån",
-    "postalCode": "47334",
-    "addressCountry": "SE"
-  },
-  "telephone": "+4630432212",
-  "url": "https://www.brogrillen.com",
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-      ],
-      "opens": "11:00",
-      "closes": "21:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Saturday",
-      "opens": "11:00",
-      "closes": "21:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Sunday",
-      "opens": "11:00",
-      "closes": "21:00"
-    }
-  ],
-  "servesCuisine": ["Italienskt", "Pizza", "Korv", "Sallad", "Kebab", "Hamburgare", "A La Carte","Chicken Nuggets"],
-  "menu": "https://www.brogrillen.com/menu",
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.5",
-    "reviewCount": "150"
-  }
-}
-</script>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -697,7 +689,7 @@
                     "en": "Tomato sauce and cheese are included in all pizzas"
                 },
                 "testimonials_title": {
-                    "sv": "Vad Våra Kunder Säger",
+                    "sv": "Vad Våra Kunder S��ger",
                     "en": "What Our Customers Say"
                 },
                 "testimonial1": {
