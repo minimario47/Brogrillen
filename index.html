@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brogrillen Pizzeria - Henån</title>
@@ -11,15 +16,31 @@
     <meta property="og:image" content="logo.jpg">
     <meta property="og:url" content="https://www.brogrillen.com">
     <meta property="og:type" content="website">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    </noscript>   
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </noscript> 
     
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    </noscript>
     
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+    </noscript>  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    </noscript>    
     
     <script type="application/ld+json">
         {
@@ -467,7 +488,7 @@
     </nav>
 
     <section id="home" class="section hero">
-        <img src="utsida2.jpg" alt="Brogrillen Pizzeria exteriör" class="hero-image">
+        <img src="utsida2.jpg" alt="Brogrillen Pizzeria exteriör" class="hero-image" loading="lazy">
         <div class="container text-center hero-content" data-aos="fade-up">
             <h1 class="display-4 mb-4" data-translate="welcome_title"> llen Pizzeria Henån</h1>
             <p class="lead mb-4" data-translate="welcome_subtitle">Henåns bästa pizza sedan 1985</p>
@@ -531,52 +552,52 @@
             <div class="row" id="image-gallery">
                 <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
                     <a href="utsida.jpg" data-lightbox="gallery" data-title="Vår Restaurang">
-                        <img src="utsida.jpg" alt="Vår Restaurang" class="img-fluid gallery-image">
+                        <img src="utsida.jpg" alt="Vår Restaurang" class="img-fluid gallery-image" loading="lazy">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
                     <a href="pizza1.jpeg" data-lightbox="gallery" data-title="Vår Utsökta Pizza">
-                        <img src="pizza1.jpeg" alt="Pizza 1" class="img-fluid gallery-image">
+                        <img src="pizza1.jpeg" alt="Pizza 1" class="img-fluid gallery-image" loading="lazy">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
                     <a href="pizza2.jpeg" data-lightbox="gallery" data-title="Färska Ingredienser">
-                        <img src="pizza2.jpeg" alt="Pizza 2" class="img-fluid gallery-image">
+                        <img src="pizza2.jpeg" alt="Pizza 2" class="img-fluid gallery-image" loading="lazy">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
                     <a href="pizza3.jpeg" data-lightbox="gallery" data-title="Traditionell Italiensk Pizza">
-                        <img src="pizza3.jpeg" alt="Pizza 3" class="img-fluid gallery-image">
+                        <img src="pizza3.jpeg" alt="Pizza 3" class="img-fluid gallery-image" loading="lazy">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
                     <a href="pizza4.jpeg" data-lightbox="gallery" data-title="Specialpizza">
-                        <img src="pizza4.jpeg" alt="Pizza 4" class="img-fluid gallery-image">
+                        <img src="pizza4.jpeg" alt="Pizza 4" class="img-fluid gallery-image" loading="lazy">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
                     <a href="pizza5.jpeg" data-lightbox="gallery" data-title="Gourmetpizza">
-                        <img src="pizza5.jpeg" alt="Pizza 5" class="img-fluid gallery-image">
+                        <img src="pizza5.jpeg" alt="Pizza 5" class="img-fluid gallery-image" loading="lazy">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
                     <a href="pizza6.jpeg" data-lightbox="gallery" data-title="Vegetarisk Pizza">
-                        <img src="pizza6.jpeg" alt="Pizza 6" class="img-fluid gallery-image">
+                        <img src="pizza6.jpeg" alt="Pizza 6" class="img-fluid gallery-image" loading="lazy">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
                     <a href="pasta.jpeg" data-lightbox="gallery" data-title="Vår Hemlagade Pasta">
-                        <img src="pasta.jpeg" alt="Pasta" class="img-fluid gallery-image">
+                        <img src="pasta.jpeg" alt="Pasta" class="img-fluid gallery-image" loading="lazy">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
                     <a href="gatukok.jpeg" data-lightbox="gallery" data-title="Gatukök Favoriter">
-                        <img src="gatukok.jpeg" alt="Gatukök" class="img-fluid gallery-image">
+                        <img src="gatukok.jpeg" alt="Gatukök" class="img-fluid gallery-image" loading="lazy">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
                     <a href="sallad.jpeg" data-lightbox="gallery" data-title="Fräscha Sallader">
-                        <img src="sallad.jpeg" alt="Sallad" class="img-fluid gallery-image">
+                        <img src="sallad.jpeg" alt="Sallad" class="img-fluid gallery-image" loading="lazy">
                     </a>
                 </div>
             </div>
@@ -623,14 +644,6 @@
         </div>
     </footer>
     
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    
-    <script src="menu.js"></script>
-
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -910,5 +923,10 @@
             translatePage();
         });
     </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script defer src="menu.js"></script>
+
 </body>
 </html>
