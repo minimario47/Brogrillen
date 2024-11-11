@@ -456,6 +456,94 @@
             background-color: #1E1E1E !important;
             color: var(--dark-text-color) !important;
         }
+
+        /* Nyhet Section Styles */
+.nyhet-section {
+    background-color: #fffbea; /* Light yellow background to attract attention */
+    transition: background-color 0.3s ease;
+
+}
+/* Dark mode background for Nyhet Section */
+body.dark-mode .nyhet-section {
+    background-color: #af8e00; /* A darker shade for dark mode */
+}
+
+.nyhet-section h2 {
+    color: #D32F2F; /* Primary color for consistency */
+}
+
+/* Style for the carousel indicators */
+.nyhet-section .carousel-indicators {
+    position: static;
+    margin-top: 20px;
+}
+
+.nyhet-section .carousel-indicators button {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.nyhet-section .carousel-indicators .active {
+    background-color: var(--secondary-color); /* Or any color that matches your theme */
+}
+
+/* Center the indicators */
+.nyhet-section .carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.nyhet-section .carousel-item {
+    padding: 30px 0;
+}
+
+.nyhet-section .carousel-item img,
+.nyhet-section .carousel-item video {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.nyhet-section h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.nyhet-section p.price {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+.nyhet-section p {
+    font-size: 1.2rem;
+}
+
+@media (max-width: 767px) {
+    .nyhet-section .row {
+        flex-direction: column;
+    }
+    .nyhet-section .col-md-6 {
+        max-width: 100%;
+    }
+}
+/* Media Wrapper Styles */
+.media-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    overflow: hidden;
+    background-color: #000;
+}
+
+.media-wrapper img,
+.media-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
     </style>
 </head>
 <body>
@@ -501,6 +589,57 @@
             <a href="tel:030432212" class="btn btn-success btn-lg" data-translate="call_us">Ring oss</a>
         </div>
     </section>
+
+    <!-- Nyhet Section Start -->
+<section id="nyhet" class="nyhet-section py-5">
+    <div class="container">
+        <h2 class="text-center mb-5" data-translate="nyhet_title">Nyhet!!</h2>
+        <div id="nyhetCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <!-- First Carousel Item -->
+                <div class="carousel-item active">
+                    <div class="row align-items-center">
+                        <div class="col-md-6" data-aos="fade-right">
+                            <div class="media-wrapper">
+                            <img src="IMG_3049.jpg" class="d-block w-100" alt="Nyhet Mat 1" loading="lazy">
+                        </div>
+                    </div>
+                        <div class="col-md-6" data-aos="fade-left">
+                            <h3>Smash Burgare</h3>
+                            <p class="price">Pris: 150 kr</p>
+                            <p>På burgaren tryffelmajo, sallad, rostadlök - Pommes och drycka inkluderat.</p>
+                            <p>Specificera gärna vilken burgare du vill ha när du beställer. Vi uppskattar verkligen din respons och ser fram emot att höra vad du tycker! Välkommen att prova det nya hos oss!</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Second Carousel Item -->
+                <div class="carousel-item">
+                    <div class="row align-items-center">
+                        <div class="col-md-6" data-aos="fade-right">
+                            <div class="media-wrapper">
+                            <img src="pizza2.jpeg" class="d-block w-100" alt="Nyhet Mat 2" loading="lazy">
+                        </div>
+                    </div>
+                        <div class="col-md-6" data-aos="fade-left">
+                            <h3>Unna dig en härlig lunch hos oss!</h3>
+                            <p class="price">Pris: 125 kr</p>
+                            <p>Vardagar mellan 11:00 och 14:30 erbjuder vi ett komplett lunchpaket. Välj mellan pizzor 1–27, kebab eller salladsmeny och njut av inkluderade drycker, nybryggt kaffe, färskt varmbröd och vår läckra pizzasallad – för endast 125 kr.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more carousel items as needed -->
+            </div>
+            <!-- Carousel Controls -->
+            <!-- Carousel Indicators -->
+<div class="carousel-indicators">
+    <button type="button" data-bs-target="#nyhetCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#nyhetCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <!-- Add more buttons for each slide -->
+</div>
+        </div>
+    </div>
+</section>
+<!-- Nyhet Section End -->
         
 
     <section id="menu" class="menu-section py-5">
@@ -686,6 +825,18 @@
             let currentLanguage = localStorage.getItem('language') || 'sv';
 
             const translations = {
+            "nyhet_title": {
+        "sv": "Nyhet!!",
+        "en": "New!!"
+    },
+    "previous": {
+        "sv": "Föregående",
+        "en": "Previous"
+    },
+    "next": {
+        "sv": "Nästa",
+        "en": "Next"
+    },
                 "welcome_title": {
                     "sv": "Brogrillen Pizzeria Henån",
                     "en": "Brogrillen Pizzeria Henån"
