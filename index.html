@@ -821,9 +821,10 @@ body.dark-mode .nyhet-section {
             });
 
             const langButtons = document.querySelectorAll('.lang-btn');
-            const currentLanguageSpan = document.getElementById('currentLanguage');
+const currentLanguageSpan = document.getElementById('currentLanguage');
+let currentLanguage;
 
-            // Check for 'lang' parameter in the URL
+// Check for 'lang' parameter in the URL
 const urlParams = new URLSearchParams(window.location.search);
 const urlLang = urlParams.get('lang');
 
@@ -1018,26 +1019,30 @@ if (urlLang && (urlLang === 'sv' || urlLang === 'en')) {
 
             langButtons.forEach(button => {
                 button.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    langButtons.forEach(btn => btn.classList.remove('active'));
+        event.preventDefault();
+        currentLanguage = this.getAttribute('data-lang');
+        localStorage.setItem('language', currentLanguage);
 
-                    this.classList.add('active');
+        // Update the URL without reloading the page
+        const newUrl = window.location.origin + window.location.pathname + '?lang=' + currentLanguage;
+        window.history.replaceState({}, '', newUrl);
 
-                    
-                    currentLanguage = this.getAttribute('data-lang');
-                    localStorage.setItem('language', currentLanguage);
+        // Update the language buttons
+        langButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
 
-                    translatePage();
+        // Translate the page
+        translatePage();
+
+        // Update the menu display
+        displayMenu(currentCategory);
+    });
 
 
-                    displayMenu(currentCategory);
-                });
-
-
-                button.classList.remove('active'); 
-    if (button.getAttribute('data-lang') === currentLanguage) {
-        button.classList.add('active'); 
-    }
+                button.classList.remove('active');
+            if (button.getAttribute('data-lang') === currentLanguage) {
+                button.classList.add('active');
+            }
             });
 
             currentLanguageSpan.textContent = currentLanguage.toUpperCase();
