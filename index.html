@@ -822,8 +822,18 @@ body.dark-mode .nyhet-section {
 
             const langButtons = document.querySelectorAll('.lang-btn');
             const currentLanguageSpan = document.getElementById('currentLanguage');
-            let currentLanguage = localStorage.getItem('language') || 'sv';
 
+            // Check for 'lang' parameter in the URL
+const urlParams = new URLSearchParams(window.location.search);
+const urlLang = urlParams.get('lang');
+
+if (urlLang && (urlLang === 'sv' || urlLang === 'en')) {
+    currentLanguage = urlLang;
+    localStorage.setItem('language', currentLanguage);
+} else {
+    currentLanguage = localStorage.getItem('language') || 'sv';
+}
+            
             const translations = {
             "nyhet_title": {
         "sv": "Nyhet!!",
