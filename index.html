@@ -1034,9 +1034,10 @@ if (urlLang && (urlLang === 'sv' || urlLang === 'en')) {
                 });
 
 
-                if (button.getAttribute('data-lang') === currentLanguage) {
-                    button.classList.add('active');
-                }
+                button.classList.remove('active'); 
+    if (button.getAttribute('data-lang') === currentLanguage) {
+        button.classList.add('active'); 
+    }
             });
 
             currentLanguageSpan.textContent = currentLanguage.toUpperCase();
