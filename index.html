@@ -122,12 +122,12 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(to bottom, 
-                rgba(255, 255, 255, 0.1), 
-                rgba(255, 255, 255, 0.15) 50%, 
-                rgba(255, 255, 255, 0.1)
+                rgba(0, 0, 0, 0.7), 
+                rgba(0, 0, 0, 0.75) 50%, 
+                rgba(0, 0, 0, 0.7)
             );
-            backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(3px);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             z-index: 9997;
             display: flex;
             justify-content: center;
@@ -147,6 +147,7 @@
             perspective: 1000px;
             will-change: transform;
             z-index: 9998;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.1));
         }
 
         .christmas-overlay img {
@@ -241,6 +242,7 @@
             will-change: transform;
             transform-style: preserve-3d;
             backface-visibility: hidden;
+            filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.1));
         }
 
         @keyframes snowfall {
@@ -271,7 +273,6 @@
             animation-duration: 7s;
         }
 
-        /* Add some horizontal movement */
         .snowflake:nth-child(2n) {
             animation-name: snowfall-left;
         }
@@ -308,35 +309,6 @@
             z-index: 9999;
         }
 
-        /* Create different sizes for variety */
-        .snowflake:nth-child(3n) {
-            font-size: 2.2em;
-            animation-duration: 8s;
-        }
-
-        .snowflake:nth-child(3n + 1) {
-            font-size: 1.5em;
-            animation-duration: 6s;
-        }
-
-        .snowflake:nth-child(3n + 2) {
-            font-size: 1.8em;
-            animation-duration: 7s;
-        }
-
-        @keyframes snowfall {
-            0% { 
-                transform: translateY(-100%) rotate(0deg); 
-                opacity: 0;
-            }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
-            100% { 
-                transform: translateY(100vh) rotate(360deg); 
-                opacity: 0;
-            }
-        }
-
         .christmas-overlay.fade-out {
             opacity: 0;
             transition: all 1s ease-out;
@@ -355,39 +327,6 @@
             }
         }
 
-        .christmas-overlay-text {
-            margin-top: 25px;
-            font-family: 'Playfair Display', serif;
-            color: #2C3E50;
-            font-size: 1.1rem;
-            font-weight: 500;
-            background: rgba(255, 255, 255, 0.92);
-            padding: 12px 30px;
-            border-radius: 50px;
-            display: inline-block;
-            text-shadow: none;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            opacity: 0;
-            animation: fadeIn 1.5s ease-out forwards 1s;
-            letter-spacing: 0.8px;
-            border: 1px solid rgba(44, 62, 80, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .christmas-overlay-text:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-            background: rgba(255, 255, 255, 0.97);
-        }
-
-        .christmas-overlay-text::before,
-        .christmas-overlay-text::after {
-            content: '❄️';
-            margin: 0 10px;
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
         @keyframes fadeIn {
             from { 
                 opacity: 0; 
@@ -397,36 +336,6 @@
                 opacity: 1; 
                 transform: translateY(0);
             }
-        }
-
-        .christmas-overlay.fade-out {
-            opacity: 0;
-            transition: opacity 1s ease-out;
-            pointer-events: none;
-        }
-
-        @keyframes snowfall {
-            0% { 
-                transform: translateY(-100%) rotate(0deg); 
-                opacity: 0;
-            }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { 
-                transform: translateY(100vh) rotate(360deg); 
-                opacity: 0;
-            }
-        }
-
-        .snowflake {
-            position: fixed;
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1.5em;
-            text-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
-            animation: snowfall linear infinite;
-            z-index: 9998;
-            pointer-events: none;
-            filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.1));
         }
 
         body {
@@ -481,6 +390,7 @@
         body.dark-mode .menu-item {
             background-color: #1E1E1E;
             color: var(--dark-text-color);
+            min-height: 200px;
         }
 
         body.dark-mode .gallery-image {
@@ -642,11 +552,16 @@
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-height: 200px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
         }
 
         body.dark-mode .menu-item {
             background-color: #1E1E1E;
             color: var(--dark-text-color);
+            min-height: 200px;
         }
 
         .menu-item:hover {
@@ -681,6 +596,7 @@
         .gallery-item {
             break-inside: avoid;
             padding: 10px;
+            min-height: 320px;
         }
 
         @media (max-width: 767px) {
@@ -710,6 +626,10 @@
             padding: 20px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         body.dark-mode .testimonial {
@@ -869,51 +789,93 @@ body.dark-mode .nyhet-section {
     object-fit: cover;
 }
 
-        /* Christmas Animation Overlay Styles */
-        .snowflake {
-            position: fixed;
-            color: #fff;
-            font-size: 1.8em;
-            text-shadow: 
-                0 0 5px rgba(255, 255, 255, 0.8),
-                0 0 10px rgba(255, 255, 255, 0.5),
-                0 0 15px rgba(255, 255, 255, 0.3);
-            pointer-events: none;
-            user-select: none;
-            z-index: 9999;
-            animation: snowfall linear infinite;
+[data-aos] {
+    min-height: 50px;
+    transform: translateZ(0);
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+}
+
+.gallery-image-container {
+    position: relative;
+    width: 100%;
+    padding-top: 75%;
+    overflow: hidden;
+}
+
+.gallery-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+/* Add Lightbox optimizations */
+.lb-image {
+    max-width: 100%;
+    height: auto !important;
+    aspect-ratio: 4/3;
+}
+
+.lb-outerContainer {
+    min-width: 320px;
+    min-height: 240px;
+}
+
+        /* Web Font Loading Optimization */
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 300;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/poppins/v22/pxiByp8kv8JHgFVrLDz7Z1xlFd2JQEk.woff2) format('woff2');
         }
 
-        @keyframes snowfall {
-            0% {
-                transform: translateY(-100vh);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/poppins/v22/pxiEyp8kv8JHgFVrJJfecnFHGPc.woff2) format('woff2');
         }
 
-        .snowflake:nth-child(3n) {
-            font-size: 2.2em;
-            animation-duration: 8s;
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/poppins/v22/pxiByp8kv8JHgFVrLEj6Z1xlFd2JQEk.woff2) format('woff2');
         }
 
-        .snowflake:nth-child(3n + 1) {
-            font-size: 1.5em;
-            animation-duration: 6s;
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/poppins/v22/pxiByp8kv8JHgFVrLCz7Z1xlFd2JQEk.woff2) format('woff2');
         }
 
-        .snowflake:nth-child(3n + 2) {
-            font-size: 1.8em;
-            animation-duration: 7s;
+        @font-face {
+            font-family: 'Playfair Display';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/playfairdisplay/v30/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKeiunDXbtXK-F2qC0s.woff2) format('woff2');
+        }
+
+        /* Ensure smooth font transitions */
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Poppins', sans-serif;
+            font-synthesis: none;
+        }
+
+        h1, h2, h3 {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Playfair Display', serif;
+            font-synthesis: none;
         }
     </style>
 </head>
@@ -1546,6 +1508,20 @@ if (urlLang && (urlLang === 'sv' || urlLang === 'en')) {
 
             // Automatically hide overlay after 20 seconds
             setTimeout(hideOverlay, 20000);
+
+            // Lightbox initialization with optimized settings
+            lightbox.option({
+                'resizeDuration': 200,
+                'wrapAround': true,
+                'albumLabel': currentLanguage === 'sv' ? "Bild %1 av %2" : "Image %1 of %2",
+                'fadeDuration': 200,
+                'imageFadeDuration': 200,
+                'disableScrolling': true,
+                'positionFromTop': 50,
+                'fitImagesInViewport': true,
+                'maxWidth': 1200,
+                'maxHeight': 900
+            });
         });
     </script>
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
