@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
     <meta charset="UTF-8">
@@ -11,10 +11,18 @@
     <title>Brogrillen Pizzeria - Henån</title>
     <meta name="description" content="Välkommen till Brogrillen Pizzeria i Henån – en mysig plats för dig som vill njuta av god mat och trevlig atmosfär. Vi har något för alla smaker!">
     
+    <!-- Preload critical images -->
+    <link rel="preload" as="image" href="utsida.jpg">
+    <link rel="preload" as="image" href="jultomte.jpg">
+    
+    <!-- Preload critical fonts -->
+    <link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/poppins/v22/pxiByp8kv8JHgFVrLCz7Z1xlFd2JQEk.woff2" crossorigin>
+    
+    <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="manifest" href="site.webmanifest">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
 
     <meta property="og:title" content="Brogrillen Pizzeria - Henån">
     <meta property="og:description" content="Välkommen till Brogrillen Pizzeria i Henån – en mysig plats för dig som vill njuta av god mat och trevlig atmosfär.">
@@ -137,6 +145,7 @@
             animation: gentle-float 3s ease-in-out infinite;
             transform-style: preserve-3d;
             perspective: 1000px;
+            will-change: transform;
             z-index: 9998;
         }
 
@@ -230,14 +239,20 @@
             z-index: 9999;
             animation: snowfall linear infinite;
             will-change: transform;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
         }
 
         @keyframes snowfall {
-            from {
-                transform: translateY(0) rotate(0deg);
+            0% { 
+                transform: translateY(-100vh) translateZ(0);
+                opacity: 0;
             }
-            to {
-                transform: translateY(105vh) rotate(360deg);
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { 
+                transform: translateY(100vh) translateZ(0);
+                opacity: 0;
             }
         }
 
@@ -906,7 +921,7 @@ body.dark-mode .nyhet-section {
     <!-- Christmas Animation Overlay -->
     <div class="christmas-overlay" id="christmasOverlay">
         <div class="christmas-overlay-content">
-            <img src="jultomte.jpg" alt="God Jul!" loading="eager">
+            <img src="jultomte.jpg" alt="God Jul!" loading="eager" width="600" height="400">
             <div class="christmas-overlay-text">
                 Välkommen! Tryck var som helst för att fortsätta
             </div>
@@ -1062,52 +1077,52 @@ body.dark-mode .nyhet-section {
             <div class="row" id="image-gallery">
                 <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
                     <a href="utsida.jpg" data-lightbox="gallery" data-title="Vår Restaurang">
-                        <img src="utsida.jpg" alt="Vår Restaurang" class="img-fluid gallery-image" loading="lazy">
+                        <img src="utsida.jpg" alt="Vår Restaurang" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
                     <a href="pizza1.jpeg" data-lightbox="gallery" data-title="Vår Utsökta Pizza">
-                        <img src="pizza1.jpeg" alt="Pizza 1" class="img-fluid gallery-image" loading="lazy">
+                        <img src="pizza1.jpeg" alt="Pizza 1" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
                     <a href="pizza2.jpeg" data-lightbox="gallery" data-title="Färska Ingredienser">
-                        <img src="pizza2.jpeg" alt="Pizza 2" class="img-fluid gallery-image" loading="lazy">
+                        <img src="pizza2.jpeg" alt="Pizza 2" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
                     <a href="pizza3.jpeg" data-lightbox="gallery" data-title="Traditionell Italiensk Pizza">
-                        <img src="pizza3.jpeg" alt="Pizza 3" class="img-fluid gallery-image" loading="lazy">
+                        <img src="pizza3.jpeg" alt="Pizza 3" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
                     <a href="pizza4.jpeg" data-lightbox="gallery" data-title="Specialpizza">
-                        <img src="pizza4.jpeg" alt="Pizza 4" class="img-fluid gallery-image" loading="lazy">
+                        <img src="pizza4.jpeg" alt="Pizza 4" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
                     <a href="pizza5.jpeg" data-lightbox="gallery" data-title="Gourmetpizza">
-                        <img src="pizza5.jpeg" alt="Pizza 5" class="img-fluid gallery-image" loading="lazy">
+                        <img src="pizza5.jpeg" alt="Pizza 5" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
                     <a href="pizza6.jpeg" data-lightbox="gallery" data-title="Vegetarisk Pizza">
-                        <img src="pizza6.jpeg" alt="Pizza 6" class="img-fluid gallery-image" loading="lazy">
+                        <img src="pizza6.jpeg" alt="Pizza 6" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
                     <a href="pasta.jpeg" data-lightbox="gallery" data-title="Vår Hemlagade Pasta">
-                        <img src="pasta.jpeg" alt="Pasta" class="img-fluid gallery-image" loading="lazy">
+                        <img src="pasta.jpeg" alt="Pasta" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
                     <a href="gatukok.jpeg" data-lightbox="gallery" data-title="Gatukök Favoriter">
-                        <img src="gatukok.jpeg" alt="Gatukök" class="img-fluid gallery-image" loading="lazy">
+                        <img src="gatukok.jpeg" alt="Gatukök" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
                     <a href="sallad.jpeg" data-lightbox="gallery" data-title="Fräscha Sallader">
-                        <img src="sallad.jpeg" alt="Sallad" class="img-fluid gallery-image" loading="lazy">
+                        <img src="sallad.jpeg" alt="Sallad" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
                     </a>
                 </div>
             </div>
