@@ -390,7 +390,7 @@
         body.dark-mode .menu-item {
             background-color: #1E1E1E;
             color: var(--dark-text-color);
-            min-height: 200px;
+            height: 120px;
         }
 
         body.dark-mode .gallery-image {
@@ -552,16 +552,17 @@
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            min-height: 200px;
+            height: 120px;
             padding: 20px;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
         }
 
         body.dark-mode .menu-item {
             background-color: #1E1E1E;
             color: var(--dark-text-color);
-            min-height: 200px;
+            height: 120px;
         }
 
         .menu-item:hover {
@@ -569,11 +570,25 @@
             box-shadow: 0 6px 10px rgba(0,0,0,0.15);
         }
 
+        .menu-item h3 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .menu-item p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
         .menu-item .price {
             color: var(--secondary-color);
             font-weight: bold;
-            display: block;
-            margin-top: 10px;
+            margin-top: auto;
         }
 
         .gallery-image {
@@ -1018,7 +1033,7 @@ body.dark-mode .nyhet-section {
             </div>
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                 <div class="testimonial">
-                    <p data-translate="testimonial2">"En riktig pärla i staden. Perfekt för familjemiddagar och stora sällskap."</p>
+                    <p data-translate="testimonial2">"En riktig pärla i staden. Perfekt för familjemiddagar och stora s��llskap."</p>
                     <h5>- Johan L.</h5>
                 </div>
             </div>
