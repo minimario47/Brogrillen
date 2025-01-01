@@ -114,230 +114,6 @@
             --dark-secondary-color: #03DAC6;
         }
 
-        /* Christmas Animation Overlay */
-        .christmas-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, 
-                rgba(0, 0, 0, 0.7), 
-                rgba(0, 0, 0, 0.75) 50%, 
-                rgba(0, 0, 0, 0.7)
-            );
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            z-index: 9997;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .christmas-overlay-content {
-            position: relative;
-            text-align: center;
-            padding: 20px;
-            max-width: 90%;
-            max-height: 90vh;
-            background: none;
-            animation: gentle-float 3s ease-in-out infinite;
-            transform-style: preserve-3d;
-            perspective: 1000px;
-            will-change: transform;
-            z-index: 9998;
-            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.1));
-        }
-
-        .christmas-overlay img {
-            position: relative;
-            max-width: 100%;
-            max-height: 80vh;
-            object-fit: contain;
-            border-radius: 20px;
-            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
-            transform: translateZ(20px);
-            transition: transform 0.3s ease;
-            z-index: 9998;
-            animation: image-glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes image-glow {
-            from {
-                filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
-            }
-            to {
-                filter: drop-shadow(0 5px 25px rgba(255, 255, 255, 0.4));
-            }
-        }
-
-        @keyframes gentle-float {
-            0%, 100% { 
-                transform: translateY(0) rotateX(0deg); 
-            }
-            50% { 
-                transform: translateY(-10px) rotateX(2deg); 
-            }
-        }
-
-        .christmas-overlay-text {
-            position: relative;
-            z-index: 10000;
-            margin-top: 25px;
-            font-family: 'Playfair Display', serif;
-            color: #2C3E50;
-            font-size: 1.1rem;
-            font-weight: 500;
-            background: rgba(255, 255, 255, 0.92);
-            padding: 15px 35px;
-            border-radius: 50px;
-            display: inline-block;
-            text-shadow: none;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            opacity: 0;
-            animation: fadeIn 1.5s ease-out forwards 1s;
-            letter-spacing: 0.8px;
-            border: 1px solid rgba(44, 62, 80, 0.1);
-            transition: all 0.3s ease;
-            transform: translateZ(10px);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-        }
-
-        .christmas-overlay-text:hover {
-            transform: translateZ(15px) translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-            background: rgba(255, 255, 255, 0.97);
-            letter-spacing: 1px;
-        }
-
-        .christmas-overlay-text::before,
-        .christmas-overlay-text::after {
-            content: '❄️';
-            margin: 0 10px;
-            font-size: 1rem;
-            opacity: 0.9;
-            display: inline-block;
-            animation: spin 4s linear infinite;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .snowflake {
-            position: fixed;
-            color: #fff;
-            font-size: 1.8em;
-            text-shadow: 
-                0 0 5px rgba(255, 255, 255, 0.8),
-                0 0 10px rgba(255, 255, 255, 0.5),
-                0 0 15px rgba(255, 255, 255, 0.3);
-            pointer-events: none;
-            user-select: none;
-            z-index: 9999;
-            animation: snowfall linear infinite;
-            will-change: transform;
-            transform-style: preserve-3d;
-            backface-visibility: hidden;
-            filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.1));
-        }
-
-        @keyframes snowfall {
-            0% { 
-                transform: translateY(-100vh) translateZ(0);
-                opacity: 0;
-            }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { 
-                transform: translateY(100vh) translateZ(0);
-                opacity: 0;
-            }
-        }
-
-        .snowflake:nth-child(3n) {
-            font-size: 2.2em;
-            animation-duration: 8s;
-        }
-
-        .snowflake:nth-child(3n + 1) {
-            font-size: 1.5em;
-            animation-duration: 6s;
-        }
-
-        .snowflake:nth-child(3n + 2) {
-            font-size: 1.8em;
-            animation-duration: 7s;
-        }
-
-        .snowflake:nth-child(2n) {
-            animation-name: snowfall-left;
-        }
-
-        .snowflake:nth-child(3n) {
-            animation-name: snowfall-right;
-        }
-
-        @keyframes snowfall-left {
-            from {
-                transform: translateY(0) translateX(0) rotate(0deg);
-            }
-            to {
-                transform: translateY(105vh) translateX(-50px) rotate(360deg);
-            }
-        }
-
-        @keyframes snowfall-right {
-            from {
-                transform: translateY(0) translateX(0) rotate(0deg);
-            }
-            to {
-                transform: translateY(105vh) translateX(50px) rotate(360deg);
-            }
-        }
-
-        #snowflakes-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-        }
-
-        .christmas-overlay.fade-out {
-            opacity: 0;
-            transition: all 1s ease-out;
-            pointer-events: none;
-            transform: scale(1.1);
-        }
-
-        @media (max-width: 768px) {
-            .christmas-overlay-text {
-                font-size: 1rem;
-                padding: 12px 25px;
-            }
-
-            .christmas-overlay img {
-                max-height: 70vh;
-            }
-        }
-
-        @keyframes fadeIn {
-            from { 
-                opacity: 0; 
-                transform: translateY(10px);
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0);
-            }
-        }
-
         body {
             font-family: 'Poppins', sans-serif;
             color: var(--text-color);
@@ -905,23 +681,14 @@ body.dark-mode .nyhet-section {
     </style>
 </head>
 <body>
-    <!-- Christmas Animation Overlay -->
-    <div class="christmas-overlay" id="christmasOverlay">
-        <div class="christmas-overlay-content">
-            <img src="jultomte.jpg" alt="God Jul!" loading="eager" width="600" height="400">
-            <div class="christmas-overlay-text">
-                Välkommen! Tryck var som helst för att fortsätta
-            </div>
-        </div>
-    </div>
-
+    <!-- Removing Christmas overlay -->
     <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle Dark Mode">
         <i class="fas fa-moon"></i>
     </button>
 
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#" data-translate="welcome_title"> till Brogrillen Pizzeria Henån</a>
+            <a class="navbar-brand" href="#" data-translate="welcome_title">Brogrillen Pizzeria Henån</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -951,8 +718,8 @@ body.dark-mode .nyhet-section {
     <section id="home" class="section hero">
         <img src="utsida.jpg" alt="Brogrillen Pizzeria exteriör" class="hero-image" loading="lazy">
         <div class="container text-center hero-content" data-aos="fade-up">
-            <h1 class="display-4 mb-4" data-translate="welcome_title"> llen Pizzeria Henån</h1>
-            <p class="lead mb-4" data-translate="welcome_subtitle">Henåns bästa pizza sedan 1985</p>
+            <h1 class="display-4 mb-4" data-translate="welcome_title">Brogrillen Pizzeria Henån</h1>
+            <p class="lead mb-4" data-translate="welcome_subtitle">Beställ din mat snabbt genom att trycka på 'Ring oss'. Vi är redo att hjälpa dig.</p>
             <a href="#menu" class="btn btn-primary btn-lg me-2" data-translate="see_menu">Se vår meny</a>
             <a href="tel:030432212" class="btn btn-success btn-lg" data-translate="call_us">Ring oss</a>
         </div>
@@ -1033,7 +800,7 @@ body.dark-mode .nyhet-section {
             </div>
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                 <div class="testimonial">
-                    <p data-translate="testimonial2">"En riktig pärla i staden. Perfekt för familjemiddagar och stora s��llskap."</p>
+                    <p data-translate="testimonial2">"En riktig pärla i staden. Perfekt för familjemiddagar och stora sällskap."</p>
                     <h5>- Johan L.</h5>
                 </div>
             </div>
@@ -1461,78 +1228,6 @@ if (urlLang && (urlLang === 'sv' || urlLang === 'en')) {
             });
 
             translatePage();
-
-            // Christmas Animation Overlay
-            const christmasOverlay = document.getElementById('christmasOverlay');
-            
-            // Create snowflakes
-            function createSnowflakes() {
-                const numberOfSnowflakes = 45;
-                const snowflakes = ['❆', '❅', '❄'];
-                const container = document.createElement('div');
-                container.id = 'snowflakes-container';
-                container.style.position = 'fixed';
-                container.style.top = '0';
-                container.style.left = '0';
-                container.style.width = '100%';
-                container.style.height = '100%';
-                container.style.pointerEvents = 'none';
-                container.style.zIndex = '9999';
-                document.body.appendChild(container);
-                
-                for (let i = 0; i < numberOfSnowflakes; i++) {
-                    const snowflake = document.createElement('div');
-                    snowflake.className = 'snowflake';
-                    snowflake.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
-                    
-                    // Distribute snowflakes across the entire height initially
-                    snowflake.style.top = -Math.random() * 100 + 'vh';
-                    snowflake.style.left = Math.random() * 100 + 'vw';
-                    snowflake.style.animationDuration = (Math.random() * 3 + 5) + 's';
-                    snowflake.style.animationDelay = '0s'; // Remove delay to prevent gathering
-                    container.appendChild(snowflake);
-                }
-            }
-
-            // Create initial snowflakes
-            createSnowflakes();
-
-            // Recreate snowflakes periodically to ensure consistent coverage
-            setInterval(() => {
-                const container = document.getElementById('snowflakes-container');
-                if (container && container.children.length < 45) {
-                    const snowflake = document.createElement('div');
-                    snowflake.className = 'snowflake';
-                    snowflake.textContent = ['❆', '❅', '❄'][Math.floor(Math.random() * 3)];
-                    snowflake.style.left = Math.random() * 100 + 'vw';
-                    snowflake.style.top = '-5vh';
-                    snowflake.style.animationDuration = (Math.random() * 3 + 5) + 's';
-                    container.appendChild(snowflake);
-                }
-            }, 1000);
-
-            // Function to hide the overlay and clean up snowflakes
-            function hideOverlay() {
-                christmasOverlay.classList.add('fade-out');
-                const snowflakesContainer = document.getElementById('snowflakes-container');
-                if (snowflakesContainer) {
-                    snowflakesContainer.style.opacity = '0';
-                    snowflakesContainer.style.transition = 'opacity 0.8s ease-out';
-                }
-                // Remove the overlay and snowflakes from DOM after animation
-                setTimeout(() => {
-                    christmasOverlay.remove();
-                    if (snowflakesContainer) {
-                        snowflakesContainer.remove();
-                    }
-                }, 800);
-            }
-
-            // Hide overlay on click
-            christmasOverlay.addEventListener('click', hideOverlay);
-
-            // Automatically hide overlay after 20 seconds
-            setTimeout(hideOverlay, 20000);
 
             // Lightbox initialization with optimized settings
             lightbox.option({
