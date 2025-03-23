@@ -103,15 +103,20 @@
 
     <style>
         :root {
-            --primary-color: #D32F2F;
-            --secondary-color: #FFA000;
+            --primary-color: #FF5F45;
+            --secondary-color: #FFBA00;
             --text-color: #333333;
             --background-color: #FFFFFF;
-            --accent-color: #4CAF50;
+            --accent-color: #3D9970;
             --dark-bg-color: #121212;
             --dark-text-color: #FFFFFF;
-            --dark-primary-color: #BB86FC;
-            --dark-secondary-color: #03DAC6;
+            --dark-primary-color: #FF7A6B;
+            --dark-secondary-color: #FFD04D;
+            --light-gray: #f8f9fa;
+            --card-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            --transition-normal: all 0.3s ease;
+            --border-radius: 12px;
+            --section-padding: 5rem 0;
         }
 
         body {
@@ -119,11 +124,31 @@
             color: var(--text-color);
             background-color: var(--background-color);
             scroll-behavior: smooth;
-            transition: background-color 0.3s, color 0.3s;
+            transition: var(--transition-normal);
+            line-height: 1.6;
         }
 
         h1, h2, h3 {
             font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         body.dark-mode {
@@ -132,7 +157,8 @@
         }
 
         body.dark-mode .navbar {
-            background-color: var(--dark-bg-color) !important;
+            background-color: rgba(18, 18, 18, 0.95) !important;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
         body.dark-mode .navbar-brand, 
@@ -142,6 +168,7 @@
 
         body.dark-mode .dropdown-menu {
             background-color: var(--dark-bg-color);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
         }
 
         body.dark-mode .dropdown-item {
@@ -150,7 +177,7 @@
 
         body.dark-mode .dropdown-item:hover {
             background-color: var(--dark-secondary-color);
-            color: var(--dark-text-color);
+            color: var(--dark-bg-color);
         }
 
         body.dark-mode .menu-selector button {
@@ -161,13 +188,13 @@
         body.dark-mode .menu-selector button:hover,
         body.dark-mode .menu-selector button.active {
             background-color: var(--dark-secondary-color);
+            color: var(--dark-bg-color);
         }
 
         body.dark-mode .menu-item {
             background-color: #1E1E1E;
             color: var(--dark-text-color);
-            min-height: 120px;
-            height: auto;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
         }
 
         body.dark-mode .gallery-image {
@@ -175,38 +202,93 @@
         }
 
         .navbar {
-            background-color: gray;
-            opacity: 0.95;
-            transition: background-color 0.3s ease-in-out;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            padding: 1rem 0;
         }
 
         .navbar.scrolled {
             background-color: var(--primary-color) !important;
+            padding: 0.7rem 0;
         }
 
-        .navbar-brand, .nav-link, .dropdown-toggle {
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color) !important;
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-link {
+            color: var(--text-color) !important;
+            font-weight: 500;
+            position: relative;
+            margin: 0 0.5rem;
+            padding: 0.5rem 0 !important;
+            transition: var(--transition-normal);
+        }
+
+        .navbar.scrolled .nav-link,
+        .navbar.scrolled .navbar-brand {
             color: white !important;
-            transition: color 0.3s ease;
         }
 
-        .navbar-brand:hover, .nav-link:hover, .dropdown-toggle:hover {
-            color: var(--secondary-color) !important;
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
         }
 
         .navbar-toggler {
-            border-color: white;
+            border: 2px solid var(--primary-color);
+            padding: 0.25rem 0.5rem;
+            background-color: rgba(255, 255, 255, 0.072);
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+            outline: none;
         }
 
         .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 186, 0, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+
+        body.dark-mode .navbar-toggler {
+            background-color: rgba(18, 18, 18, 0.9);
+            border-color: var(--dark-secondary-color);
+        }
+
+        body.dark-mode .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 208, 77, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
         }
 
         .language-dropdown .dropdown-menu {
             min-width: auto;
+            border-radius: var(--border-radius);
+            border: none;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
         }
 
         .language-dropdown .dropdown-item {
             cursor: pointer;
+            padding: 0.5rem 1.5rem;
+            transition: var(--transition-normal);
         }
 
         .language-dropdown .dropdown-item.active {
@@ -216,7 +298,7 @@
 
         .hero {
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5));
-            height: 60vh;
+            height: 80vh;
             display: flex;
             align-items: center;
             text-align: center;
@@ -232,30 +314,60 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: transparent;
+            background: rgba(0,0,0,0.2);
             z-index: -1;
+        }
+
+        .hero-content {
+            padding: 0 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .btn {
+            border-radius: 50px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .btn-primary {
             background-color: var(--accent-color);
             border-color: var(--accent-color);
-            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .btn-primary:hover {
-            background-color: #45a049;
-            border-color: #45a049;
+            background-color: #328463;
+            border-color: #328463;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
 
         .btn-success {
             background-color: var(--secondary-color);
             border-color: var(--secondary-color);
-            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .btn-success:hover {
-            background-color: #e0a800;
-            border-color: #e0a800;
+            background-color: #e69d00;
+            border-color: #e69d00;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
 
         .dark-mode-toggle {
@@ -270,33 +382,40 @@
             height: 50px;
             font-size: 1.2rem;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transition: all 0.4s ease;
             z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .dark-mode-toggle:hover {
             background-color: var(--primary-color);
-            transform: rotate(20deg);
+            transform: rotate(20deg) scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
         }
 
         .menu-section {
-            background-color: #f9f9f9;
+            background-color: var(--light-gray);
             transition: background-color 0.3s ease;
+            padding: var(--section-padding);
         }
 
         body.dark-mode .menu-section {
             background-color: #1E1E1E;
         }
+        
         .hero-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-}
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(0.7);
+        }
 
         .menu-selector {
             display: flex;
@@ -310,28 +429,31 @@
             background-color: var(--secondary-color);
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 10px 25px;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 50px;
             font-size: 1rem;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .menu-selector button:hover,
         .menu-selector button.active {
             background-color: var(--primary-color);
             transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
         }
 
         .menu-item {
             background-color: white;
-            border-radius: 8px;
+            border-radius: var(--border-radius);
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s ease;
             min-height: 120px;
             height: auto;
-            padding: 20px;
+            padding: 25px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -340,72 +462,206 @@
         body.dark-mode .menu-item {
             background-color: #1E1E1E;
             color: var(--dark-text-color);
-            min-height: 120px;
-            height: auto;
         }
 
         .menu-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
 
         .menu-item h3 {
-            margin: 0;
-            font-size: 1.1rem;
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+            color: var(--primary-color);
         }
 
         .menu-item p {
-            margin: 5px 0;
-            font-size: 0.9rem;
-            overflow: visible;
-            text-overflow: initial;
-            display: block;
+            margin: 5px 0 15px 0;
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        body.dark-mode .menu-item p {
+            color: #ccc;
         }
 
         .menu-item .price {
             color: var(--secondary-color);
-            font-weight: bold;
-            margin-top: 10px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: auto;
+            display: inline-block;
+        }
+
+        /* Nyhet Section Styles */
+        .nyhet-section {
+            background-color: #fff9e6; 
+            transition: background-color 0.3s ease;
+            padding: var(--section-padding);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nyhet-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(var(--secondary-color) 1px, transparent 1px);
+            background-size: 30px 30px;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        body.dark-mode .nyhet-section {
+            background-color: #33280d;
+        }
+
+        .nyhet-section h2 {
+            color: var(--primary-color); 
+        }
+
+        .nyhet-section .carousel-indicators {
+            position: static;
+            margin-top: 30px;
+        }
+
+        .nyhet-section .carousel-indicators button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.2);
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nyhet-section .carousel-indicators .active {
+            background-color: var(--secondary-color);
+            transform: scale(1.2);
+        }
+
+        .nyhet-section .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .nyhet-section .carousel-item {
+            padding: 30px 0;
+        }
+
+        .nyhet-section .carousel-item img,
+        .nyhet-section .carousel-item video {
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s ease;
+        }
+
+        .nyhet-section h3 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .nyhet-section p.price {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .nyhet-section p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 767px) {
+            .nyhet-section .row {
+                flex-direction: column;
+            }
+            .nyhet-section .col-md-6 {
+                max-width: 100%;
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            h2 {
+                font-size: 2rem;
+            }
+            .nyhet-section h3 {
+                font-size: 1.8rem;
+            }
+        }
+        
+        /* Gallery section styles */
+        .gallery-section {
+            padding: var(--section-padding);
+            background-color: white;
+        }
+
+        body.dark-mode .gallery-section {
+            background-color: #1E1E1E;
+        }
+
+        .gallery-item {
+            margin-bottom: 30px;
+            transition: all 0.4s ease;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
         }
 
         .gallery-image {
             width: 100%;
-            height: 200px;
+            height: 250px;
             object-fit: cover;
-            border-radius: 8px;
-            transition: transform 0.3s ease;
+            transition: all 0.5s ease;
+            border-radius: var(--border-radius);
         }
 
         .gallery-item:hover .gallery-image {
+            transform: scale(1.08);
+        }
+
+        /* Media Wrapper Styles */
+        .media-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            overflow: hidden;
+            background-color: #000;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+        }
+
+        .media-wrapper img,
+        .media-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .media-wrapper:hover img,
+        .media-wrapper:hover video {
             transform: scale(1.05);
         }
 
-        #image-gallery {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .gallery-item {
-            break-inside: avoid;
-            padding: 10px;
-            min-height: 220px;
-        }
-
-        @media (max-width: 767px) {
-            .gallery-item {
-                width: 50%;
-            }
-        }
-
-        @media (max-width: 575px) {
-            .gallery-item {
-                width: 100%;
-            }
-        }
-
+        /* Testimonials section */
         .testimonials-section {
-            background-color: #f1f1f1;
-            transition: background-color 0.3s ease;
+            background-color: var(--light-gray);
+            padding: var(--section-padding);
+            position: relative;
+            overflow: hidden;
         }
 
         body.dark-mode .testimonials-section {
@@ -414,14 +670,15 @@
 
         .testimonial {
             background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            min-height: 180px;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s ease;
+            min-height: 200px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            text-align: left;
         }
 
         body.dark-mode .testimonial {
@@ -430,10 +687,152 @@
         }
 
         .testimonial:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
 
+        .testimonial p {
+            font-style: italic;
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .testimonial p::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 2rem;
+            color: var(--secondary-color);
+            line-height: 1;
+        }
+
+        .testimonial h5 {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-top: auto;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+        }
+        
+        .testimonial-author .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .testimonial-author h5 {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .btn-warning {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .btn-warning:hover {
+            background-color: #e69d00;
+            border-color: #e69d00;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        /* About section */
+        #about {
+            padding: var(--section-padding);
+            background-color: white;
+        }
+
+        body.dark-mode #about {
+            background-color: #1E1E1E;
+        }
+
+        #about p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Contact section */
+        #contact {
+            background-color: var(--light-gray);
+            padding: var(--section-padding);
+        }
+
+        body.dark-mode #contact {
+            background-color: #1E1E1E;
+            color: var(--dark-text-color);
+        }
+
+        #contact p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        #contact a {
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        #contact a:hover {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        .contact-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .contact-card {
+            background-color: #1E1E1E;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .social-icons {
+            margin-top: 2rem;
+        }
+
+        .social-icons a {
+            color: var(--primary-color);
+            margin: 0 15px;
+            font-size: 1.8rem;
+            transition: all 0.4s ease;
+            display: inline-block;
+        }
+
+        body.dark-mode .social-icons a {
+            color: var(--dark-text-color);
+        }
+
+        .social-icons a:hover {
+            color: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+
+        /* Back to top button */
         #backToTop {
             position: fixed;
             bottom: 80px;
@@ -450,173 +849,53 @@
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         #backToTop:hover {
             background-color: var(--primary-color);
-            transform: translateY(-3px);
+            transform: translateY(-5px) rotate(360deg);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
         }
 
+        /* Footer */
         footer {
             background-color: var(--primary-color);
             color: white;
+            padding: 2rem 0;
         }
 
-        .social-icons a {
-            color: white;
-            margin: 0 10px;
-            font-size: 1.5rem;
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.8);
             transition: color 0.3s ease;
         }
 
-        body.dark-mode .social-icons a {
-            color: var(--dark-text-color);
+        footer a:hover {
+            color: white;
+            text-decoration: none;
         }
 
-        .social-icons a:hover {
-            color: var(--secondary-color);
+        /* Lightbox optimizations */
+        .lb-image {
+            max-width: 100%;
+            height: auto !important;
+            border-radius: 8px;
         }
 
-        #contact {
-            background-color: #f9f9f9;
-            transition: background-color 0.3s ease;
+        .lb-outerContainer {
+            border-radius: 8px;
+            min-width: 320px;
+            min-height: 240px;
         }
 
-        body.dark-mode #contact {
-            background-color: #1E1E1E;
-            color: var(--dark-text-color);
+        .lb-dataContainer {
+            border-radius: 0 0 8px 8px;
         }
-
-        body.dark-mode .bg-light {
-            background-color: #1E1E1E !important;
-            color: var(--dark-text-color) !important;
-        }
-
-        /* Nyhet Section Styles */
-.nyhet-section {
-    background-color: #fffbea; /* Light yellow background to attract attention */
-    transition: background-color 0.3s ease;
-
-}
-/* Dark mode background for Nyhet Section */
-body.dark-mode .nyhet-section {
-    background-color: #af8e00; /* A darker shade for dark mode */
-}
-
-.nyhet-section h2 {
-    color: #D32F2F; /* Primary color for consistency */
-}
-
-/* Style for the carousel indicators */
-.nyhet-section .carousel-indicators {
-    position: static;
-    margin-top: 20px;
-}
-
-.nyhet-section .carousel-indicators button {
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.nyhet-section .carousel-indicators .active {
-    background-color: var(--secondary-color); /* Or any color that matches your theme */
-}
-
-/* Center the indicators */
-.nyhet-section .carousel-indicators {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.nyhet-section .carousel-item {
-    padding: 30px 0;
-}
-
-.nyhet-section .carousel-item img,
-.nyhet-section .carousel-item video {
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-.nyhet-section h3 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
-
-.nyhet-section p.price {
-    font-size: 1.5rem;
-    color: var(--secondary-color);
-    margin-bottom: 15px;
-}
-
-.nyhet-section p {
-    font-size: 1.2rem;
-}
-
-@media (max-width: 767px) {
-    .nyhet-section .row {
-        flex-direction: column;
-    }
-    .nyhet-section .col-md-6 {
-        max-width: 100%;
-    }
-}
-/* Media Wrapper Styles */
-.media-wrapper {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%; /* 16:9 Aspect Ratio */
-    overflow: hidden;
-    background-color: #000;
-}
-
-.media-wrapper img,
-.media-wrapper video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-[data-aos] {
-    min-height: 50px;
-    transform: translateZ(0);
-    will-change: transform, opacity;
-    backface-visibility: hidden;
-}
-
-.gallery-image-container {
-    position: relative;
-    width: 100%;
-    padding-top: 75%;
-    overflow: hidden;
-}
-
-.gallery-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-}
-
-/* Add Lightbox optimizations */
-.lb-image {
-    max-width: 100%;
-    height: auto !important;
-    aspect-ratio: 4/3;
-}
-
-.lb-outerContainer {
-    min-width: 320px;
-    min-height: 240px;
-}
 
         /* Web Font Loading Optimization */
         @font-face {
@@ -678,6 +957,16 @@ body.dark-mode .nyhet-section {
         h1, h2, h3 {
             font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
             font-synthesis: none;
+        }
+        
+        /* Animation classes */
+        .fadeIn {
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
@@ -812,89 +1101,109 @@ body.dark-mode .nyhet-section {
         <div class="row g-4">
             <div class="col-md-4" data-aos="fade-up">
                 <div class="testimonial">
-                    <p data-translate="testimonial1">"Fantastisk pizza! Den bästa jag har smakat i Henån. Personalen är också mycket vänlig."</p>
-                    <h5>- Anna S.</h5>
+                    <div class="testimonial-content">
+                        <p data-translate="testimonial1">"Fantastisk pizza! Den bästa jag har smakat i Henån. Personalen är också mycket vänlig."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <h5>- Anna S.</h5>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                 <div class="testimonial">
-                    <p data-translate="testimonial2">"En riktig pärla i staden. Perfekt för familjemiddagar och stora sällskap."</p>
-                    <h5>- Johan L.</h5>
+                    <div class="testimonial-content">
+                        <p data-translate="testimonial2">"En riktig pärla i staden. Perfekt för familjemiddagar och stora sällskap."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <h5>- Johan L.</h5>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
                 <div class="testimonial">
-                    <p data-translate="testimonial3">"Kebabpizzorna är oslagbara! Alltid färska ingredienser och god smak."</p>
-                    <h5>- Maria K.</h5>
+                    <div class="testimonial-content">
+                        <p data-translate="testimonial3">"Kebabpizzorna är oslagbara! Alltid färska ingredienser och god smak."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <h5>- Maria K.</h5>
+                    </div>
                 </div>
             </div>
-            
         </div>
         <div class="text-center mt-5">
-    <a 
-        href="https://g.page/r/Cd-hbOdtRXrPEBM/review" 
-        class="btn btn-warning btn-lg" 
-        target="_blank" 
-        rel="noopener noreferrer"
-    >
-        <i class="fas fa-star"></i> Lämna Gärna En Recension
-    </a>
-</div>
+            <a 
+                href="https://g.page/r/Cd-hbOdtRXrPEBM/review" 
+                class="btn btn-warning btn-lg" 
+                target="_blank" 
+                rel="noopener noreferrer"
+            >
+                <i class="fas fa-star me-2"></i> Lämna Gärna En Recension
+            </a>
+        </div>
     </div>
 </section>
 
-    <section id="gallery" class="py-5 bg-light">
+    <section id="gallery" class="py-5 bg-light gallery-section">
         <div class="container">
             <h2 class="text-center mb-5" data-translate="gallery_title">Vår Mat och Restaurang</h2>
-            <div class="row" id="image-gallery">
-                <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
+            <div class="row g-4" id="image-gallery">
+                <div class="col-md-4 col-sm-6 gallery-item" data-aos="zoom-in">
                     <a href="utsida.jpg" data-lightbox="gallery" data-title="Vår Restaurang">
-                        <img src="utsida.jpg" alt="Vår Restaurang" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
+                        <img src="utsida.jpg" alt="Vår Restaurang" class="img-fluid gallery-image" loading="lazy">
                     </a>
                 </div>
-                <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
+                <div class="col-md-4 col-sm-6 gallery-item" data-aos="zoom-in" data-aos-delay="100">
                     <a href="pizza1.jpeg" data-lightbox="gallery" data-title="Vår Utsökta Pizza">
-                        <img src="pizza1.jpeg" alt="Pizza 1" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
+                        <img src="pizza1.jpeg" alt="Pizza 1" class="img-fluid gallery-image" loading="lazy">
                     </a>
                 </div>
-                <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
+                <div class="col-md-4 col-sm-6 gallery-item" data-aos="zoom-in" data-aos-delay="200">
                     <a href="pizza2.jpeg" data-lightbox="gallery" data-title="Färska Ingredienser">
-                        <img src="pizza2.jpeg" alt="Pizza 2" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
+                        <img src="pizza2.jpeg" alt="Pizza 2" class="img-fluid gallery-image" loading="lazy">
                     </a>
                 </div>
-                <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
+                <div class="col-md-4 col-sm-6 gallery-item" data-aos="zoom-in">
                     <a href="pizza3.jpeg" data-lightbox="gallery" data-title="Traditionell Italiensk Pizza">
-                        <img src="pizza3.jpeg" alt="Pizza 3" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
+                        <img src="pizza3.jpeg" alt="Pizza 3" class="img-fluid gallery-image" loading="lazy">
                     </a>
                 </div>
-                <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
+                <div class="col-md-4 col-sm-6 gallery-item" data-aos="zoom-in" data-aos-delay="100">
                     <a href="pizza4.jpeg" data-lightbox="gallery" data-title="Specialpizza">
-                        <img src="pizza4.jpeg" alt="Pizza 4" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
+                        <img src="pizza4.jpeg" alt="Pizza 4" class="img-fluid gallery-image" loading="lazy">
                     </a>
                 </div>
-                <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
+                <div class="col-md-4 col-sm-6 gallery-item" data-aos="zoom-in" data-aos-delay="200">
                     <a href="pizza5.jpeg" data-lightbox="gallery" data-title="Gourmetpizza">
-                        <img src="pizza5.jpeg" alt="Pizza 5" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
+                        <img src="pizza5.jpeg" alt="Pizza 5" class="img-fluid gallery-image" loading="lazy">
                     </a>
                 </div>
-                <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
+                <div class="col-md-4 col-sm-6 gallery-item" data-aos="zoom-in">
                     <a href="pizza6.jpeg" data-lightbox="gallery" data-title="Vegetarisk Pizza">
-                        <img src="pizza6.jpeg" alt="Pizza 6" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
+                        <img src="pizza6.jpeg" alt="Pizza 6" class="img-fluid gallery-image" loading="lazy">
                     </a>
                 </div>
-                <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
+                <div class="col-md-4 col-sm-6 gallery-item" data-aos="zoom-in" data-aos-delay="100">
                     <a href="pasta.jpeg" data-lightbox="gallery" data-title="Vår Hemlagade Pasta">
-                        <img src="pasta.jpeg" alt="Pasta" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
+                        <img src="pasta.jpeg" alt="Pasta" class="img-fluid gallery-image" loading="lazy">
                     </a>
                 </div>
-                <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
+                <div class="col-md-4 col-sm-6 gallery-item" data-aos="zoom-in" data-aos-delay="200">
                     <a href="gatukok.jpeg" data-lightbox="gallery" data-title="Gatukök Favoriter">
-                        <img src="gatukok.jpeg" alt="Gatukök" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
+                        <img src="gatukok.jpeg" alt="Gatukök" class="img-fluid gallery-image" loading="lazy">
                     </a>
                 </div>
-                <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
+                <div class="col-md-4 col-sm-6 gallery-item" data-aos="zoom-in">
                     <a href="sallad.jpeg" data-lightbox="gallery" data-title="Fräscha Sallader">
-                        <img src="sallad.jpeg" alt="Sallad" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
+                        <img src="sallad.jpeg" alt="Sallad" class="img-fluid gallery-image" loading="lazy">
                     </a>
                 </div>
             </div>
@@ -903,21 +1212,42 @@ body.dark-mode .nyhet-section {
 
     <section id="about" class="py-5">
         <div class="container">
-            <h2 class="text-center mb-4" data-translate="about_title">Om Brogrillen Pizzeria</h2>
-            <p data-translate="about_paragraph1">Brogrillen Pizzeria har varit en del av Henåns kulinariska landskap sedan 1985. Vi är stolta över att använda lokala ingredienser och traditionella pizzabakningstekniker för att skapa de mest utsökta pizzorna i området.</p>
-            <p data-translate="about_paragraph2">Vår passion för kvalitet och service har gjort oss till en favorit bland lokalbefolkningen och besökare. Kom och upplev vad som gör Brogrillen Pizzeria så speciell!</p>
+            <h2 class="text-center mb-5" data-translate="about_title">Om Brogrillen Pizzeria</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="about-content text-center">
+                        <p data-translate="about_paragraph1" class="lead">Brogrillen Pizzeria har varit en del av Henåns kulinariska landskap sedan 1985. Vi är stolta över att använda lokala ingredienser och traditionella pizzabakningstekniker för att skapa de mest utsökta pizzorna i området.</p>
+                        <p data-translate="about_paragraph2" class="lead">Vår passion för kvalitet och service har gjort oss till en favorit bland lokalbefolkningen och besökare. Kom och upplev vad som gör Brogrillen Pizzeria så speciell!</p>
+                        <div class="mt-5">
+                            <a href="#contact" class="btn btn-primary">Kontakta oss</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <section id="contact" class="py-5">
         <div class="container">
-            <h2 class="text-center mb-4" data-translate="contact_title">Kontakta Oss</h2>
+            <h2 class="text-center mb-5" data-translate="contact_title">Kontakta Oss</h2>
             <div class="row justify-content-center">
-                <div class="col-md-6 text-center">
-                    <p><strong>E-post:</strong> <a href="mailto:brogrillen2018@hotmail.com">brogrillen2018@hotmail.com</a></p>
-                    <p><strong>Telefon:</strong> <a href="tel:030432212">030-432212</a></p>
-                    <p><strong>Adress:</strong> Norra strandvägen 7, 473 34 Henån</p>
-                    <p><strong>Öppettider:</strong> Måndag - Söndag: 11:00 - 21:00</p>
+                <div class="col-md-6 text-center contact-info p-4">
+                    <div class="contact-card p-4 mb-4">
+                        <i class="fas fa-envelope mb-3" style="font-size: 2rem; color: var(--primary-color);"></i>
+                        <p><strong>E-post:</strong> <a href="mailto:brogrillen2018@hotmail.com">brogrillen2018@hotmail.com</a></p>
+                    </div>
+                    <div class="contact-card p-4 mb-4">
+                        <i class="fas fa-phone mb-3" style="font-size: 2rem; color: var(--primary-color);"></i>
+                        <p><strong>Telefon:</strong> <a href="tel:030432212">030-432212</a></p>
+                    </div>
+                    <div class="contact-card p-4 mb-4">
+                        <i class="fas fa-map-marker-alt mb-3" style="font-size: 2rem; color: var(--primary-color);"></i>
+                        <p><strong>Adress:</strong> Norra strandvägen 7, 473 34 Henån</p>
+                    </div>
+                    <div class="contact-card p-4 mb-4">
+                        <i class="fas fa-clock mb-3" style="font-size: 2rem; color: var(--primary-color);"></i>
+                        <p><strong>Öppettider:</strong> Måndag - Söndag: 11:00 - 21:00</p>
+                    </div>
                     <button id="getDirections" class="btn btn-primary mt-3" data-translate="get_directions">Få vägbeskrivning</button>
                     <div class="social-icons mt-4">
                         <a href="https://www.facebook.com/BrogrillenHenan" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
@@ -926,7 +1256,7 @@ body.dark-mode .nyhet-section {
                 </div>
             </div>
             <div class="mt-5" data-aos="fade-up">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2131.0447982037847!2d11.677620776275388!3d58.238244294167245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46452131f8a773b9%3A0x4644526e74b52c46!2sNorra%20Strandv%C3%A4gen%207%2C%20473%2034%20Hen%C3%A5n!5e0!3m2!1sen!2sse!4v1682516277304!5m2!1sen!2sse" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2131.0447982037847!2d11.677620776275388!3d58.238244294167245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46452131f8a773b9%3A0x4644526e74b52c46!2sNorra%20Strandv%C3%A4gen%207%2C%20473%2034%20Hen%C3%A5n!5e0!3m2!1sen!2sse!4v1682516277304!5m2!1sen!2sse" width="100%" height="400" style="border:0; border-radius: var(--border-radius); box-shadow: var(--card-shadow);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </section>
