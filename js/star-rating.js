@@ -28,15 +28,6 @@ function createStarRating({
   showStats = false,
   language = 'sv'
 }) {
-  console.log('[StarRating] Creating star rating for item:', menuItemId, {
-    userRating,
-    avgRating,
-    totalRatings,
-    onRateType: typeof onRate,
-    isAdmin,
-    showStats
-  });
-  
   const container = document.createElement('div');
   container.className = className;
   container.setAttribute('data-menu-item-id', menuItemId);
@@ -74,6 +65,60 @@ function createStarRating({
   const starsContainer = document.createElement('div');
   starsContainer.className = 'd-flex align-items-center';
   starsContainer.style.gap = '0.25rem';
+  starsContainer.setAttribute('data-menu-item-id', menuItemId);
+  
+  // Use event delegation for more reliable click handling
+  starsContainer.addEventListener('click', (e) => {
+    const starButton = e.target.closest('.star-btn');
+    if (!starButton) return;
+    
+    const starValue = parseInt(starButton.getAttribute('data-star-value'), 10);
+    if (isNaN(starValue) || starValue < 1 || starValue > 5) return;
+    
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (typeof onRate === 'function') {
+      // Update UI immediately for instant feedback
+      currentUserRating = starValue;
+      label.textContent = t.yourRating;
+      updateStars();
+      
+      // Update or add rating number display
+      let ratingText = starsContainer.querySelector('.rating-number');
+      if (ratingText) {
+        ratingText.textContent = `${starValue}/5`;
+      } else {
+        ratingText = document.createElement('span');
+        ratingText.className = 'rating-number text-sm font-weight-medium ms-2';
+        ratingText.style.fontSize = '0.875rem';
+        ratingText.style.fontWeight = '500';
+        ratingText.style.marginLeft = '0.5rem';
+        ratingText.textContent = `${starValue}/5`;
+        starsContainer.appendChild(ratingText);
+      }
+      
+      // Call the callback
+      onRate(starValue);
+    }
+  });
+  
+  // Use event delegation for hover effects
+  starsContainer.addEventListener('mouseover', (e) => {
+    const starButton = e.target.closest('.star-btn');
+    if (starButton) {
+      const starValue = parseInt(starButton.getAttribute('data-star-value'), 10);
+      if (!isNaN(starValue) && starValue !== hoverRating) {
+        hoverRating = starValue;
+        updateStars();
+      }
+    }
+  });
+  
+  starsContainer.addEventListener('mouseleave', () => {
+    hoverRating = null;
+    updateStars();
+  });
   
   // Create 5 stars
   for (let i = 1; i <= 5; i++) {
@@ -86,52 +131,11 @@ function createStarRating({
     starButton.style.zIndex = '10';
     starButton.style.pointerEvents = 'auto';
     starButton.setAttribute('data-star-value', i);
+    starButton.setAttribute('tabindex', '0');
+    starButton.setAttribute('aria-label', `${i} ${i === 1 ? 'stjärna' : 'stjärnor'}`);
     
     const starSvg = createStarSVG(i <= (hoverRating !== null ? hoverRating : (currentUserRating || 0)));
     starButton.appendChild(starSvg);
-    
-    starButton.addEventListener('click', (e) => {
-      console.log('[StarRating] Star clicked:', i, 'for item:', menuItemId);
-      console.log('[StarRating] onRate function type:', typeof onRate);
-      e.preventDefault();
-      e.stopPropagation();
-      
-      // Update UI immediately for instant feedback
-      currentUserRating = i;
-      label.textContent = t.yourRating;
-      updateStars();
-      
-      // Update rating number display
-      const existingRatingText = starsContainer.querySelector('.text-sm');
-      if (existingRatingText) {
-        existingRatingText.textContent = `${i}/5`;
-      } else if (i > 0) {
-        const ratingText = document.createElement('span');
-        ratingText.className = 'text-sm font-weight-medium ms-2';
-        ratingText.style.fontSize = '0.875rem';
-        ratingText.style.fontWeight = '500';
-        ratingText.style.marginLeft = '0.5rem';
-        ratingText.textContent = `${i}/5`;
-        starsContainer.appendChild(ratingText);
-      }
-      
-      if (typeof onRate === 'function') {
-        console.log('[StarRating] Calling onRate callback...');
-        onRate(i);
-      } else {
-        console.error('[StarRating] onRate is not a function!', onRate);
-      }
-    });
-    
-    starButton.addEventListener('mouseenter', () => {
-      hoverRating = i;
-      updateStars();
-    });
-    
-    starButton.addEventListener('mouseleave', () => {
-      hoverRating = null;
-      updateStars();
-    });
     
     starsContainer.appendChild(starButton);
   }
@@ -139,7 +143,7 @@ function createStarRating({
   // Rating number display
   if (currentUserRating) {
     const ratingText = document.createElement('span');
-    ratingText.className = 'text-sm font-weight-medium ms-2';
+    ratingText.className = 'rating-number text-sm font-weight-medium ms-2';
     ratingText.style.fontSize = '0.875rem';
     ratingText.style.fontWeight = '500';
     ratingText.style.marginLeft = '0.5rem';

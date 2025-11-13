@@ -133,8 +133,15 @@ async function fetchNews(useAuth = false) {
     
     return response.json();
   } catch (error) {
+    // Handle CORS and network errors gracefully
+    if (error.name === 'TypeError' && (error.message.includes('Load failed') || error.message.includes('access control'))) {
+      console.error('Fetch news exception: CORS or network error. This may be due to server configuration.');
+      // Return empty news array instead of throwing to allow app to continue
+      return { newsArticles: [] };
+    }
     console.error('Fetch news exception:', error);
-    throw error;
+    // Return empty news array instead of throwing
+    return { newsArticles: [] };
   }
 }
 
@@ -209,6 +216,7 @@ async function fetchSettings() {
     const response = await fetch(`${API_BASE}/settings`, {
       headers: {
         'Authorization': `Bearer ${publicAnonKey}`,
+        'Content-Type': 'application/json',
       },
     });
     
@@ -220,8 +228,15 @@ async function fetchSettings() {
     
     return response.json();
   } catch (error) {
+    // Handle CORS and network errors gracefully
+    if (error.name === 'TypeError' && error.message.includes('Load failed')) {
+      console.error('Fetch settings exception: CORS or network error. This may be due to server configuration.');
+      // Return empty settings instead of throwing to allow app to continue
+      return { settings: {} };
+    }
     console.error('Fetch settings exception:', error);
-    throw error;
+    // Return empty settings instead of throwing
+    return { settings: {} };
   }
 }
 
@@ -323,8 +338,15 @@ async function fetchGallery(useAuth = false) {
     
     return response.json();
   } catch (error) {
+    // Handle CORS and network errors gracefully
+    if (error.name === 'TypeError' && (error.message.includes('Load failed') || error.message.includes('access control'))) {
+      console.error('Fetch gallery exception: CORS or network error. This may be due to server configuration.');
+      // Return empty gallery array instead of throwing to allow app to continue
+      return { galleryImages: [] };
+    }
     console.error('Fetch gallery exception:', error);
-    throw error;
+    // Return empty gallery array instead of throwing
+    return { galleryImages: [] };
   }
 }
 

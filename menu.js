@@ -16,22 +16,16 @@ let menuLoaded = false;
  */
 async function loadMenuData() {
   try {
-    console.log('[LoadMenu] Starting to load menu data...');
-    
     // Fetch menu items from backend
     const data = await fetchMenuItems();
     menuItems = data.menuItems || [];
     mostLikedItemIds = data.mostLikedItemIds || [];
-    console.log('[LoadMenu] Fetched', menuItems.length, 'menu items from backend');
     
     // Load user ratings from localStorage
     userRatings = getUserRatings();
-    console.log('[LoadMenu] User ratings from localStorage:', userRatings);
-    console.log('[LoadMenu] Number of rated items:', Object.keys(userRatings).length);
     
     // Fetch aggregate ratings
     aggregateRatings = await fetchRatingsAggregate();
-    console.log('[LoadMenu] Fetched aggregate ratings');
     
     // Organize menu items by category for backward compatibility
     // Order: Mest omtyckt first, then Mina betyg, then regular categories
@@ -91,13 +85,9 @@ async function loadMenuData() {
       
       // Add to minabetyg if user has rated it
       if (item.userRating) {
-        console.log('[LoadMenu] Adding item to minabetyg:', item.id, item.name, 'rating:', item.userRating);
         menuData['minabetyg-menu'].push(frontendItem);
       }
     });
-    
-    console.log('[LoadMenu] Final minabetyg count:', menuData['minabetyg-menu'].length);
-    console.log('[LoadMenu] Items in minabetyg:', menuData['minabetyg-menu'].map(item => `${item.id}: ${item.name} (${item.userRating}⭐)`));
     
     // Sort categories
     // Sort pizza by number
@@ -113,7 +103,6 @@ async function loadMenuData() {
     }
     
     menuLoaded = true;
-    console.log('[LoadMenu] Menu data loaded successfully');
     
     // Make menuData globally available for HTML scripts
     window.menuData = menuData;
@@ -181,25 +170,30 @@ function sortMenuItemsByNumber(items) {
  */
 async function handleMenuItemRating(menuItemId, rating) {
   try {
-    console.log(`[Rating] Starting to rate item ${menuItemId} with rating ${rating}`);
-    
     // Update local state immediately for instant UI feedback
     userRatings[menuItemId] = rating;
     
     // Sync to server (this will also save to localStorage)
-    console.log('[Rating] Syncing to server...');
     const result = await syncUserRatingToServer(menuItemId, rating);
     
     // Verify localStorage was updated by syncUserRatingToServer
     const savedRatings = getUserRatings();
     if (savedRatings[menuItemId] !== rating) {
-      console.error('[Rating] Failed to save to localStorage');
       throw new Error('Failed to save rating locally');
     }
-    console.log('[Rating] Successfully verified localStorage:', savedRatings[menuItemId]);
     
     if (result.success) {
-      console.log('[Rating] Successfully synced to server');
+      // Save current category and scroll position before reload
+      const savedCategory = typeof window.currentCategory !== 'undefined' ? window.currentCategory : null;
+      const savedMenuItemId = menuItemId; // Save which item was rated to scroll back to it
+      
+      // Save scroll position relative to the menu section
+      const menuSection = document.getElementById('menu');
+      let savedScrollPosition = null;
+      if (menuSection) {
+        const menuRect = menuSection.getBoundingClientRect();
+        savedScrollPosition = window.scrollY + menuRect.top;
+      }
       
       // Show success notification
       if (typeof Toastify !== 'undefined') {
@@ -220,23 +214,31 @@ async function handleMenuItemRating(menuItemId, rating) {
       await new Promise(resolve => setTimeout(resolve, 100));
       
       // Reload menu data to get updated aggregates
-      console.log('[Rating] Reloading menu data...');
       await loadMenuData();
-      console.log('[Rating] Menu data reloaded');
       
-      // Verify the rating is in the new menuData
-      const updatedRatings = getUserRatings();
-      console.log('[Rating] Current ratings after reload:', updatedRatings);
-      console.log('[Rating] Looking for rating in minabetyg:', menuData['minabetyg-menu']?.map(item => item.id));
-      
-      // Update the displayed menu if needed
-      if (typeof window.refreshCurrentMenu === 'function') {
+      // Restore category and scroll position
+      if (savedCategory && typeof window.displayMenu === 'function') {
+        window.displayMenu(savedCategory);
+        
+        // Wait for menu to render, then restore scroll position
+        await new Promise(resolve => setTimeout(resolve, 150));
+        
+        // Try to scroll to the rated item first (best UX)
+        const ratedMenuItem = document.querySelector(`[data-item-id="${savedMenuItemId}"]`);
+        if (ratedMenuItem) {
+          // Scroll to the item with some offset from top
+          const itemRect = ratedMenuItem.getBoundingClientRect();
+          const scrollOffset = window.scrollY + itemRect.top - 100; // 100px from top
+          window.scrollTo({ top: scrollOffset, behavior: 'smooth' });
+        } else if (savedScrollPosition !== null) {
+          // Fallback: restore previous scroll position
+          window.scrollTo({ top: savedScrollPosition, behavior: 'smooth' });
+        }
+      } else if (typeof window.refreshCurrentMenu === 'function') {
+        // Fallback to refreshCurrentMenu if displayMenu is not available
         window.refreshCurrentMenu();
       }
-      
-      console.log('[Rating] Rating process completed successfully');
     } else {
-      console.error('[Rating] Failed to sync rating:', result.error);
       // Show error notification
       if (typeof Toastify !== 'undefined') {
         const currentLang = localStorage.getItem('language') || 'sv';

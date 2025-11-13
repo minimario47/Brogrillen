@@ -932,56 +932,7 @@ body.dark-mode .floating-admin-btn:hover {
         <div class="container">
             <h2 class="text-center mb-5" data-translate="gallery_title">Vår Mat och Restaurang</h2>
             <div class="row g-4" id="image-gallery">
-                <div class="col-md-4 col-sm-6 gallery-item" data-aos="zoom-in">
-                    <a href="utsida.jpg" data-lightbox="gallery" data-title="Vår Restaurang">
-                        <img src="utsida.jpg" alt="Vår Restaurang" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
-                    </a>
-                </div>
-                <div class="col-md-4 col-sm-6 gallery-item" data-aos="zoom-in" data-aos-delay="100">
-                    <a href="pizza1.jpeg" data-lightbox="gallery" data-title="Vår Utsökta Pizza">
-                        <img src="pizza1.jpeg" alt="Pizza 1" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
-                    </a>
-                </div>
-                <div class="col-md-4 col-sm-6 gallery-item" data-aos="zoom-in" data-aos-delay="200">
-                    <a href="pizza2.jpeg" data-lightbox="gallery" data-title="Färska Ingredienser">
-                        <img src="pizza2.jpeg" alt="Pizza 2" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
-                    </a>
-                </div>
-                <div class="col-md-4 col-sm-6 gallery-item" data-aos="zoom-in">
-                    <a href="pizza3.jpeg" data-lightbox="gallery" data-title="Traditionell Italiensk Pizza">
-                        <img src="pizza3.jpeg" alt="Pizza 3" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
-                    </a>
-                </div>
-                <div class="col-md-4 col-sm-6 gallery-item" data-aos="zoom-in" data-aos-delay="100">
-                    <a href="pizza4.jpeg" data-lightbox="gallery" data-title="Specialpizza">
-                        <img src="pizza4.jpeg" alt="Pizza 4" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
-                    </a>
-                </div>
-                <div class="col-md-4 col-sm-6 gallery-item" data-aos="zoom-in" data-aos-delay="200">
-                    <a href="pizza5.jpeg" data-lightbox="gallery" data-title="Gourmetpizza">
-                        <img src="pizza5.jpeg" alt="Pizza 5" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
-                    </a>
-                </div>
-                <div class="col-md-4 col-sm-6 gallery-item" data-aos="zoom-in">
-                    <a href="pizza6.jpeg" data-lightbox="gallery" data-title="Vegetarisk Pizza">
-                        <img src="pizza6.jpeg" alt="Pizza 6" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
-                    </a>
-                </div>
-                <div class="col-md-4 col-sm-6 gallery-item" data-aos="zoom-in" data-aos-delay="100">
-                    <a href="pasta.jpeg" data-lightbox="gallery" data-title="Vår Hemlagade Pasta">
-                        <img src="pasta.jpeg" alt="Pasta" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
-                    </a>
-                </div>
-                <div class="col-md-4 col-sm-6 gallery-item" data-aos="zoom-in" data-aos-delay="200">
-                    <a href="gatukok.jpeg" data-lightbox="gallery" data-title="Gatukök Favoriter">
-                        <img src="gatukok.jpeg" alt="Gatukök" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
-                    </a>
-                </div>
-                <div class="col-md-4 col-sm-6 gallery-item" data-aos="zoom-in">
-                    <a href="sallad.jpeg" data-lightbox="gallery" data-title="Fräscha Sallader">
-                        <img src="sallad.jpeg" alt="Sallad" class="img-fluid gallery-image" loading="lazy" width="400" height="300">
-                    </a>
-                </div>
+                <!-- Gallery images will be dynamically loaded from backend -->
             </div>
         </div>
     </section>
@@ -1325,6 +1276,8 @@ body.dark-mode .floating-admin-btn:hover {
             // Display menu items for a category
             function displayMenu(category) {
                 currentCategory = category;
+                // Make it globally available
+                window.currentCategory = category;
                 const buttons = menuSelector.querySelectorAll('button');
                 buttons.forEach(btn => btn.classList.remove('active'));
 
@@ -1402,13 +1355,8 @@ body.dark-mode .floating-admin-btn:hover {
                                 avgRating: item.avgRating || 0,
                                 totalRatings: item.totalRatings || 0,
                                 onRate: (rating) => {
-                                    console.log('[DisplayMenu] onRate callback triggered for item:', item.id, 'rating:', rating);
-                                    console.log('[DisplayMenu] handleMenuItemRating type:', typeof handleMenuItemRating);
                                     if (typeof handleMenuItemRating === 'function') {
-                                        console.log('[DisplayMenu] Calling handleMenuItemRating...');
                                         handleMenuItemRating(item.id, rating);
-                                    } else {
-                                        console.error('[DisplayMenu] handleMenuItemRating is not a function!');
                                     }
                                 },
                                 className: '',
@@ -1443,16 +1391,27 @@ body.dark-mode .floating-admin-btn:hover {
                     displayMenu(currentCategory);
                 }
             };
+            
+            // Make displayMenu globally available
+            window.displayMenu = displayMenu;
 
             // Function to update menu after backend load
             window.updateMenuAfterLoad = function() {
                 if (menuSelector) {
+                    // Save current category if it exists
+                    const existingCategory = currentCategory;
+                    
                     // Clear existing buttons
                     menuSelector.innerHTML = '';
                     // Recreate buttons
                     createMenuButtons();
-                    // Display first category
-                    if (typeof menuData !== 'undefined' && Object.keys(menuData).length > 0) {
+                    
+                    // Only change category if no category was active before
+                    if (existingCategory && typeof menuData !== 'undefined' && menuData[existingCategory]) {
+                        // Restore the existing category
+                        displayMenu(existingCategory);
+                    } else if (typeof menuData !== 'undefined' && Object.keys(menuData).length > 0) {
+                        // Only display first category if no category was active
                         const firstCategory = Object.keys(menuData)[0];
                         displayMenu(firstCategory);
                     }

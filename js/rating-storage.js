@@ -32,15 +32,12 @@ function getUserRatings() {
     const ratingsStr = localStorage.getItem(USER_RATINGS_KEY);
     
     if (!ratingsStr) {
-      console.log('[Storage] No ratings found in localStorage');
       return {};
     }
     
     const ratings = JSON.parse(ratingsStr);
-    console.log('[Storage] Retrieved ratings from localStorage:', ratings);
     return ratings;
   } catch (error) {
-    console.error('[Storage] Error reading user ratings from localStorage:', error);
     return {};
   }
 }
@@ -51,23 +48,18 @@ function getUserRatings() {
  */
 function saveUserRatingLocally(menuItemId, rating) {
   try {
-    console.log('[Storage] Saving rating for item:', menuItemId, 'with rating:', rating);
     const ratings = getUserRatings();
     ratings[menuItemId] = rating;
     
     const ratingsStr = JSON.stringify(ratings);
     localStorage.setItem(USER_RATINGS_KEY, ratingsStr);
-    console.log('[Storage] Saved to localStorage. New ratings object:', ratings);
     
     // Verify it was saved correctly
     const verification = localStorage.getItem(USER_RATINGS_KEY);
     if (verification !== ratingsStr) {
-      console.error('[Storage] localStorage verification failed!');
       throw new Error('Failed to verify localStorage save');
     }
-    console.log('[Storage] localStorage save verified successfully');
   } catch (error) {
-    console.error('[Storage] Error saving user rating to localStorage:', error);
     throw error;
   }
 }

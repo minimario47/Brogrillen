@@ -9,30 +9,22 @@
  */
 async function syncUserRatingToServer(menuItemId, rating) {
   try {
-    console.log('[Sync] Starting sync for item:', menuItemId, 'rating:', rating);
-    
     // First, save locally for immediate feedback
     saveUserRatingLocally(menuItemId, rating);
-    console.log('[Sync] Saved to localStorage successfully');
     
     // Then sync to server
     const userId = getUserId();
-    console.log('[Sync] User ID:', userId);
-    console.log('[Sync] Submitting rating to server...');
     const result = await submitRating(menuItemId, userId, rating);
     
     if (!result.success) {
-      console.error('[Sync] Server returned error:', result.error);
       return {
         success: false,
         error: result.error || 'Failed to sync rating to server'
       };
     }
     
-    console.log('[Sync] Successfully synced to server');
     return { success: true };
   } catch (error) {
-    console.error('[Sync] Exception during sync:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Failed to sync rating'
