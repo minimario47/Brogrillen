@@ -361,18 +361,32 @@ async function loadAdminMenuContent() {
       </div>
       
       <!-- Bulk Action Bar (hidden by default) -->
-      <div id="bulkActionBar" style="display: none;" class="alert alert-info d-flex justify-content-between align-items-center mb-3">
-        <div>
-          <strong><span id="selectedCount">0</span> valda</strong>
-          <button class="btn btn-sm btn-outline-primary ms-3" onclick="selectAll()">Välj alla</button>
-          <button class="btn btn-sm btn-outline-secondary ms-2" onclick="deselectAll()">Avmarkera alla</button>
+      <div id="bulkActionBar" style="display: none;" class="bulk-action-bar mb-3">
+        <div class="bulk-action-header">
+          <div class="bulk-action-info">
+            <strong><span id="selectedCount">0</span> valda</strong>
+            <div class="bulk-action-select-buttons">
+              <button class="btn btn-sm btn-outline-primary" onclick="selectAll()">Välj alla</button>
+              <button class="btn btn-sm btn-outline-secondary" onclick="deselectAll()">Avmarkera alla</button>
+            </div>
+          </div>
         </div>
-        <div class="d-flex gap-2">
-          <button class="btn btn-sm btn-danger" onclick="bulkDelete()"><i class="fas fa-trash"></i> Ta bort</button>
-          <button class="btn btn-sm btn-warning" onclick="bulkChangeCategory()"><i class="fas fa-tag"></i> Ändra kategori</button>
-          <button class="btn btn-sm btn-info" onclick="bulkAdjustPrice()"><i class="fas fa-dollar-sign"></i> Justera pris</button>
-          <button class="btn btn-sm btn-success" onclick="bulkPublish(true)"><i class="fas fa-check"></i> Publicera</button>
-          <button class="btn btn-sm btn-secondary" onclick="bulkPublish(false)"><i class="fas fa-file"></i> Utkast</button>
+        <div class="bulk-action-buttons">
+          <button class="btn btn-sm btn-danger" onclick="bulkDelete()">
+            <i class="fas fa-trash"></i> <span class="btn-text">Ta bort</span>
+          </button>
+          <button class="btn btn-sm btn-warning" onclick="bulkChangeCategory()">
+            <i class="fas fa-tag"></i> <span class="btn-text">Ändra kategori</span>
+          </button>
+          <button class="btn btn-sm btn-info" onclick="bulkAdjustPrice()">
+            <i class="fas fa-dollar-sign"></i> <span class="btn-text">Justera pris</span>
+          </button>
+          <button class="btn btn-sm btn-success" onclick="bulkPublish(true)">
+            <i class="fas fa-check"></i> <span class="btn-text">Publicera</span>
+          </button>
+          <button class="btn btn-sm btn-secondary" onclick="bulkPublish(false)">
+            <i class="fas fa-file"></i> <span class="btn-text">Utkast</span>
+          </button>
         </div>
       </div>
       
@@ -1085,56 +1099,273 @@ async function bulkChangeCategory() {
 async function bulkAdjustPrice() {
   if (selectedItems.size === 0) return;
   
-  const adjustment = prompt(`Justera pris för ${selectedItems.size} objekt:\nAnge +X% för ökning eller -X% för minskning\n(t.ex. +10 för 10% ökning, -5 för 5% minskning)`);
-  if (!adjustment) return;
-  
-  const match = adjustment.match(/^([+-])(\d+(?:\.\d+)?)$/);
-  if (!match) {
-    alert('Ogiltigt format. Använd +X eller -X (t.ex. +10 eller -5)');
-    return;
+  // Create and show modal
+  const modalId = 'priceAdjustModal';
+  let existingModal = document.getElementById(modalId);
+  if (existingModal) {
+    existingModal.remove();
   }
   
-  const operator = match[1];
-  const percentage = parseFloat(match[2]);
+  const modal = document.createElement('div');
+  modal.id = modalId;
+  modal.className = 'modal fade';
+  modal.setAttribute('tabindex', '-1');
+  modal.setAttribute('aria-labelledby', 'priceAdjustModalLabel');
+  modal.setAttribute('aria-hidden', 'true');
+  modal.innerHTML = `
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="priceAdjustModalLabel">Justera pris för ${selectedItems.size} objekt</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Välj justeringsläge:</label>
+            <div class="btn-group w-100" role="group">
+              <input type="radio" class="btn-check" name="adjustMode" id="modePercent" value="percent" checked>
+              <label class="btn btn-outline-primary" for="modePercent">
+                <i class="fas fa-percent"></i> Procent (%)
+              </label>
+              
+              <input type="radio" class="btn-check" name="adjustMode" id="modeKr" value="kr">
+              <label class="btn btn-outline-primary" for="modeKr">
+                <i class="fas fa-coins"></i> Kronor (kr)
+              </label>
+            </div>
+          </div>
+          
+          <div id="percentMode" class="adjustment-mode">
+            <label class="form-label">Procentjustering:</label>
+            <div class="input-group">
+              <button class="btn btn-outline-secondary" type="button" id="percentDecrease">-</button>
+              <input type="number" class="form-control" id="percentValue" placeholder="10" min="0" max="100" step="0.1" value="10">
+              <span class="input-group-text">%</span>
+              <button class="btn btn-outline-secondary" type="button" id="percentIncrease">+</button>
+            </div>
+            <small class="form-text text-muted">Ange procent för ökning (t.ex. 10 för 10% ökning)</small>
+          </div>
+          
+          <div id="krMode" class="adjustment-mode" style="display: none;">
+            <label class="form-label">Kronorjustering:</label>
+            <div class="mb-2">
+              <div class="btn-group w-100" role="group">
+                <input type="radio" class="btn-check" name="krDirection" id="krIncrease" value="increase" checked>
+                <label class="btn btn-outline-success" for="krIncrease">
+                  <i class="fas fa-plus"></i> Öka
+                </label>
+                
+                <input type="radio" class="btn-check" name="krDirection" id="krDecrease" value="decrease">
+                <label class="btn btn-outline-danger" for="krDecrease">
+                  <i class="fas fa-minus"></i> Minska
+                </label>
+              </div>
+            </div>
+            <div class="input-group">
+              <button class="btn btn-outline-secondary" type="button" id="krValueDecrease">-</button>
+              <input type="number" class="form-control" id="krValue" placeholder="5" min="0" step="1" value="5">
+              <span class="input-group-text">kr</span>
+              <button class="btn btn-outline-secondary" type="button" id="krValueIncrease">+</button>
+            </div>
+            <small class="form-text text-muted">Ange belopp i kronor (t.ex. 5 för ±5 kr)</small>
+          </div>
+          
+          <div class="mt-3 p-3 bg-light rounded">
+            <strong>Förhandsvisning:</strong>
+            <div id="pricePreview" class="mt-2">
+              <small>Välj läge och värde för att se förhandsvisning</small>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Avbryt</button>
+          <button type="button" class="btn btn-primary" id="applyPriceAdjustment">Tillämpa</button>
+        </div>
+      </div>
+    </div>
+  `;
   
-  try {
+  document.body.appendChild(modal);
+  
+  // Initialize Bootstrap modal
+  const bsModal = new bootstrap.Modal(modal);
+  bsModal.show();
+  
+  // Mode switching
+  const modeInputs = modal.querySelectorAll('input[name="adjustMode"]');
+  const percentMode = modal.querySelector('#percentMode');
+  const krMode = modal.querySelector('#krMode');
+  const percentValue = modal.querySelector('#percentValue');
+  const krValue = modal.querySelector('#krValue');
+  const preview = modal.querySelector('#pricePreview');
+  
+  modeInputs.forEach(input => {
+    input.addEventListener('change', () => {
+      if (input.value === 'percent') {
+        percentMode.style.display = 'block';
+        krMode.style.display = 'none';
+      } else {
+        percentMode.style.display = 'none';
+        krMode.style.display = 'block';
+      }
+      updatePreview();
+    });
+  });
+  
+  // Increment/decrement buttons
+  modal.querySelector('#percentIncrease').addEventListener('click', () => {
+    percentValue.value = (parseFloat(percentValue.value) || 0) + 1;
+    updatePreview();
+  });
+  
+  modal.querySelector('#percentDecrease').addEventListener('click', () => {
+    const val = Math.max(0, (parseFloat(percentValue.value) || 0) - 1);
+    percentValue.value = val;
+    updatePreview();
+  });
+  
+  modal.querySelector('#krValueIncrease').addEventListener('click', () => {
+    krValue.value = (parseInt(krValue.value) || 0) + 1;
+    updatePreview();
+  });
+  
+  modal.querySelector('#krValueDecrease').addEventListener('click', () => {
+    const val = Math.max(0, (parseInt(krValue.value) || 0) - 1);
+    krValue.value = val;
+    updatePreview();
+  });
+  
+  // Kr direction toggle
+  const krDirectionInputs = modal.querySelectorAll('input[name="krDirection"]');
+  krDirectionInputs.forEach(input => {
+    input.addEventListener('change', updatePreview);
+  });
+  
+  // Update preview on input change
+  percentValue.addEventListener('input', updatePreview);
+  krValue.addEventListener('input', updatePreview);
+  
+  // Preview function
+  function updatePreview() {
     const items = window.adminMenuItems || [];
-    const updatePromises = Array.from(selectedItems).map(id => {
+    const selectedArray = Array.from(selectedItems).slice(0, 3); // Show max 3 examples
+    const isPercent = modal.querySelector('#modePercent').checked;
+    const value = isPercent ? parseFloat(percentValue.value) : parseFloat(krValue.value);
+    
+    if (!value || value <= 0) {
+      preview.innerHTML = '<small class="text-muted">Ange ett värde för att se förhandsvisning</small>';
+      return;
+    }
+    
+    let previewHTML = '<div class="small">';
+    selectedArray.forEach(id => {
       const item = items.find(i => i.id === id);
-      if (!item) return null;
+      if (!item) return;
       
       const currentPrice = parseFloat(item.price.replace(/[^\d.]/g, ''));
       let newPrice;
+      let adjustmentText = '';
       
-      if (operator === '+') {
-        newPrice = currentPrice * (1 + percentage / 100);
+      if (isPercent) {
+        newPrice = currentPrice * (1 + value / 100);
+        adjustmentText = `+${value}%`;
       } else {
-        newPrice = currentPrice * (1 - percentage / 100);
+        const isIncrease = modal.querySelector('input[name="krDirection"]:checked').value === 'increase';
+        if (isIncrease) {
+          newPrice = currentPrice + value;
+          adjustmentText = `+${value} kr`;
+        } else {
+          newPrice = Math.max(0, currentPrice - value);
+          adjustmentText = `-${value} kr`;
+        }
       }
       
       newPrice = Math.round(newPrice);
-      return updateMenuItem(id, { price: `${newPrice} kr` });
-    }).filter(p => p !== null);
+      previewHTML += `<div>${item.name}: ${currentPrice} kr ${adjustmentText} → <strong>${newPrice} kr</strong></div>`;
+    });
     
-    await Promise.all(updatePromises);
-    
-    // Save to history
-    addToHistory('price', Array.from(selectedItems), { adjustment });
-    
-    alert(`${selectedItems.size} priser uppdaterade!`);
-    selectedItems.clear();
-    await loadAdminMenuContent();
-    
-    // Reload frontend
-    if (typeof loadMenuData === 'function') {
-      await loadMenuData();
-      if (typeof window.updateMenuAfterLoad === 'function') {
-        window.updateMenuAfterLoad();
-      }
+    if (selectedItems.size > 3) {
+      previewHTML += `<div class="text-muted">... och ${selectedItems.size - 3} fler objekt</div>`;
     }
-  } catch (error) {
-    alert('Fel: ' + error.message);
+    
+    previewHTML += '</div>';
+    preview.innerHTML = previewHTML;
   }
+  
+  // Apply button
+  modal.querySelector('#applyPriceAdjustment').addEventListener('click', async () => {
+    const isPercent = modal.querySelector('#modePercent').checked;
+    const value = isPercent ? parseFloat(percentValue.value) : parseFloat(krValue.value);
+    
+    if (!value || value <= 0) {
+      alert('Ange ett giltigt värde');
+      return;
+    }
+    
+    bsModal.hide();
+    
+    try {
+      const items = window.adminMenuItems || [];
+      const updatePromises = Array.from(selectedItems).map(id => {
+        const item = items.find(i => i.id === id);
+        if (!item) return null;
+        
+        const currentPrice = parseFloat(item.price.replace(/[^\d.]/g, ''));
+        let newPrice;
+        
+        if (isPercent) {
+          newPrice = currentPrice * (1 + value / 100);
+        } else {
+          const isIncrease = modal.querySelector('input[name="krDirection"]:checked').value === 'increase';
+          if (isIncrease) {
+            newPrice = currentPrice + value;
+          } else {
+            newPrice = Math.max(0, currentPrice - value);
+          }
+        }
+        
+        newPrice = Math.round(newPrice);
+        return updateMenuItem(id, { price: `${newPrice} kr` });
+      }).filter(p => p !== null);
+      
+      await Promise.all(updatePromises);
+      
+      // Save to history
+      let adjustment;
+      if (isPercent) {
+        adjustment = `${value}%`;
+      } else {
+        const isIncrease = modal.querySelector('input[name="krDirection"]:checked').value === 'increase';
+        adjustment = isIncrease ? `+${value} kr` : `-${value} kr`;
+      }
+      addToHistory('price', Array.from(selectedItems), { adjustment, mode: isPercent ? 'percent' : 'kr' });
+      
+      alert(`${selectedItems.size} priser uppdaterade!`);
+      selectedItems.clear();
+      await loadAdminMenuContent();
+      
+      // Reload frontend
+      if (typeof loadMenuData === 'function') {
+        await loadMenuData();
+        if (typeof window.updateMenuAfterLoad === 'function') {
+          window.updateMenuAfterLoad();
+        }
+      }
+    } catch (error) {
+      alert('Fel: ' + error.message);
+    }
+    
+    // Clean up
+    modal.remove();
+  });
+  
+  // Clean up on close
+  modal.addEventListener('hidden.bs.modal', () => {
+    modal.remove();
+  });
+  
+  // Initial preview
+  updatePreview();
 }
 
 /**
