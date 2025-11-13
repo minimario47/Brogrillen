@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brogrillen Pizzeria - Henån</title>
+    <meta name="description" content="Välkommen till Brogrillen Pizzeria i Henån – en mysig plats för dig som vill njuta av god mat och trevlig atmosfär. Vi har något för alla smaker!">
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="manifest" href="site.webmanifest">
+
+    <meta property="og:title" content="Brogrillen Pizzeria - Henån">
+    <meta property="og:description" content="Välkommen till Brogrillen Pizzeria i Henån – en mysig plats för dig som vill njuta av god mat och trevlig atmosfär.">
+    <meta property="og:image" content="android-chrome-512x512.png">
+    <meta property="og:url" content="https://www.brogrillen.com">
+    <meta property="og:type" content="website">
+    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    </noscript>   
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </noscript> 
+    
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    </noscript>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+    </noscript>  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    </noscript>    
+    
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Restaurant",
+          "@id": "https://brogrillen.com/",
+          "name": "Brogrillen Pizzeria",
+          "headline": "Brogrillen Pizzeria - Henån",
+
+          "image": "BrogrillenLogo.webp",
+          "logo": "BrogrillenLogo.webp",
+          "description": "En mysig plats i Henån för dig som vill njuta av god mat.",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Norra strandvägen 7",
+            "addressLocality": "Henån",
+            "postalCode": "47334",
+            "addressCountry": "SE"
+          },
+          "telephone": "+4630432212",
+          "url": "https://brogrillen.com",
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+              ],
+              "opens": "11:00",
+              "closes": "21:00"
+            }
+          ],
+          "servesCuisine": ["Italienskt", "Pizza", "Korv", "Sallad", "Kebab", "Hamburgare", "A La Carte","Chicken Nuggets"],
+          "menu": "https://www.brogrillen.com/menu",
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.5",
+            "reviewCount": "150"
+          }
+        }
+        </script>
+
+    <style>
+        :root {
+            --primary-color: #D32F2F;
+            --secondary-color: #FFA000;
+            --text-color: #333333;
+            --background-color: #FFFFFF;
+            --accent-color: #4CAF50;
+            --dark-bg-color: #121212;
+            --dark-text-color: #FFFFFF;
+            --dark-primary-color: #BB86FC;
+            --dark-secondary-color: #03DAC6;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            scroll-behavior: smooth;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg-color);
+            color: var(--dark-text-color);
+        }
+
+        body.dark-mode .navbar {
+            background-color: var(--dark-bg-color) !important;
+        }
+
+        body.dark-mode .navbar-brand, 
+        body.dark-mode .nav-link {
+            color: var(--dark-text-color) !important;
+        }
+
+        body.dark-mode .dropdown-menu {
+            background-color: var(--dark-bg-color);
+        }
+
+        body.dark-mode .dropdown-item {
+            color: var(--dark-text-color);
+        }
+
+        body.dark-mode .dropdown-item:hover {
+            background-color: var(--dark-secondary-color);
+            color: var(--dark-text-color);
+        }
+
+        body.dark-mode .menu-selector button {
+            background-color: var(--dark-primary-color);
+            color: var(--dark-text-color);
+        }
+
+        body.dark-mode .menu-selector button:hover,
+        body.dark-mode .menu-selector button.active {
+            background-color: var(--dark-secondary-color);
+        }
+
+        body.dark-mode .menu-item {
+            background-color: #1E1E1E;
+            color: var(--dark-text-color);
+        }
+
+        body.dark-mode .gallery-image {
+            border: 2px solid var(--dark-secondary-color);
+        }
+
+        .navbar {
+            background-color: gray;
+            opacity: 0.95;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .navbar.scrolled {
+            background-color: var(--primary-color) !important;
+        }
+
+        .navbar-brand, .nav-link, .dropdown-toggle {
+            color: white !important;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-brand:hover, .nav-link:hover, .dropdown-toggle:hover {
+            color: var(--secondary-color) !important;
+        }
+
+        .navbar-toggler {
+            border-color: white;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+
+        .language-dropdown .dropdown-menu {
+            min-width: auto;
+        }
+
+        .language-dropdown .dropdown-item {
+            cursor: pointer;
+        }
+
+        .language-dropdown .dropdown-item.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5));
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: -1;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #45a049;
+            border-color: #45a049;
+        }
+
+        .btn-success {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .btn-success:hover {
+            background-color: #e0a800;
+            border-color: #e0a800;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .dark-mode-toggle:hover {
+            background-color: var(--primary-color);
+            transform: rotate(20deg);
+        }
+
+        .menu-section {
+            background-color: #f9f9f9;
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark-mode .menu-section {
+            background-color: #1E1E1E;
+        }
+        .hero-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+        .menu-selector {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            gap: 10px;
+        }
+
+        .menu-selector button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .menu-selector button:hover,
+        .menu-selector button.active {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .menu-item {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        body.dark-mode .menu-item {
+            background-color: #1E1E1E;
+            color: var(--dark-text-color);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+        }
+
+        .menu-item .price {
+            color: var(--secondary-color);
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.05);
+        }
+
+        #image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .gallery-item {
+            break-inside: avoid;
+            padding: 10px;
+        }
+
+        @media (max-width: 767px) {
+            .gallery-item {
+                width: 50%;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .gallery-item {
+                width: 100%;
+            }
+        }
+
+        .testimonials-section {
+            background-color: #f1f1f1;
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark-mode .testimonials-section {
+            background-color: #2C2C2C;
+        }
+
+        .testimonial {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        body.dark-mode .testimonial {
+            background-color: #1E1E1E;
+            color: var(--dark-text-color);
+        }
+
+        .testimonial:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+        }
+
+        #backToTop {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        #backToTop:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .social-icons a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .social-icons a {
+            color: var(--dark-text-color);
+        }
+
+        .social-icons a:hover {
+            color: var(--secondary-color);
+        }
+
+        #contact {
+            background-color: #f9f9f9;
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark-mode #contact {
+            background-color: #1E1E1E;
+            color: var(--dark-text-color);
+        }
+
+        body.dark-mode .bg-light {
+            background-color: #1E1E1E !important;
+            color: var(--dark-text-color) !important;
+        }
+
+        /* Nyhet Section Styles */
+.nyhet-section {
+    background-color: #fffbea; /* Light yellow background to attract attention */
+    transition: background-color 0.3s ease;
+
+}
+/* Dark mode background for Nyhet Section */
+body.dark-mode .nyhet-section {
+    background-color: #af8e00; /* A darker shade for dark mode */
+}
+
+.nyhet-section h2 {
+    color: #D32F2F; /* Primary color for consistency */
+}
+
+/* Style for the carousel indicators */
+.nyhet-section .carousel-indicators {
+    position: static;
+    margin-top: 20px;
+}
+
+.nyhet-section .carousel-indicators button {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.nyhet-section .carousel-indicators .active {
+    background-color: var(--secondary-color); /* Or any color that matches your theme */
+}
+
+/* Center the indicators */
+.nyhet-section .carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.nyhet-section .carousel-item {
+    padding: 30px 0;
+}
+
+.nyhet-section .carousel-item img,
+.nyhet-section .carousel-item video {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.nyhet-section h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.nyhet-section p.price {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+.nyhet-section p {
+    font-size: 1.2rem;
+}
+
+@media (max-width: 767px) {
+    .nyhet-section .row {
+        flex-direction: column;
+    }
+    .nyhet-section .col-md-6 {
+        max-width: 100%;
+    }
+}
+/* Media Wrapper Styles */
+.media-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    overflow: hidden;
+    background-color: #000;
+}
+
+.media-wrapper img,
+.media-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+    </style>
+</head>
+<body>
+    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle Dark Mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#" data-translate="welcome_title"> till Brogrillen Pizzeria Henån</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav me-3">
+                    <li class="nav-item"><a class="nav-link" href="#home" data-translate="home">Hem</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#menu" data-translate="menu_title">Meny</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery" data-translate="gallery_title">Galleri</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#testimonials" data-translate="testimonials_title">Recensioner</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about" data-translate="about_title">Om oss</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact" data-translate="contact_title">Kontakt/Hitta Oss</a></li>
+                    <li class="nav-item dropdown language-dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-language"></i> <span id="currentLanguage">SV</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                            <li><a class="dropdown-item lang-btn" href="#" data-lang="sv">SV</a></li>
+                            <li><a class="dropdown-item lang-btn" href="#" data-lang="en">EN</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="section hero">
+        <img src="utsida.jpg" alt="Brogrillen Pizzeria exteriör" class="hero-image" loading="lazy">
+        <div class="container text-center hero-content" data-aos="fade-up">
+            <h1 class="display-4 mb-4" data-translate="welcome_title"> llen Pizzeria Henån</h1>
+            <p class="lead mb-4" data-translate="welcome_subtitle">Henåns bästa pizza sedan 1985</p>
+            <a href="#menu" class="btn btn-primary btn-lg me-2" data-translate="see_menu">Se vår meny</a>
+            <a href="tel:030432212" class="btn btn-success btn-lg" data-translate="call_us">Ring oss</a>
+        </div>
+    </section>
+
+    <!-- Nyhet Section Start -->
+<section id="nyhet" class="nyhet-section py-5">
+    <div class="container">
+        <h2 class="text-center mb-5" data-translate="nyhet_title">Nyhet!!</h2>
+        <div id="nyhetCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <!-- First Carousel Item -->
+                <div class="carousel-item active">
+                    <div class="row align-items-center">
+                        <div class="col-md-6" data-aos="fade-right">
+                            <div class="media-wrapper">
+                            <img src="IMG_3049.jpg" class="d-block w-100" alt="Nyhet Mat 1" loading="lazy">
+                        </div>
+                    </div>
+                        <div class="col-md-6" data-aos="fade-left">
+                            <h3>Smash Burgare</h3>
+                            <p class="price">Pris: 150 kr</p>
+                            <p>På burgaren: tryffelmajo, sallad, rostadlök - Pommes och drycka inkluderat.</p>
+                            <p>Specificera gärna vilken burgare du vill ha när du beställer. Vi uppskattar verkligen din respons och ser fram emot att höra vad du tycker! Välkommen att prova det nya hos oss!</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Second Carousel Item -->
+                <div class="carousel-item">
+                    <div class="row align-items-center">
+                        <div class="col-md-6" data-aos="fade-right">
+                            <div class="media-wrapper">
+                            <img src="pizza2.jpeg" class="d-block w-100" alt="Nyhet Mat 2" loading="lazy">
+                        </div>
+                    </div>
+                        <div class="col-md-6" data-aos="fade-left">
+                            <h3>Unna dig en härlig lunch hos oss!</h3>
+                            <p class="price">Pris: 125 kr</p>
+                            <p>Vardagar mellan 11:00 och 14:30 erbjuder vi ett komplett lunchpaket. Välj mellan pizzor 1–27, kebab eller salladsmeny och njut av inkluderade drycker, nybryggt kaffe, färskt varmbröd och vår läckra pizzasallad – för endast 125 kr.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more carousel items as needed -->
+            </div>
+            <!-- Carousel Controls -->
+            <!-- Carousel Indicators -->
+<div class="carousel-indicators">
+    <button type="button" data-bs-target="#nyhetCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#nyhetCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <!-- Add more buttons for each slide -->
+</div>
+        </div>
+    </div>
+</section>
+<!-- Nyhet Section End -->
+        
+
+    <section id="menu" class="menu-section py-5">
+        <div class="container">
+            <h2 class="text-center mb-5" data-translate="menu_title">Vår Meny</h2>
+            <div class="menu-selector d-flex flex-wrap justify-content-center mb-4" data-aos="fade-up">
+            </div>
+            <div id="menu-info" class="text-center mb-4 fst-italic" data-translate="menu_info">Tomatsås och ost ingår i alla pizzor</div>
+            <div id="menu-items" class="row g-4" data-aos="fade-up">
+            </div>
+        </div>
+    </section>
+
+<section id="testimonials" class="testimonials-section py-5">
+    <div class="container">
+        <h2 class="text-center mb-5" data-translate="testimonials_title">Vad Våra Kunder Säger</h2>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up">
+                <div class="testimonial">
+                    <p data-translate="testimonial1">"Fantastisk pizza! Den bästa jag har smakat i Henån. Personalen är också mycket vänlig."</p>
+                    <h5>- Anna S.</h5>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="testimonial">
+                    <p data-translate="testimonial2">"En riktig pärla i staden. Perfekt för familjemiddagar och stora sällskap."</p>
+                    <h5>- Johan L.</h5>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="testimonial">
+                    <p data-translate="testimonial3">"Kebabpizzorna är oslagbara! Alltid färska ingredienser och god smak."</p>
+                    <h5>- Maria K.</h5>
+                </div>
+            </div>
+            
+        </div>
+        <div class="text-center mt-5">
+    <a 
+        href="https://g.page/r/Cd-hbOdtRXrPEBM/review" 
+        class="btn btn-warning btn-lg" 
+        target="_blank" 
+        rel="noopener noreferrer"
+    >
+        <i class="fas fa-star"></i> Lämna Gärna En Recension😊
+    </a>
+</div>
+    </div>
+</section>
+
+    <section id="gallery" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5" data-translate="gallery_title">Vår Mat och Restaurang</h2>
+            <div class="row" id="image-gallery">
+                <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
+                    <a href="utsida.jpg" data-lightbox="gallery" data-title="Vår Restaurang">
+                        <img src="utsida.jpg" alt="Vår Restaurang" class="img-fluid gallery-image" loading="lazy">
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
+                    <a href="pizza1.jpeg" data-lightbox="gallery" data-title="Vår Utsökta Pizza">
+                        <img src="pizza1.jpeg" alt="Pizza 1" class="img-fluid gallery-image" loading="lazy">
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
+                    <a href="pizza2.jpeg" data-lightbox="gallery" data-title="Färska Ingredienser">
+                        <img src="pizza2.jpeg" alt="Pizza 2" class="img-fluid gallery-image" loading="lazy">
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
+                    <a href="pizza3.jpeg" data-lightbox="gallery" data-title="Traditionell Italiensk Pizza">
+                        <img src="pizza3.jpeg" alt="Pizza 3" class="img-fluid gallery-image" loading="lazy">
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
+                    <a href="pizza4.jpeg" data-lightbox="gallery" data-title="Specialpizza">
+                        <img src="pizza4.jpeg" alt="Pizza 4" class="img-fluid gallery-image" loading="lazy">
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
+                    <a href="pizza5.jpeg" data-lightbox="gallery" data-title="Gourmetpizza">
+                        <img src="pizza5.jpeg" alt="Pizza 5" class="img-fluid gallery-image" loading="lazy">
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
+                    <a href="pizza6.jpeg" data-lightbox="gallery" data-title="Vegetarisk Pizza">
+                        <img src="pizza6.jpeg" alt="Pizza 6" class="img-fluid gallery-image" loading="lazy">
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
+                    <a href="pasta.jpeg" data-lightbox="gallery" data-title="Vår Hemlagade Pasta">
+                        <img src="pasta.jpeg" alt="Pasta" class="img-fluid gallery-image" loading="lazy">
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
+                    <a href="gatukok.jpeg" data-lightbox="gallery" data-title="Gatukök Favoriter">
+                        <img src="gatukok.jpeg" alt="Gatukök" class="img-fluid gallery-image" loading="lazy">
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-aos="zoom-in">
+                    <a href="sallad.jpeg" data-lightbox="gallery" data-title="Fräscha Sallader">
+                        <img src="sallad.jpeg" alt="Sallad" class="img-fluid gallery-image" loading="lazy">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4" data-translate="about_title">Om Brogrillen Pizzeria</h2>
+            <p data-translate="about_paragraph1">Brogrillen Pizzeria har varit en del av Henåns kulinariska landskap sedan 1985. Vi är stolta över att använda lokala ingredienser och traditionella pizzabakningstekniker för att skapa de mest utsökta pizzorna i området.</p>
+            <p data-translate="about_paragraph2">Vår passion för kvalitet och service har gjort oss till en favorit bland lokalbefolkningen och besökare. Kom och upplev vad som gör Brogrillen Pizzeria så speciell!</p>
+        </div>
+    </section>
+
+    <section id="contact" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4" data-translate="contact_title">Kontakta Oss</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center">
+                    <p><strong>E-post:</strong> <a href="mailto:brogrillen2018@hotmail.com">brogrillen2018@hotmail.com</a></p>
+                    <p><strong>Telefon:</strong> <a href="tel:030432212">030-432212</a></p>
+                    <p><strong>Adress:</strong> Norra strandvägen 7, 473 34 Henån</p>
+                    <p><strong>Öppettider:</strong> Måndag - Söndag: 11:00 - 21:00</p>
+                    <button id="getDirections" class="btn btn-primary mt-3" data-translate="get_directions">Få vägbeskrivning</button>
+                    <div class="social-icons mt-4">
+                        <a href="https://www.facebook.com/BrogrillenHenan" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/brogrillenpizzeria_henan" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5" data-aos="fade-up">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2131.0447982037847!2d11.677620776275388!3d58.238244294167245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46452131f8a773b9%3A0x4644526e74b52c46!2sNorra%20Strandv%C3%A4gen%207%2C%20473%2034%20Hen%C3%A5n!5e0!3m2!1sen!2sse!4v1682516277304!5m2!1sen!2sse" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <button id="backToTop" aria-label="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <footer class="py-4 text-center">
+        <div class="container">
+            <p>&copy; 2024 Brogrillen Pizzeria. Alla rättigheter förbehållna.</p>
+        </div>
+    </footer>
+    
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'slide',
+                once: true
+            });
+
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const body = document.body;
+            const darkModeIcon = darkModeToggle.querySelector('i');
+
+            if (localStorage.getItem('theme') !== 'light') {
+            body.classList.add('dark-mode');
+            darkModeIcon.classList.remove('fa-moon');
+            darkModeIcon.classList.add('fa-sun');
+            }
+
+            darkModeToggle.addEventListener('click', function() {
+                body.classList.toggle('dark-mode');
+                if (body.classList.contains('dark-mode')) {
+                    darkModeIcon.classList.remove('fa-moon');
+                    darkModeIcon.classList.add('fa-sun');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    darkModeIcon.classList.remove('fa-sun');
+                    darkModeIcon.classList.add('fa-moon');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            const langButtons = document.querySelectorAll('.lang-btn');
+const currentLanguageSpan = document.getElementById('currentLanguage');
+let currentLanguage;
+
+// Check for 'lang' parameter in the URL
+const urlParams = new URLSearchParams(window.location.search);
+const urlLang = urlParams.get('lang');
+
+if (urlLang && (urlLang === 'sv' || urlLang === 'en')) {
+    currentLanguage = urlLang;
+    localStorage.setItem('language', currentLanguage);
+} else {
+    currentLanguage = localStorage.getItem('language') || 'sv';
+}
+            
+            const translations = {
+            "nyhet_title": {
+        "sv": "Nyhet!!",
+        "en": "New!!"
+    },
+    "previous": {
+        "sv": "Föregående",
+        "en": "Previous"
+    },
+    "next": {
+        "sv": "Nästa",
+        "en": "Next"
+    },
+                "welcome_title": {
+                    "sv": "Brogrillen Pizzeria Henån",
+                    "en": "Brogrillen Pizzeria Henån"
+                },
+                "welcome_subtitle": {
+                    "sv": "Beställ din mat snabbt genom att trycka på 'Ring oss'. Vi är redo att hjälpa dig.",
+                    "en": "Order your food quickly by pressing 'Call Us'. We're ready to assist you."
+                },
+                "see_menu": {
+                    "sv": "Se vår meny",
+                    "en": "View Our Menu"
+                },
+                "call_us": {
+                    "sv": "Ring oss",
+                    "en": "Call Us"
+                },
+                "menu_title": {
+                    "sv": "Vår Meny",
+                    "en": "Our Menu"
+                },
+                "menu_info": {
+                    "sv": "Tomatsås och ost ingår i alla pizzor",
+                    "en": "Tomato sauce and cheese are included in all pizzas"
+                },
+                "testimonials_title": {
+                    "sv": "Vad Våra Kunder Säger",
+                    "en": "What Our Customers Say"
+                },
+                "testimonial1": {
+                    "sv": "\"Fantastisk pizza! Den bästa jag har smakat i Henån. Personalen är också mycket vänlig.\"",
+                    "en": "\"Fantastic pizza! The best I've tasted in Henån. The staff is also very friendly.\""
+                },
+                "testimonial2": {
+                    "sv": "\"En riktig pärla i staden. Perfekt för familjemiddagar och stora sällskap.\"",
+                    "en": "\"A real gem in the city. Perfect for family dinners and large gatherings.\""
+                },
+                "testimonial3": {
+                    "sv": "\"Kebabpizzorna är oslagbara! Alltid färska ingredienser och god smak.\"",
+                    "en": "\"The kebab pizzas are unbeatable! Always fresh ingredients and great taste.\""
+                },
+                "gallery_title": {
+                    "sv": "Bildgalleri",
+                    "en": "Photo gallery"
+                },
+                "about_title": {
+                    "sv": "Om Brogrillen Pizzeria",
+                    "en": "About Brogrillen Pizzeria"
+                },
+                "about_paragraph1": {
+                    "sv": "Brogrillen Pizzeria drivs som ett familjeföretag där vi alla hjälps åt för att skapa en trivsam miljö och god mat. Tillsammans ser vi till att varje pizza görs med omsorg och kärlek.",
+                    "en": "Brogrillen Pizzeria is a family-run business where we all work together to create a welcoming environment and great food. Together, we make sure every pizza is made with care and love."
+                },
+                "about_paragraph2": {
+                    "sv": "Vi strävar efter att ge våra gäster en enkel och trevlig upplevelse varje gång de besöker oss.",
+                    "en": "We aim to provide our guests with a simple and enjoyable experience every time they visit."
+                },
+                "contact_title": {
+                    "sv": "Kontakta Oss",
+                    "en": "Contact Us"
+                },
+                "get_directions": {
+                    "sv": "Få vägbeskrivning",
+                    "en": "Get Directions"
+                }
+            };
+
+            const menuDisplayNames = {
+                "mestomtyckt-menu": "Populäraste Pizzor",
+                "pizza-menu": "Pizza",
+                "kebab-menu": "Kebab",
+                "sallad-menu": "Sallad",
+                "alacarte-menu": "À la carte",
+                "pasta-menu": "Pasta",
+                "gatukök-menu": "Gatukök",
+                "tillbehör-menu": "Tillbehör"
+            };
+
+            function translatePage() {
+                document.querySelectorAll('[data-translate]').forEach(element => {
+                    const key = element.getAttribute('data-translate');
+                    if (translations[key] && translations[key][currentLanguage]) {
+                        element.textContent = translations[key][currentLanguage];
+                    }
+                });
+
+                const menuInfo = document.getElementById('menu-info');
+                if (translations["menu_info"] && translations["menu_info"][currentLanguage]) {
+                    menuInfo.textContent = translations["menu_info"][currentLanguage];
+                }
+
+                lightbox.option({
+                    'resizeDuration': 200,
+                    'wrapAround': true,
+                    'albumLabel': currentLanguage === 'sv' ? "Bild %1 av %2" : "Image %1 of %2"
+                });
+
+                currentLanguageSpan.textContent = currentLanguage.toUpperCase();
+            }
+
+            let currentCategory = 'mestomtyckt-menu'; 
+
+            function displayMenu(category) {
+                currentCategory = category;
+                const buttons = menuSelector.querySelectorAll('button');
+                buttons.forEach(btn => btn.classList.remove('active'));
+
+                const activeButton = menuSelector.querySelector(`[data-category="${category}"]`);
+                if (activeButton) activeButton.classList.add('active');
+
+                const menuItemsContainer = document.getElementById('menu-items');
+                menuItemsContainer.innerHTML = '';
+                const menuInfo = document.getElementById('menu-info');
+                menuInfo.innerHTML = '';
+
+                if (category === 'mestomtyckt-menu' || category === 'pizza-menu') {
+                    menuInfo.textContent = translations["menu_info"][currentLanguage];
+                }
+
+                menuData[category].forEach(item => {
+                    const col = document.createElement('div');
+                    col.classList.add('col-md-6', 'col-lg-4', 'mb-4');
+
+                    const menuItem = document.createElement('div');
+                    menuItem.classList.add('menu-item', 'p-4');
+
+                    const title = document.createElement('h3');
+                    title.textContent = item.name;
+                    menuItem.appendChild(title);
+
+                    if (item.description) {
+                        const desc = document.createElement('p');
+                        if (typeof item.description === 'object') {
+                            desc.textContent = item.description[currentLanguage] || item.description['sv'];
+                        } else {
+                            desc.textContent = item.description;
+                        }
+                        menuItem.appendChild(desc);
+                    }
+
+                    const price = document.createElement('span');
+                    price.classList.add('price');
+                    price.textContent = item.price;
+                    menuItem.appendChild(price);
+
+                    col.appendChild(menuItem);
+                    menuItemsContainer.appendChild(col);
+                });
+
+                translatePage();
+            }
+
+            const menuSelector = document.querySelector('.menu-selector');
+
+            function createMenuButtons() {
+                Object.keys(menuData).forEach((category, index) => {
+                    const button = document.createElement('button');
+                    button.textContent = menuDisplayNames[category] || category.replace('-menu', '').replace(/^\w/, c => c.toUpperCase());
+                    button.dataset.category = category;
+                    if (index === 0) button.classList.add('active');
+                    button.addEventListener('click', () => displayMenu(category));
+                    menuSelector.appendChild(button);
+                });
+            }
+
+            createMenuButtons();
+
+            const firstCategory = Object.keys(menuData)[0];
+            displayMenu(firstCategory);
+
+            langButtons.forEach(button => {
+                button.addEventListener('click', function(event) {
+        event.preventDefault();
+        currentLanguage = this.getAttribute('data-lang');
+        localStorage.setItem('language', currentLanguage);
+
+        // Update the URL without reloading the page
+        const newUrl = window.location.origin + window.location.pathname + '?lang=' + currentLanguage;
+        window.history.replaceState({}, '', newUrl);
+
+        // Update the language buttons
+        langButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+
+        // Translate the page
+        translatePage();
+
+        // Update the menu display
+        displayMenu(currentCategory);
+    });
+
+
+                button.classList.remove('active');
+            if (button.getAttribute('data-lang') === currentLanguage) {
+                button.classList.add('active');
+            }
+            });
+
+            currentLanguageSpan.textContent = currentLanguage.toUpperCase();
+
+            const getDirectionsBtn = document.getElementById('getDirections');
+            if (getDirectionsBtn) {
+                getDirectionsBtn.addEventListener('click', function() {
+                    const address = 'Norra strandvägen 7, 473 34 Henån';
+                    const encodedAddress = encodeURIComponent(address);
+                    let mapsUrl;
+
+                    const isApple = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+                    const isAndroid = /Android/i.test(navigator.userAgent);
+
+                    if (isApple) {
+                        mapsUrl = `maps://maps.apple.com/?daddr=${encodedAddress}`;
+                    } else if (isAndroid) {
+                        mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`;
+                    } else {
+                        mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+                    }
+
+                    window.open(mapsUrl, '_blank');
+                });
+            }
+
+            const backToTopBtn = document.getElementById('backToTop');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    backToTopBtn.style.display = 'flex';
+                } else {
+                    backToTopBtn.style.display = 'none';
+                }
+
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            translatePage();
+        });
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script defer src="menu.js"></script>
+
+</body>
+</html>
