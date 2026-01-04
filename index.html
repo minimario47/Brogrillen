@@ -2384,6 +2384,75 @@
             // Start loading menu data
             loadMenuData();
 
+            // Handle rating a menu item (optimistic UI update)
+            async function handleMenuItemRating(menuItemId, rating) {
+                console.log('[handleMenuItemRating] Called with menuItemId:', menuItemId, 'rating:', rating);
+                try {
+                    // Update local state immediately for instant UI feedback
+                    userRatings[menuItemId] = rating;
+                    console.log('[handleMenuItemRating] Updated local userRatings');
+
+                    // Sync to server (this will also save to localStorage)
+                    console.log('[handleMenuItemRating] Calling syncUserRatingToServer...');
+                    const result = await syncUserRatingToServer(menuItemId, rating);
+                    console.log('[handleMenuItemRating] syncUserRatingToServer result:', result);
+
+                    if (result.success) {
+                        // Show success notification immediately
+                        if (typeof Toastify !== 'undefined') {
+                            const message = currentLanguage === 'sv' ? 'Ditt betyg har sparats!' : 'Your rating has been saved!';
+                            Toastify({
+                                text: message,
+                                duration: 3000,
+                                gravity: "top",
+                                position: "center",
+                                style: {
+                                    background: "linear-gradient(to right, #00b09b, #96c93d)",
+                                }
+                            }).showToast();
+                        }
+
+                        // Update the aggregate rating display without full page refresh
+                        if (result.aggregate) {
+                            aggregateRatings[menuItemId] = result.aggregate;
+                        }
+                    } else {
+                        // Show error notification
+                        if (typeof Toastify !== 'undefined') {
+                            const message = currentLanguage === 'sv' ? 'Kunde inte spara betyget. Försök igen.' : 'Could not save rating. Please try again.';
+                            Toastify({
+                                text: message,
+                                duration: 3000,
+                                gravity: "top",
+                                position: "center",
+                                style: {
+                                    background: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                                }
+                            }).showToast();
+                        }
+                    }
+                } catch (error) {
+                    console.error('[Rating] Error rating menu item:', error);
+                    // Show error notification
+                    if (typeof Toastify !== 'undefined') {
+                        const message = currentLanguage === 'sv' ? 'Ett fel uppstod. Försök igen.' : 'An error occurred. Please try again.';
+                        Toastify({
+                            text: message,
+                            duration: 3000,
+                            gravity: "top",
+                            position: "center",
+                            style: {
+                                background: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                            }
+                        }).showToast();
+                    }
+                }
+            }
+
+            // Make handleMenuItemRating globally available
+            window.handleMenuItemRating = handleMenuItemRating;
+
+
             // Apply translations
             function translatePage() {
                 document.querySelectorAll('[data-translate]').forEach(element => {
@@ -2741,7 +2810,10 @@
                 // Simple debounce for better performance
                 setTimeout(() => {
                     menuItems.forEach(item => {
-                        const title = item.querySelector('h3').textContent.toLowerCase();
+                        const h3Element = item.querySelector('h3');
+                        if (!h3Element) return; // Skip if menu item not properly loaded
+
+                        const title = h3Element.textContent.toLowerCase();
                         const description = item.querySelector('p') ?
                             item.querySelector('p').textContent.toLowerCase() : '';
                         const itemContainer = item.closest('.col-md-6');
