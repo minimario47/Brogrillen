@@ -17,8 +17,8 @@ const menuDisplayNames = {
     "sallad-menu": "Sallad",
     "alacarte-menu": "À la carte",
     "pasta-menu": "Pasta",
-    "gatukök-menu": "Gatukök",
-    "tillbehör-menu": "Tillbehör"
+    "gatukok-menu": "Gatukök",
+    "tillbehor-menu": "Tillbehör"
 };
 
 // Load menu data from Supabase
@@ -49,8 +49,8 @@ async function loadMenuData() {
             'sallad-menu': [],
             'alacarte-menu': [],
             'pasta-menu': [],
-            'gatukök-menu': [],
-            'tillbehör-menu': []
+            'gatukok-menu': [],
+            'tillbehor-menu': []
         };
 
         // Categorize items
@@ -86,8 +86,26 @@ async function loadMenuData() {
             };
 
             // Add to appropriate category
-            if (item.category && menuData[`${item.category}-menu`]) {
-                menuData[`${item.category}-menu`].push(frontendItem);
+            // Add to appropriate category
+            if (item.category) {
+                // Normalize category: lowercase and replace umlauts
+                const normalizedCategory = item.category.toLowerCase()
+                    .replace(/ö/g, 'o')
+                    .replace(/ä/g, 'a')
+                    .replace(/å/g, 'a')
+                    .replace(/[^a-z0-9]/g, ''); // Remove any other special chars
+
+                const categoryKey = `${normalizedCategory}-menu`;
+
+                if (menuData[categoryKey]) {
+                    menuData[categoryKey].push(frontendItem);
+                } else if (categoryKey === 'gatukok-menu' || categoryKey.includes('gatuko')) {
+                    // Fallback for variations
+                    if (menuData['gatukok-menu']) menuData['gatukok-menu'].push(frontendItem);
+                } else if (categoryKey === 'tillbehor-menu' || categoryKey.includes('tillbeho')) {
+                    // Fallback for variations
+                    if (menuData['tillbehor-menu']) menuData['tillbehor-menu'].push(frontendItem);
+                }
             }
 
             // Add to mestomtyckt if qualified

@@ -1,0 +1,85 @@
+/* Mobile Bottom Navigation Styles */
+.mobile-bottom-nav {
+    display: none;
+    /* Hidden by default (desktop) */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--background-color);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding-bottom: env(safe-area-inset-bottom);
+    /* iPhone X safe area */
+    transition: var(--transition-normal);
+}
+
+.mobile-bottom-nav__item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: color 0.3s ease;
+}
+
+.mobile-bottom-nav__item i {
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+}
+
+.mobile-bottom-nav__item.nav-active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.mobile-bottom-nav__item:hover {
+    color: var(--primary-color);
+}
+
+/* Dark mode overrides */
+body.dark-mode .mobile-bottom-nav {
+    background-color: #222;
+    border-top: 1px solid #333;
+}
+
+body.dark-mode .mobile-bottom-nav__item {
+    color: #bbb;
+}
+
+body.dark-mode .mobile-bottom-nav__item.nav-active {
+    color: var(--primary-color);
+}
+
+/* Show on mobile screens */
+@media (max-width: 767.98px) {
+    .mobile-bottom-nav {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    /* Move floating buttons up to avoid overlap with bottom nav */
+    .dark-mode-toggle {
+        bottom: 80px;
+        /* 20px + ~60px nav height */
+    }
+
+    #backToTop {
+        bottom: 140px;
+        /* 80px + ~60px nav height */
+    }
+
+    /* Hide standard navbar toggler on mobile since we have bottom nav */
+    .navbar-toggler {
+        display: none !important;
+    }
+
+    /* Adjust main content padding to not be covered by bottom nav */
+    body {
+        padding-bottom: 70px;
+    }
+}

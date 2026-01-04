@@ -9,6 +9,14 @@ const translations = {
         "sv": "Nyhet!!",
         "en": "New!!"
     },
+    "home": {
+        "sv": "Hem",
+        "en": "Home"
+    },
+    "find_us": {
+        "sv": "Hitta oss",
+        "en": "Find us"
+    },
     "previous": {
         "sv": "Föregående",
         "en": "Previous"

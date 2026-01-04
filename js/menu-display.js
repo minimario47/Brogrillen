@@ -21,7 +21,15 @@ function displayMenu(category) {
         buttons.forEach(btn => btn.classList.remove('active'));
 
         const activeButton = menuSelector.querySelector(`[data-category="${category}"]`);
-        if (activeButton) activeButton.classList.add('active');
+        if (activeButton) {
+            activeButton.classList.add('active');
+            // Scroll button into view (useful for mobile horizontal scroll)
+            activeButton.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'center'
+            });
+        }
     }
 
     const menuItemsContainer = document.getElementById('menu-items');

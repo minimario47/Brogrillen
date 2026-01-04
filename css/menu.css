@@ -14,7 +14,14 @@
     justify-content: center;
     flex-wrap: wrap;
     margin-bottom: 3rem;
-    gap: 15px
+    gap: 15px;
+    position: sticky;
+    top: 60px;
+    /* Adjust based on navbar height */
+    z-index: 90;
+    background-color: var(--light-gray);
+    padding: 15px 0;
+    transition: top 0.3s ease;
 }
 
 .menu-selector button {
@@ -27,7 +34,8 @@
     font-size: 1.05rem;
     font-weight: 600;
     transition: all .3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, .1)
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .1);
+    white-space: nowrap;
 }
 
 .menu-selector button:hover,
@@ -35,7 +43,40 @@
     background-color: var(--primary-color);
     color: #fff;
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, .15)
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+}
+
+/* Mobile Responsive Adjustments for Menu Selector */
+@media (max-width: 768px) {
+    .menu-selector {
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-left: 15px;
+        padding-right: 15px;
+        scrollbar-width: none;
+        /* Firefox */
+        margin-left: -12px;
+        /* Offset container padding if needed, or adjust parent */
+        margin-right: -12px;
+        width: calc(100% + 24px);
+        /* Full width */
+        margin-bottom: 1.5rem;
+        top: 56px;
+        /* Slightly different navbar height on mobile? */
+    }
+
+    .menu-selector::-webkit-scrollbar {
+        display: none;
+        /* Chrome/Safari */
+    }
+
+    .menu-selector button {
+        flex: 0 0 auto;
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
 }
 
 /* Menu Items */

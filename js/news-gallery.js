@@ -151,8 +151,9 @@ async function loadGallery() {
 
                 const link = document.createElement('a');
                 link.href = image.url || image.thumbnailUrl || '';
-                link.setAttribute('data-lightbox', 'gallery');
-                link.setAttribute('data-title', escapeHtml(image.alt || 'Gallery Image'));
+                // BaguetteBox uses the anchor tag, grouped by container. No extra attribute needed for grouping.
+                // It uses Title or data-caption for the caption.
+                link.setAttribute('data-caption', escapeHtml(image.alt || 'Gallery Image'));
 
                 const img = document.createElement('img');
                 img.src = image.thumbnailUrl || image.url || '';
@@ -167,12 +168,11 @@ async function loadGallery() {
                 galleryContainer.appendChild(col);
             });
 
-            // Reinitialize lightbox if available
-            if (typeof lightbox !== 'undefined') {
-                lightbox.option({
-                    'resizeDuration': 200,
-                    'wrapAround': true,
-                    'albumLabel': currentLanguage === 'sv' ? "Bild %1 av %2" : "Image %1 of %2"
+            // Reinitialize baguetteBox if available
+            if (typeof baguetteBox !== 'undefined') {
+                baguetteBox.run('#image-gallery', {
+                    animation: 'fadeIn',
+                    noScrollbars: true
                 });
             }
         } else if (galleryContainer && galleryImages.length === 0) {
@@ -205,6 +205,13 @@ document.addEventListener('menuLoaded', () => {
 
 document.addEventListener('newsLoaded', () => {
     loadGallery();
+});
+
+// Initialize baguetteBox on load as well, just in case gallery is static or reloaded
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof baguetteBox !== 'undefined') {
+        baguetteBox.run('#image-gallery');
+    }
 });
 
 // Make functions globally available
