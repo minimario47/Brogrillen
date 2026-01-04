@@ -2107,11 +2107,17 @@
             const body = document.body;
             const darkModeIcon = darkModeToggle.querySelector('i');
 
-            // Set the initial theme
-            if (localStorage.getItem('theme') !== 'light') {
+            // Set the initial theme - only enable dark mode if explicitly set to 'dark'
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
                 body.classList.add('dark-mode');
                 darkModeIcon.classList.remove('fa-moon');
                 darkModeIcon.classList.add('fa-sun');
+            } else {
+                // Light mode is default - ensure dark-mode class is removed
+                body.classList.remove('dark-mode');
+                darkModeIcon.classList.remove('fa-sun');
+                darkModeIcon.classList.add('fa-moon');
             }
 
             // Dark mode toggle event listener
