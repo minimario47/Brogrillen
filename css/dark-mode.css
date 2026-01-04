@@ -1,0 +1,139 @@
+/* ==========================================================================
+   Dark Mode Overrides
+   ========================================================================== */
+
+body.dark-mode {
+    background-color: var(--dark-bg-color);
+    color: var(--dark-text-color)
+}
+
+/* Navbar Dark Mode */
+body.dark-mode .navbar {
+    background-color: rgba(18, 18, 18, .95) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .3)
+}
+
+body.dark-mode .navbar-brand,
+body.dark-mode .nav-link {
+    color: var(--dark-text-color) !important
+}
+
+body.dark-mode .dropdown-menu {
+    background-color: var(--dark-bg-color);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .4)
+}
+
+body.dark-mode .dropdown-item {
+    color: var(--dark-text-color)
+}
+
+body.dark-mode .dropdown-item:hover {
+    background-color: var(--dark-secondary-color);
+    color: var(--dark-bg-color)
+}
+
+/* Menu Dark Mode */
+body.dark-mode .menu-section {
+    background-color: #1E1E1E
+}
+
+body.dark-mode .menu-selector button {
+    background-color: var(--dark-primary-color);
+    color: var(--dark-text-color)
+}
+
+body.dark-mode .menu-selector button:hover,
+body.dark-mode .menu-selector button.active {
+    background-color: var(--dark-secondary-color);
+    color: var(--dark-bg-color)
+}
+
+body.dark-mode .menu-item {
+    background-color: #1E1E1E;
+    color: var(--dark-text-color);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, .3)
+}
+
+body.dark-mode .search-container .form-control {
+    background-color: #2a2a2a;
+    color: var(--dark-text-color);
+    border: 1px solid #3a3a3a;
+}
+
+body.dark-mode .search-info small {
+    color: #bbb !important;
+}
+
+/* Sections Dark Mode */
+body.dark-mode .nyhet-section {
+    background-color: #33280d
+}
+
+body.dark-mode .gallery-section {
+    background-color: #1E1E1E
+}
+
+body.dark-mode .gallery-image {
+    border: 2px solid var(--dark-secondary-color)
+}
+
+body.dark-mode .testimonials-section {
+    background-color: #2C2C2C
+}
+
+body.dark-mode .testimonial {
+    background-color: #1E1E1E;
+    color: var(--dark-text-color)
+}
+
+body.dark-mode #about {
+    background-color: #1E1E1E
+}
+
+body.dark-mode #contact {
+    background-color: #1E1E1E;
+    color: var(--dark-text-color)
+}
+
+body.dark-mode .contact-card {
+    background-color: #1E1E1E;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .3)
+}
+
+body.dark-mode .social-icons a {
+    color: var(--dark-text-color)
+}
+
+/* Opening Status Dark Mode */
+body.dark-mode .opening-status-card {
+    background-color: rgba(40, 40, 40, 0.9);
+    color: var(--dark-text-color);
+    border-left: 5px solid var(--dark-primary-color);
+    border-right: 5px solid var(--dark-secondary-color);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .opening-hours-text strong {
+    color: var(--dark-primary-color);
+}
+
+/* Skeleton Dark Mode */
+body.dark-mode .skeleton {
+    background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+body.dark-mode .loading-spinner {
+    border-color: #3a3a3a;
+    border-top-color: var(--dark-primary-color);
+}
+
+/* Admin Button Dark Mode */
+body.dark-mode .floating-admin-btn {
+    background-color: var(--dark-primary-color);
+}
+
+body.dark-mode .floating-admin-btn:hover {
+    background-color: var(--primary-color);
+}

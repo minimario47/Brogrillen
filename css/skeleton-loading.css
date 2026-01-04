@@ -1,0 +1,117 @@
+/* ==========================================================================
+   Skeleton Loading Animations
+   ========================================================================== */
+
+@keyframes skeleton-shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.skeleton {
+    background: linear-gradient(90deg, var(--skeleton-base) 25%, var(--skeleton-highlight) 50%, var(--skeleton-base) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s ease-in-out infinite;
+    border-radius: var(--border-radius);
+}
+
+.skeleton-text {
+    height: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+}
+
+.skeleton-text.short {
+    width: 60%;
+}
+
+.skeleton-text.medium {
+    width: 80%;
+}
+
+.skeleton-text.long {
+    width: 100%;
+}
+
+.skeleton-title {
+    height: 1.5rem;
+    width: 70%;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+}
+
+.skeleton-card {
+    min-height: 180px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.skeleton-image {
+    width: 100%;
+    height: 200px;
+    border-radius: var(--border-radius);
+}
+
+.skeleton-button {
+    height: 45px;
+    width: 120px;
+    border-radius: 50px;
+    display: inline-block;
+}
+
+/* Loading section states */
+.loading-section {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.loading-section.loaded {
+    opacity: 1;
+}
+
+.loading-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+.loading-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--skeleton-base);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Mobile-first skeleton sizing */
+@media (max-width: 768px) {
+    .skeleton-card {
+        min-height: 140px;
+        padding: 1rem;
+    }
+
+    .skeleton-image {
+        height: 150px;
+    }
+
+    .skeleton-title {
+        height: 1.2rem;
+    }
+}

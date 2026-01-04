@@ -1,0 +1,105 @@
+/* ==========================================================================
+   Base Styles - Typography & Fonts
+   ========================================================================== */
+
+/* Font Face Declarations */
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/poppins/v22/pxiByp8kv8JHgFVrLDz7Z1xlFd2JQEk.woff2) format('woff2')
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/poppins/v22/pxiEyp8kv8JHgFVrJJfecnFHGPc.woff2) format('woff2')
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/poppins/v22/pxiByp8kv8JHgFVrLEj6Z1xlFd2JQEk.woff2) format('woff2')
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/poppins/v22/pxiByp8kv8JHgFVrLCz7Z1xlFd2JQEk.woff2) format('woff2')
+}
+
+@font-face {
+    font-family: 'Playfair Display';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: local('Playfair Display Regular'), local('PlayfairDisplay-Regular'), url(https://fonts.gstatic.com/s/playfairdisplay/v36/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format('woff2')
+}
+
+@font-face {
+    font-family: 'Playfair Display';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: local('Playfair Display Bold'), local('PlayfairDisplay-Bold'), url(https://fonts.gstatic.com/s/playfairdisplay/v36/nuFiD-vYSZviVYUb_rj3ij__anPXDTjYgEM86xQ.woff2) format('woff2')
+}
+
+/* Base Body Styles */
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Poppins', sans-serif;
+    font-synthesis: none;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    scroll-behavior: smooth;
+    transition: var(--transition-normal);
+    line-height: 1.6
+}
+
+/* Typography */
+h1,
+h2,
+h3 {
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    font-synthesis: none;
+    font-weight: 700
+}
+
+h2 {
+    font-size: 2.8rem;
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block
+}
+
+h2:after {
+    content: '';
+    position: absolute;
+    width: 70px;
+    height: 4px;
+    background-color: var(--secondary-color);
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%)
+}
+
+/* Animations */
+.fadeIn {
+    animation: fadeIn 1s ease-in-out
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}

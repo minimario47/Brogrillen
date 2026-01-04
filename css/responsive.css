@@ -1,0 +1,133 @@
+/* ==========================================================================
+   Responsive Styles - Mobile First
+   Priority: Mobile (iOS) users are 98% of traffic
+   ========================================================================== */
+
+/* Mobile-first base styles (default) */
+
+/* Tablet and up (768px+) */
+@media (min-width: 768px) {
+    /* Larger touch targets become standard click targets */
+}
+
+/* Desktop (992px+) */
+@media (min-width: 992px) {
+    /* Desktop-specific enhancements */
+}
+
+/* Mobile adjustments (768px and below) */
+@media (max-width: 767px) {
+    .nyhet-section .row {
+        flex-direction: column
+    }
+
+    .nyhet-section .col-md-6 {
+        max-width: 100%
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem
+    }
+
+    h2 {
+        font-size: 2rem
+    }
+
+    .nyhet-section h3 {
+        font-size: 1.8rem
+    }
+
+    /* Improve touch targets for mobile */
+    .menu-selector button {
+        padding: 14px 24px;
+        font-size: 1rem;
+        min-height: 48px;
+        /* iOS recommended touch target */
+    }
+
+    .btn {
+        min-height: 48px;
+        padding: 12px 24px;
+    }
+
+    /* Better mobile menu spacing */
+    .menu-item {
+        padding: 20px;
+    }
+
+    /* Larger search input for mobile */
+    .search-container .form-control {
+        padding: 14px 18px;
+        font-size: 16px;
+        /* Prevents iOS zoom on focus */
+    }
+
+    /* Opening status card mobile */
+    .opening-status-card {
+        padding: 10px 20px;
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .opening-status-card .me-3 {
+        margin-right: 0 !important;
+        margin-bottom: 5px;
+    }
+
+    /* Contact card mobile */
+    .contact-card {
+        padding: 20px;
+    }
+
+    /* Testimonials mobile */
+    .testimonial {
+        padding: 20px;
+        min-height: auto;
+    }
+
+    /* Gallery mobile */
+    .gallery-image {
+        height: 200px;
+    }
+}
+
+/* Small mobile (375px and below - iPhone SE etc) */
+@media (max-width: 375px) {
+    .hero-content h1 {
+        font-size: 2rem
+    }
+
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+
+    .menu-selector button {
+        padding: 12px 18px;
+        font-size: 0.9rem;
+    }
+
+    .opening-status-card {
+        padding: 8px 15px;
+    }
+}
+
+/* Improve tap highlighting on iOS */
+@media (hover: none) and (pointer: coarse) {
+
+    .menu-item:active,
+    .btn:active,
+    .contact-card:active,
+    .testimonial:active {
+        transform: scale(0.98);
+    }
+
+    /* Disable hover effects on touch devices */
+    .menu-item:hover {
+        transform: none;
+    }
+
+    .contact-card:hover {
+        transform: none;
+    }
+}

@@ -1,0 +1,301 @@
+/* ==========================================================================
+   Page Sections - News, Gallery, Testimonials, Contact, About
+   ========================================================================== */
+
+/* News Section */
+.nyhet-section {
+    background-color: #fff9e6;
+    transition: background-color .3s ease;
+    padding: var(--section-padding);
+    position: relative;
+    overflow: hidden
+}
+
+.nyhet-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(var(--secondary-color) 1px, transparent 1px);
+    background-size: 30px 30px;
+    opacity: .1;
+    pointer-events: none
+}
+
+.nyhet-section h2 {
+    color: var(--primary-color)
+}
+
+.nyhet-section .carousel-indicators {
+    position: static;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 10px
+}
+
+.nyhet-section .carousel-indicators button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, .2);
+    margin: 0 5px;
+    transition: all .3s ease
+}
+
+.nyhet-section .carousel-indicators .active {
+    background-color: var(--secondary-color);
+    transform: scale(1.2)
+}
+
+.nyhet-section .carousel-item {
+    padding: 30px 0
+}
+
+.nyhet-section .carousel-item img,
+.nyhet-section .carousel-item video {
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    transition: all .4s ease
+}
+
+.nyhet-section h3 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    color: var(--primary-color)
+}
+
+.nyhet-section p.price {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+    font-weight: 700
+}
+
+.nyhet-section p {
+    font-size: 1.1rem;
+    line-height: 1.6
+}
+
+/* Media Wrapper for News */
+.media-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    overflow: hidden;
+    background-color: #000;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow)
+}
+
+.media-wrapper img,
+.media-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .5s ease
+}
+
+.media-wrapper:hover img,
+.media-wrapper:hover video {
+    transform: scale(1.05)
+}
+
+/* Gallery Section */
+.gallery-section {
+    padding: var(--section-padding);
+    background-color: #fff
+}
+
+.gallery-item {
+    margin-bottom: 30px;
+    transition: all .4s ease;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--card-shadow)
+}
+
+.gallery-item:hover {
+    transform: translateY(-10px)
+}
+
+.gallery-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: all .5s ease;
+    border-radius: var(--border-radius)
+}
+
+.gallery-item:hover .gallery-image {
+    transform: scale(1.08)
+}
+
+/* Testimonials Section */
+.testimonials-section {
+    background-color: var(--light-gray);
+    padding: var(--section-padding);
+    position: relative;
+    overflow: hidden
+}
+
+.testimonial {
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--card-shadow);
+    transition: all .4s ease;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left
+}
+
+.testimonial:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .15)
+}
+
+.testimonial p {
+    font-style: italic;
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 20px
+}
+
+.testimonial p::before {
+    content: '"';
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 2rem;
+    color: var(--secondary-color);
+    line-height: 1
+}
+
+.testimonial h5 {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-top: auto
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    margin-top: 15px
+}
+
+.testimonial-author .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    font-size: 1.5rem
+}
+
+.testimonial-author h5 {
+    margin: 0;
+    font-size: 1rem
+}
+
+/* About Section */
+#about {
+    padding: var(--section-padding);
+    background-color: #fff
+}
+
+#about p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem
+}
+
+/* Contact Section */
+#contact {
+    background-color: var(--light-gray);
+    padding: var(--section-padding);
+    position: relative
+}
+
+#contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background-image: linear-gradient(45deg, var(--primary-color) 25%, transparent 25%),
+        linear-gradient(-45deg, var(--primary-color) 25%, transparent 25%);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 0;
+    opacity: 0.03;
+    pointer-events: none
+}
+
+#contact p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem
+}
+
+#contact a {
+    color: var(--primary-color);
+    transition: all .3s ease;
+    text-decoration: none
+}
+
+#contact a:hover {
+    color: var(--secondary-color)
+}
+
+/* Contact Section Open Status */
+#currentlyOpen .badge {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+    font-weight: 600;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    min-width: 90px;
+    text-align: center;
+}
+
+#currentlyOpen .badge.bg-success {
+    background-color: #28a745 !important;
+    background-image: linear-gradient(145deg, #28a745, #20c997);
+}
+
+#currentlyOpen .badge.bg-danger {
+    background-color: #dc3545 !important;
+    background-image: linear-gradient(145deg, #dc3545, #e74c3c);
+}
+
+/* Status Indicator */
+.status-indicator {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.status-indicator .badge {
+    font-size: 1rem;
+    padding: 8px 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.contact-card:hover .status-indicator .badge {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}

@@ -1,0 +1,33 @@
+/* ==========================================================================
+   CSS Variables - Brogrillen Pizzeria
+   ========================================================================== */
+
+:root {
+    /* Brand Colors */
+    --primary-color: #FF6B35;
+    --secondary-color: #FFCA3A;
+    --accent-color: #1D7874;
+    
+    /* Light Mode Colors */
+    --text-color: #333;
+    --background-color: #FFF;
+    --light-gray: #f9f9f9;
+    
+    /* Dark Mode Colors */
+    --dark-bg-color: #1A1A1A;
+    --dark-text-color: #FFF;
+    --dark-primary-color: #FF8B5F;
+    --dark-secondary-color: #FFD65E;
+    
+    /* Skeleton Loading */
+    --skeleton-base: #e0e0e0;
+    --skeleton-highlight: #f5f5f5;
+    
+    /* Shadows & Effects */
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+    --transition-normal: all .3s ease;
+    
+    /* Layout */
+    --border-radius: 16px;
+    --section-padding: 6rem 0;
+}
