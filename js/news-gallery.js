@@ -64,12 +64,12 @@ async function loadNews() {
 
                 carouselItem.innerHTML = `
                     <div class="row align-items-center">
-                        <div class="col-md-6" data-aos="fade-right">
+                        <div class="col-md-6">
                             <div class="media-wrapper">
                                 ${imageUrl ? `<img src="${imageUrl}" class="d-block w-100" alt="${escapeHtml(title)}" loading="lazy" width="600" height="400">` : ''}
                             </div>
                         </div>
-                        <div class="col-md-6" data-aos="fade-left">
+                        <div class="col-md-6 mt-3 mt-md-0">
                             <h3>${escapeHtml(title)}</h3>
                             <p>${escapeHtml(content)}</p>
                         </div>
@@ -102,6 +102,11 @@ async function loadNews() {
         const nyhetSection = document.getElementById('nyhet');
         if (nyhetSection) {
             nyhetSection.classList.add('loaded');
+        }
+
+        // Keep any remaining AOS-animated content in sync after DOM injection
+        if (typeof AOS !== 'undefined' && typeof AOS.refreshHard === 'function') {
+            AOS.refreshHard();
         }
 
         // Dispatch event for sequential loading
@@ -145,9 +150,6 @@ async function loadGallery() {
             galleryImages.forEach((image, index) => {
                 const col = document.createElement('div');
                 col.className = 'col-md-4 col-sm-6 gallery-item';
-                col.setAttribute('data-aos', 'zoom-in');
-                if (index % 3 === 1) col.setAttribute('data-aos-delay', '100');
-                if (index % 3 === 2) col.setAttribute('data-aos-delay', '200');
 
                 const link = document.createElement('a');
                 link.href = image.url || image.thumbnailUrl || '';
@@ -183,6 +185,11 @@ async function loadGallery() {
         const gallerySection = document.getElementById('gallery');
         if (gallerySection) {
             gallerySection.classList.add('loaded');
+        }
+
+        // Keep any remaining AOS-animated content in sync after DOM injection
+        if (typeof AOS !== 'undefined' && typeof AOS.refreshHard === 'function') {
+            AOS.refreshHard();
         }
 
         // Dispatch event for completion

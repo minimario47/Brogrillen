@@ -69,55 +69,38 @@ function createStarRating({
 
   // Use event delegation for more reliable click handling
   starsContainer.addEventListener('click', (e) => {
-    console.log('[StarRating] Click event fired on starsContainer');
-    console.log('[StarRating] Event target:', e.target);
-    console.log('[StarRating] Event target tagName:', e.target.tagName);
-
     const starButton = e.target.closest('.star-btn');
-    console.log('[StarRating] Found star button:', starButton);
-    if (!starButton) {
-      console.log('[StarRating] No star button found, returning');
-      return;
-    }
+    if (!starButton) return;
 
     const starValue = parseInt(starButton.getAttribute('data-star-value'), 10);
-    console.log('[StarRating] Star value:', starValue);
-    if (isNaN(starValue) || starValue < 1 || starValue > 5) {
-      console.log('[StarRating] Invalid star value, returning');
-      return;
-    }
+    if (isNaN(starValue) || starValue < 1 || starValue > 5) return;
 
     e.preventDefault();
     e.stopPropagation();
 
-    console.log('[StarRating] onRate function type:', typeof onRate);
-    if (typeof onRate === 'function') {
-      console.log('[StarRating] Calling onRate with value:', starValue);
-      // Update UI immediately for instant feedback
-      currentUserRating = starValue;
-      label.textContent = t.yourRating;
-      updateStars();
+    if (typeof onRate !== 'function') return;
 
-      // Update or add rating number display
-      let ratingText = starsContainer.querySelector('.rating-number');
-      if (ratingText) {
-        ratingText.textContent = `${starValue}/5`;
-      } else {
-        ratingText = document.createElement('span');
-        ratingText.className = 'rating-number text-sm font-weight-medium ms-2';
-        ratingText.style.fontSize = '0.875rem';
-        ratingText.style.fontWeight = '500';
-        ratingText.style.marginLeft = '0.5rem';
-        ratingText.textContent = `${starValue}/5`;
-        starsContainer.appendChild(ratingText);
-      }
+    // Update UI immediately for instant feedback
+    currentUserRating = starValue;
+    label.textContent = t.yourRating;
+    updateStars();
 
-      // Call the callback
-      onRate(starValue);
-      console.log('[StarRating] onRate callback completed');
+    // Update or add rating number display
+    let ratingText = starsContainer.querySelector('.rating-number');
+    if (ratingText) {
+      ratingText.textContent = `${starValue}/5`;
     } else {
-      console.log('[StarRating] onRate is not a function!');
+      ratingText = document.createElement('span');
+      ratingText.className = 'rating-number text-sm font-weight-medium ms-2';
+      ratingText.style.fontSize = '0.875rem';
+      ratingText.style.fontWeight = '500';
+      ratingText.style.marginLeft = '0.5rem';
+      ratingText.textContent = `${starValue}/5`;
+      starsContainer.appendChild(ratingText);
     }
+
+    // Call the callback
+    onRate(starValue);
   });
 
   // Use event delegation for hover effects

@@ -326,7 +326,7 @@
                     <a href="index.html" class="btn btn-light me-2">
                         <i class="fas fa-home"></i> Tillbaka till hemsidan
                     </a>
-                    <button onclick="handleLogout()" class="btn btn-outline-light">
+                    <button onclick="handleLogout()" id="logoutBtn" class="btn btn-outline-light" style="display: none;">
                         <i class="fas fa-sign-out-alt"></i> Logga ut
                     </button>
                 </div>
@@ -334,7 +334,43 @@
         </div>
     </div>
     
-    <div class="container">
+    <!-- Initial loading state (while we check the session) -->
+    <div class="container" id="adminLoading">
+        <div class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3">Laddar...</p>
+        </div>
+    </div>
+
+    <!-- Login screen (shown when not authenticated) -->
+    <div class="container" id="adminLoginScreen" style="display: none;">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="admin-content" style="margin-top: 1rem;">
+                    <h2 class="mb-4 text-center"><i class="fas fa-lock"></i> Logga in</h2>
+                    <form id="adminLoginFormPage">
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">E-post</label>
+                            <input type="email" class="form-control" id="loginEmail" required
+                                autocomplete="username" autofocus>
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Lösenord</label>
+                            <input type="password" class="form-control" id="loginPassword" required
+                                autocomplete="current-password">
+                        </div>
+                        <div id="loginError" class="alert alert-danger d-none" role="alert"></div>
+                        <button type="submit" class="btn btn-primary w-100" id="loginSubmitBtn">Logga in</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin app (shown when authenticated) -->
+    <div class="container" id="adminApp" style="display: none;">
         <div class="admin-tabs">
             <button class="btn btn-outline-primary admin-tab-btn active" onclick="loadAdminContent('menu')">
                 <i class="fas fa-utensils"></i> Meny
@@ -349,7 +385,7 @@
                 <i class="fas fa-cog"></i> Inställningar
             </button>
         </div>
-        
+
         <div class="admin-content" id="adminContent">
             <div class="text-center py-5">
                 <div class="spinner-border text-primary" role="status">
@@ -394,36 +430,98 @@
             return text.replace(/[&<>"']/g, m => map[m]);
         }
         
+        // Wait (with a timeout) for the Supabase client to be ready
+        function waitForSupabaseClient(timeout = 10000) {
+            return new Promise((resolve) => {
+                if (window.supabaseClient) return resolve(true);
+                const start = Date.now();
+                const iv = setInterval(() => {
+                    if (window.supabaseClient) {
+                        clearInterval(iv);
+                        resolve(true);
+                    } else if (Date.now() - start > timeout) {
+                        clearInterval(iv);
+                        resolve(false);
+                    }
+                }, 50);
+            });
+        }
+
+        function showLoginScreen() {
+            document.getElementById('adminLoading').style.display = 'none';
+            document.getElementById('adminApp').style.display = 'none';
+            document.getElementById('adminLoginScreen').style.display = '';
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) logoutBtn.style.display = 'none';
+            const emailInput = document.getElementById('loginEmail');
+            if (emailInput) emailInput.focus();
+        }
+
+        function showAdminApp() {
+            document.getElementById('adminLoading').style.display = 'none';
+            document.getElementById('adminLoginScreen').style.display = 'none';
+            document.getElementById('adminApp').style.display = '';
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) logoutBtn.style.display = '';
+            loadAdminContent('menu');
+        }
+
         // Check authentication on page load
         document.addEventListener('DOMContentLoaded', async () => {
-            // Wait for Supabase to initialize
-            await new Promise(resolve => {
-                const checkInit = setInterval(() => {
-                    if (window.supabaseClient) {
-                        clearInterval(checkInit);
-                        resolve();
-                    }
-                }, 100);
-            });
-            
-            // Check if user is authenticated
-            const { user, error } = await checkSession();
-            
-            if (!user || error) {
-                // Redirect to main page if not authenticated
-                alert('Du måste logga in för att få tillgång till admin-panelen');
-                window.location.href = 'index.html';
+            const ready = await waitForSupabaseClient();
+            if (!ready) {
+                showLoginScreen();
+                const errEl = document.getElementById('loginError');
+                if (errEl) {
+                    errEl.textContent = 'Kunde inte ansluta till servern. Ladda om sidan och försök igen.';
+                    errEl.classList.remove('d-none');
+                }
                 return;
             }
-            
-            // User is authenticated, load default content
-            loadAdminContent('menu');
+
+            const { user } = await checkSession();
+            if (user) {
+                showAdminApp();
+            } else {
+                showLoginScreen();
+            }
+
+            // Handle login form submission
+            const loginFormPage = document.getElementById('adminLoginFormPage');
+            if (loginFormPage) {
+                loginFormPage.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const email = document.getElementById('loginEmail').value.trim();
+                    const password = document.getElementById('loginPassword').value;
+                    const errEl = document.getElementById('loginError');
+                    const btn = document.getElementById('loginSubmitBtn');
+
+                    errEl.classList.add('d-none');
+                    btn.disabled = true;
+                    btn.textContent = 'Loggar in...';
+
+                    const result = await login(email, password);
+
+                    btn.disabled = false;
+                    btn.textContent = 'Logga in';
+
+                    if (result.error) {
+                        errEl.textContent = 'Inloggning misslyckades: ' + result.error;
+                        errEl.classList.remove('d-none');
+                    } else {
+                        showAdminApp();
+                    }
+                });
+            }
         });
-        
+
         // Logout handler
         async function handleLogout() {
             await logout();
-            window.location.href = 'index.html';
+            showLoginScreen();
+            // Clear the login form for the next session
+            const form = document.getElementById('adminLoginFormPage');
+            if (form) form.reset();
         }
         
         // Update tab active state

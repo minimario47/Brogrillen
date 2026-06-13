@@ -157,12 +157,10 @@ function t(key) {
  * Initialize admin panel
  */
 function initAdminPanel() {
-  // Set up admin login form
-  const loginForm = document.getElementById('adminLoginForm');
-  if (loginForm) {
-    loginForm.addEventListener('submit', handleAdminLogin);
-  }
-  
+  // Note: the index.html login modal binds handleAdminLogin via its inline
+  // onsubmit handler, and admin.html has its own login form handler, so we do
+  // not attach another submit listener here (avoids double-firing login).
+
   // Set up tab buttons
   document.querySelectorAll('.admin-tab-btn').forEach(btn => {
     btn.addEventListener('click', function() {

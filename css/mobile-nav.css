@@ -73,13 +73,44 @@ body.dark-mode .mobile-bottom-nav__item.nav-active {
         /* 80px + ~60px nav height */
     }
 
-    /* Hide standard navbar toggler on mobile since we have bottom nav */
-    .navbar-toggler {
-        display: none !important;
-    }
-
     /* Adjust main content padding to not be covered by bottom nav */
     body {
         padding-bottom: 70px;
     }
+}
+
+/* Compact language toggle shown in the navbar bar on tablet/phone
+   (the full SV/EN dropdown lives inside the collapsed menu on small screens,
+   this gives a one-tap switch without opening the menu). */
+.lang-toggle-mobile {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50px;
+    padding: 6px 14px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 10px;
+    transition: background 0.2s ease;
+}
+
+.lang-toggle-mobile:hover,
+.lang-toggle-mobile:focus {
+    background: rgba(255, 255, 255, 0.28);
+}
+
+/* Show the compact toggle whenever the navbar is collapsed (below lg) */
+@media (max-width: 991.98px) {
+    .lang-toggle-mobile {
+        display: inline-flex;
+    }
+}
+
+body.dark-mode .lang-toggle-mobile {
+    border-color: rgba(255, 255, 255, 0.25);
 }

@@ -5,8 +5,6 @@
 
 // Handle rating a menu item (optimistic UI update)
 async function handleMenuItemRating(menuItemId, rating) {
-    console.log('[handleMenuItemRating] Called with menuItemId:', menuItemId, 'rating:', rating);
-
     const currentLanguage = typeof getCurrentLanguage === 'function' ? getCurrentLanguage() : 'sv';
 
     try {
@@ -14,7 +12,6 @@ async function handleMenuItemRating(menuItemId, rating) {
         if (typeof window.userRatings !== 'undefined') {
             window.userRatings[menuItemId] = rating;
         }
-        console.log('[handleMenuItemRating] Updated local userRatings');
 
         // Sync to server (this will also save to localStorage)
         if (typeof syncUserRatingToServer !== 'function') {
@@ -22,9 +19,7 @@ async function handleMenuItemRating(menuItemId, rating) {
             return;
         }
 
-        console.log('[handleMenuItemRating] Calling syncUserRatingToServer...');
         const result = await syncUserRatingToServer(menuItemId, rating);
-        console.log('[handleMenuItemRating] syncUserRatingToServer result:', result);
 
         if (result.success) {
             // Show success notification immediately

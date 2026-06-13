@@ -94,8 +94,8 @@ const translations = {
         "en": "\"The kebab pizzas are unbeatable! Always fresh ingredients and great taste.\""
     },
     "gallery_title": {
-        "sv": "Bildgalleri",
-        "en": "Photo gallery"
+        "sv": "Vår Mat och Restaurang",
+        "en": "Our Food & Restaurant"
     },
     "about_title": {
         "sv": "Om Brogrillen Pizzeria",
@@ -161,6 +161,12 @@ function translatePage() {
     const currentLanguageSpan = document.getElementById('currentLanguage');
     if (currentLanguageSpan) {
         currentLanguageSpan.textContent = currentLanguage.toUpperCase();
+    }
+
+    // Mobile compact toggle shows the language it will switch TO (the other one)
+    const mobileLangSpan = document.getElementById('currentLanguageMobile');
+    if (mobileLangSpan) {
+        mobileLangSpan.textContent = (currentLanguage === 'sv' ? 'EN' : 'SV');
     }
 }
 

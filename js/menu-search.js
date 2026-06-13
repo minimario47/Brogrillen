@@ -100,15 +100,17 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Update category info when category changes
-        document.querySelectorAll('.menu-selector button').forEach(btn => {
-            btn.addEventListener('click', function () {
-                if (menuSearch.value.trim() !== '') {
-                    // Update category info if we're in a search
+        // Update category info when category changes. The category buttons are
+        // created after the menu loads, so delegate from the container that
+        // already exists at DOMContentLoaded.
+        const menuSelectorActual = document.getElementById('menu-selector-actual');
+        if (menuSelectorActual) {
+            menuSelectorActual.addEventListener('click', function (e) {
+                if (e.target.closest('button') && menuSearch.value.trim() !== '') {
                     setTimeout(performSearch, 100);
                 }
             });
-        });
+        }
     }
 
     // Make performSearch globally available
