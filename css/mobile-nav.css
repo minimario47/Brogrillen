@@ -73,39 +73,49 @@ body.dark-mode .mobile-bottom-nav__item.nav-active {
         /* 80px + ~60px nav height */
     }
 
+    /* On phones the bottom bar is the single navigation, so hide the top
+       hamburger here (it stays available on tablet, 768-991px). */
+    .navbar-toggler {
+        display: none !important;
+    }
+
     /* Adjust main content padding to not be covered by bottom nav */
     body {
         padding-bottom: 70px;
     }
 }
 
-/* Compact language toggle shown in the navbar bar on tablet/phone
-   (the full SV/EN dropdown lives inside the collapsed menu on small screens,
-   this gives a one-tap switch without opening the menu). */
+/* Compact language toggle shown in the top bar on phones only.
+   On phones the hamburger (and its SV/EN dropdown) is hidden, so this is the
+   single language control. On tablet/desktop the in-menu dropdown handles it. */
 .lang-toggle-mobile {
     display: none;
     align-items: center;
     gap: 6px;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.18);
     color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 50px;
-    padding: 6px 14px;
+    padding: 7px 16px;
     font-weight: 600;
     font-size: 0.95rem;
+    line-height: 1;
     cursor: pointer;
     margin-left: auto;
-    margin-right: 10px;
-    transition: background 0.2s ease;
+    transition: background 0.2s ease, transform 0.15s ease;
 }
 
 .lang-toggle-mobile:hover,
 .lang-toggle-mobile:focus {
-    background: rgba(255, 255, 255, 0.28);
+    background: rgba(255, 255, 255, 0.3);
 }
 
-/* Show the compact toggle whenever the navbar is collapsed (below lg) */
-@media (max-width: 991.98px) {
+.lang-toggle-mobile:active {
+    transform: scale(0.96);
+}
+
+/* Show the compact toggle only on phones (where the hamburger is hidden) */
+@media (max-width: 767.98px) {
     .lang-toggle-mobile {
         display: inline-flex;
     }
